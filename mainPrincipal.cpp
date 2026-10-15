@@ -383,8 +383,6 @@ void menuMantenimiento() {
         cout << "\n===== MANTENIMIENTO DE LA BASE DE DATOS =====" << endl;
         cout << "1. Inserciones" << endl;
         cout << "2. Busquedas" << endl;
-        cout << "3. Modificaciones" << endl;
-        cout << "4. Reportes" << endl;
         cout << "0. Regresar" << endl;
         cout << "Digite una opcion: ";
         cin >> opcion;
