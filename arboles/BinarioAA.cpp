@@ -88,7 +88,7 @@ void BinarioAA::mostrarPorCodigo(string codigo)
     NodoAA* nodo = buscarRec(raiz, codigo);
     if (nodo != nullptr)
     {
-        cout << "Codigo: " << nodo->codDiagnostico << endl;
+        cout << "Codigo: " << nodo->codigo << endl;
         cout << "Nombre: " << nodo->nombre << endl;
         cout << "Descripcion: " << nodo->descripcion << endl;
     }
@@ -133,7 +133,7 @@ void BinarioAA::mostrarPreorden(NodoAA* nodo)
 {
     if (nodo != nullptr)
     {
-        cout << "Codigo: " << nodo->codDiagnostico
+        cout << "Codigo: " << nodo->codigo
             << " | Nombre: " << nodo->nombre
             << " | Descripcion: " << nodo->descripcion << endl;
         mostrarPreorden(nodo->izquierda);

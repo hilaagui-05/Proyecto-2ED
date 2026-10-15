@@ -32,7 +32,7 @@ void BinarioRN::InsertarRN(pNodoRN nodo)
 	// Encuentra la posición correcta para el nuevo nodo
     while (actual != nullptr){
         padre = actual;
-        if (nodo-> idTratamiento < actual->idTratamiento)
+        if (nodo-> codigo < actual->codigo)
             actual = actual->Hizq;
         else
             actual = actual->Hder;
@@ -42,7 +42,7 @@ void BinarioRN::InsertarRN(pNodoRN nodo)
     if (padre == nullptr) {
         raiz = nodo;
     }
-    else if (nodo->idTratamiento < padre->idTratamiento) {
+    else if (nodo->codigo < padre->codigo) {
         padre->Hizq = nodo;
     }
     else { 
@@ -75,8 +75,6 @@ void BinarioRN::ArreglaInsercion(pNodoRN nodo){
         }
 
         if (tio != nullptr && tio->color == true){
-            cout << "Caso 1: tio rojo, recoloreando" << endl;
-            cout << endl;
             padre->color = false;
             tio->color = false;
             abuelo->color = true;
@@ -86,8 +84,6 @@ void BinarioRN::ArreglaInsercion(pNodoRN nodo){
             if (padreEsIzquierdo)
             {
                 if (nodo == padre->Hder){
-                    cout << "Caso 2: nodo es hijo derecho, rotar izquierda en padre" << endl;
-                    cout << endl;
                     nodo = padre;
                     RotIzquierda(nodo);
                     padre = nodo->padre;
@@ -97,8 +93,6 @@ void BinarioRN::ArreglaInsercion(pNodoRN nodo){
                         abuelo = nullptr;
                     }
                 }
-                cout << "Caso 3: rotar derecha en abuelo" << endl;
-                cout << endl;
                 padre->color = false;
                 if (abuelo) { 
                     abuelo->color = true; 
@@ -108,7 +102,6 @@ void BinarioRN::ArreglaInsercion(pNodoRN nodo){
             else{
                 if (nodo == padre->Hizq)
                 {
-                    cout << "Caso 2 espejo: nodo es hijo izquierdo, rotar derecha en padre" << endl;;
                     nodo = padre;
                     RotDerecha(nodo);
                     padre = nodo->padre;
@@ -120,7 +113,6 @@ void BinarioRN::ArreglaInsercion(pNodoRN nodo){
                         abuelo = nullptr;
                     }
                 }
-                cout << "Caso 3 espejo: rotar izquierda en abuelo" << endl;
                 padre->color = false;
                 if (abuelo) {
                     abuelo->color = true;
@@ -181,9 +173,9 @@ void BinarioRN::RotDerecha(pNodoRN nodo)
 bool BinarioRN::Buscarvalor(int idTratamiento){
     pNodoRN actual = raiz;
     while (actual != nullptr){
-        if (idTratamiento == actual->idTratamiento)
+        if (idTratamiento == actual -> codigo)
             return true;
-        if (idTratamiento < actual->idTratamiento)
+        if (idTratamiento < actual -> codigo)
             actual = actual->Hizq;
         else
             actual = actual->Hder;
@@ -196,15 +188,15 @@ void BinarioRN::mostrarPorClave(int idTratamiento)
 {
     pNodoRN actual = raiz;
     while (actual != nullptr) {
-        if (idTratamiento == actual->idTratamiento) {
-            cout << "\nCodigo: " << actual->idTratamiento << endl;
+        if (idTratamiento == actual-> codigo) {
+            cout << "\nCodigo: " << actual-> codigo << endl;
             cout << "Nombre: " << actual->nombre << endl;
             cout << "Descripcion: " << actual->descripcion << endl;
             cout << "Costo: " << actual->costo << endl;
             return;
         }
 
-        if (idTratamiento < actual->idTratamiento)
+        if (idTratamiento < actual-> codigo)
             actual = actual->Hizq;
         else
             actual = actual->Hder;
@@ -228,7 +220,7 @@ void BinarioRN::Mostrar()
 // Recorrido preorden
 void BinarioRN::MostrarPreorden(pNodoRN nodo){
     if (nodo != nullptr){
-        cout << nodo->valor << (nodo->color ? "(R) " : "(N) ");
+        cout << nodo-> codigo << (nodo->color ? "(R) " : "(N) ");
         MostrarPreorden(nodo->Hizq);
         MostrarPreorden(nodo->Hder);
     }
@@ -238,7 +230,7 @@ void BinarioRN::MostrarPreorden(pNodoRN nodo){
 void BinarioRN::MostrarInorden(pNodoRN nodo){
     if (nodo != nullptr){
         MostrarInorden(nodo->Hizq);
-        cout << nodo->valor << (nodo->color ? "(R) " : "(N) ");
+        cout << nodo-> codigo << (nodo->color ? "(R) " : "(N) ");
         MostrarInorden(nodo->Hder);
     }
 }

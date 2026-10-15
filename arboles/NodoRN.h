@@ -6,7 +6,7 @@ using namespace std;
 
 class NodoRN {
 public:
-    int idTratamiento;
+    int codigo;
     string nombre;
     string descripcion;
     int costo;

@@ -7,7 +7,7 @@ using namespace std;
 class NodoAA
 {
 public:
-    string codDiagnostico;
+    string codigo;
     string nombre;
     string descripcion;
     int nivel;

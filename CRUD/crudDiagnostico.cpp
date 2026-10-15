@@ -33,7 +33,7 @@ void buscarDiagnostico() {
     cin >> codigo;
     if (arbolDiagnosticos.Buscarvalor(codigo)) {
         cout << "Diagnostico encontrado: " << endl;
-        arbolDiagnosticos.mostrarPorClave(codigo);
+        arbolDiagnosticos.mostrarPorCodigo(codigo);
     }
     else {
         cout << "El diagnostico no existe." << endl;

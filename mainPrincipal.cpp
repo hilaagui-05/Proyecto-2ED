@@ -197,7 +197,7 @@ void cargarEspecialidades(){
 }
 
 void cargarHabitaciones(){
-    ifstream archivo("Habitaciones.csv");
+    ifstream archivo("CSV/Habitaciones.csv");
     if (!archivo)
     {
         cout << "Error al abrir Habitaciones.csv" << endl;
@@ -240,26 +240,22 @@ void cargarArchivos()
 
 
 //---------MENÚ-------
+
 void menuInserciones() {
     int opcion;
     do {
         cout << "\n===== INSERCIONES =====" << endl;
         cout << "1. Pais" << endl;
         cout << "2. Ciudad" << endl;
-        cout << "3. Paciente" << endl;
-        cout << "4. Medico" << endl;
-        cout << "5. Especialidad" << endl;
-        cout << "6. Cita" << endl;
-        cout << "7. Habitacion" << endl;
-        cout << "8. Hospitalizacion" << endl;
-        cout << "9. Diagnostico" << endl;
-        cout << "10.Tratamiento" << endl;
+        cout << "3. Especialidad" << endl;
+        cout << "4. Habitacion" << endl;
+        cout << "5. Diagnostico" << endl;
+        cout << "6. Tratamiento" << endl;
         cout << "0. Regresar" << endl;
         cout << "Digite una opcion: ";
         cin >> opcion;
 
-        switch (opcion)
-        {
+        switch (opcion) {
         case 1:
             insertarPais();
             break;
@@ -293,13 +289,10 @@ void menuBusquedas() {
         cout << "\n===== BUSQUEDAS =====" << endl;
         cout << "1. Pais" << endl;
         cout << "2. Ciudad" << endl;
-        cout << "3. Paciente" << endl;
-        cout << "4. Medico" << endl;
-        cout << "5. Especialidad" << endl;
-        cout << "6. Cita" << endl;
-        cout << "7. Habitacion" << endl;
-        cout << "8. Hospitalizacion" << endl;
-        cout << "9. Diagnostico" << endl;
+        cout << "3. Especialidad" << endl;
+        cout << "4. Habitacion" << endl;
+        cout << "5. Diagnostico" << endl;
+        cout << "6. Tratamiento" << endl;
         cout << "0. Regresar" << endl;
         cout << "Digite una opcion: ";
         cin >> opcion;

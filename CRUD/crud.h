@@ -1,10 +1,10 @@
 #ifndef CRUD_H
 #define CRUD_H
 
-#include "arboles/ABBusqueda.h"
-#include "arboles/arbolRN.h"
-#include "arboles/BinarioAA.h"
-#include "arboles/AVL.h"
+#include "../arboles/ABBusqueda.h"
+#include "../arboles/arbolRN.h"
+#include "../arboles/BinarioAA.h"
+#include "../arboles/AVL.h"
 
 // Arboles
 extern ABBusqueda arbolPaises; //extern para que se pueda usar en otros archivos

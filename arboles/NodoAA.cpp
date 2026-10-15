@@ -2,7 +2,7 @@
 
 NodoAA::NodoAA(string codigo, string nombreDiagnostico, string descripcionDiagnostico)
 {
-    codDiagnostico = codigo;
+    codigo = codigo;
     nombre = nombreDiagnostico;
     descripcion = descripcionDiagnostico;
     nivel = 1;

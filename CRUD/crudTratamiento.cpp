@@ -25,7 +25,7 @@ void insertarTratamiento(){
     getline(cin, descripcion);
     cout << "Costo: ";
     cin >> costo;
-    arbolTratamientos.InsertaNodo(codTratamiento, 0, nombre, descripcion, costo);
+    arbolTratamientos.Insertar(codTratamiento, nombre, descripcion, costo);
     cout << "Tratamiento insertado correctamente." << endl;
 }
 

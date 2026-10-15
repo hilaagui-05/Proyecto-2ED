@@ -24,7 +24,7 @@ void insertarHabitacion(){
     cin >> tipo;
     cout << "Estado (0 disponible, 1 ocupada): ";
     cin >> estado;
-    if (arbolHabitaciones.Buscarvalor(id)) { //Revisa que no sea repetido
+    if (arbolHabitaciones.BuscarValor(id)) { //Revisa que no sea repetido
         cout << "La habitacion ya existe." << endl;
     }
     else {
@@ -37,7 +37,7 @@ void buscarHabitacion() {
     int id;
     cout << "Digite el id de la habitacion: ";
     cin >> id;
-    if (arbolHabitaciones.Buscarvalor(id)) {
+    if (arbolHabitaciones.BuscarValor(id)) {
         cout << "Habitacion encontrada: ";
         arbolHabitaciones.mostrarPorCodigo(id);
     }
