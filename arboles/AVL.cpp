@@ -28,16 +28,39 @@ bool AVL::BuscarValor(int id)
 }
 
 // Muestra los datos de una habitacion (no imprime nada si no existe);.
-void AVL::mostrarPorCodigo(int id)
-{
+void AVL::mostrarPorCodigo(int id){
     pNodoAVL nodo = buscarNodo(raiz, id);
-    if (nodo != nullptr)
-    {
+    if (nodo != nullptr){
+        string tipo;
+        string estado;
+        switch (nodo->tipo){
+        case 1:
+            tipo = "UCI";
+            break;
+        case 2:
+            tipo = "Individual";
+            break;
+        default:
+            tipo = "Desconocido";
+            break;
+        }
+
+        switch (nodo->estado){
+        case 1:
+            estado = "Disponible";
+            break;
+        case 2:
+            estado = "Ocupada";
+            break;
+        default:
+            estado = "Desconocido";
+            break;
+        }
         cout << "Id: " << nodo->idHabitacion
             << " ,Numero: " << nodo->numero
             << " ,Piso: " << nodo->piso
-            << " ,Tipo: " << nodo->tipo
-            << " ,Estado: " << nodo->estado << endl;
+            << " ,Tipo: " << tipo
+            << " ,Estado: " << estado << endl;
     }
 }
 

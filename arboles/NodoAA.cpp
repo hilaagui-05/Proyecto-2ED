@@ -2,7 +2,7 @@
 
 NodoAA::NodoAA(string codigo, string nombreDiagnostico, string descripcionDiagnostico)
 {
-    codigo = codigo;
+    this->codigo = codigo; //el código que pertenece al nodo
     nombre = nombreDiagnostico;
     descripcion = descripcionDiagnostico;
     nivel = 1;
