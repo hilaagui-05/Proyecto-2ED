@@ -16,13 +16,12 @@ public:
     // Destructor
     ~AVL();
 
-    // Metodos publicos principales
-    void Insertar(int x);
-    //void EliminarValor(int x);
-    void Mostrar();
+    void Insertar(int id, int numero, string piso, int tipo, int estado);
+    bool BuscarValor(int id);
+    void mostrarPorCodigo(int id); // muestra los datos si el id existe
+    void Mostrar();               // todas las habitaciones en inorden
     bool EstaVacio();
     void Limpiar();
-    void Eliminar(int x);
 
 
     // Metodos de equilibrado 

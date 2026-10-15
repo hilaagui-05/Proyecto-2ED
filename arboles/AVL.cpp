@@ -22,7 +22,7 @@ void AVL::Insertar(int id, int numero, string piso, int tipo, int estado)
 }
 
 // Busca un id de habitacion
-bool AVL::Buscarvalor(int id)
+bool AVL::BuscarValor(int id)
 {
     return buscarNodo(raiz, id) != nullptr;
 }

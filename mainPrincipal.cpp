@@ -218,7 +218,7 @@ void cargarHabitaciones(){
         int tipo = stoi(campo);
         getline(datos, campo);
         int estado = stoi(campo);
-        if (!arbolHabitaciones.Buscarvalor(id)) //evita habitaciones repetidas
+        if (!arbolHabitaciones.BuscarValor(id)) //evita habitaciones repetidas
         {
             arbolHabitaciones.Insertar(id, numero, piso, tipo, estado);
         }
