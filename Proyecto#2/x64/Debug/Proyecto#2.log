@@ -1,0 +1,139 @@
+﻿C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v180\Microsoft.CppBuild.targets(1151,5): warning MSB8027: Dos o más archivos con el mismo nombre de main.cpp producirán salidas en la misma ubicación. Esto puede dar lugar a un resultado de compilación incorrecto. Los archivos implicados son arboles de la profe\aa\main.cpp, arboles de la profe\arbolbinariocompleto\main.cpp, arboles de la profe\arbolb\main.cpp, arboles de la profe\avl\main.cpp, arboles de la profe\rn\main.cpp, main.cpp.
+  BinarioAA.cpp
+  main.cpp
+  NodoAA.cpp
+  ABBusqueda.cpp
+  Cola.cpp
+  main.cpp
+  Nodo.cpp
+  Pila.cpp
+  ArbolB.cpp
+  main.cpp
+  Pagina.cpp
+  Binario.cpp
+  main.cpp
+  NodoBinario.cpp
+  BinarioRN.cpp
+  main.cpp
+  NodoRN.cpp
+  main.cpp
+\main.cpp(1,1): error C1083: No se puede abrir el archivo origen: 'main.cpp': No such file or directory
+  (compilando archivo de origen "/main.cpp")
+  
+  mainPrincipal.cpp
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\mainPrincipal.cpp(8,10): error C1083: No se puede abrir el archivo incluir: 'crud.h': No such file or directory
+  NodoABB.cpp
+\NodoABB.cpp(1,1): error C1083: No se puede abrir el archivo origen: 'NodoABB.cpp': No such file or directory
+  (compilando archivo de origen "/NodoABB.cpp")
+  
+  Generando código...
+  Compilando...
+  Pais.cpp
+\Pais.cpp(1,1): error C1083: No se puede abrir el archivo origen: 'Pais.cpp': No such file or directory
+  (compilando archivo de origen "/Pais.cpp")
+  
+  Reportes.cpp
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(36,35): warning C4244: 'argumento': conversión de 'int' a 'HPDF_REAL'; posible pérdida de datos
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(54,5): error C2065: 'NodoPais': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(54,15): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(54,24): error C2065: 'listaPaises': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(55,12): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(57,47): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(57,80): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(60,9): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(60,18): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(72,5): error C2065: 'NodoPais': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(72,15): error C2065: 'pais': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(72,22): error C2065: 'listaPaises': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(75,12): error C2065: 'pais': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(77,13): error C2065: 'pais': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(82,9): error C2065: 'pais': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(82,16): error C2065: 'pais': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(95,5): error C2065: 'NodoCiudad': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(95,17): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(95,26): error C2065: 'listaCiudades': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(97,9): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(101,17): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(103,55): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(104,35): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(109,13): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(109,22): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(110,18): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(110,28): error C2065: 'listaCiudades': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(128,5): error C2065: 'NodoEspecialidad': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(128,23): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(128,32): error C2065: 'listaEspecialidades': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(129,9): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(133,47): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(134,31): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(135,36): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(138,13): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(138,22): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(139,18): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(139,28): error C2065: 'listaEspecialidades': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(153,5): error C2065: 'NodoHabitacion': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(153,21): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(153,30): error C2065: 'listaHabitaciones': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(155,9): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(159,17): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(161,51): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(162,45): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(163,43): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(164,43): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(169,13): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(169,22): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(170,18): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(170,28): error C2065: 'listaHabitaciones': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(188,5): error C2065: 'NodoHabitacion': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(188,21): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(188,30): error C2065: 'listaHabitaciones': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(190,9): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(194,17): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(196,51): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(197,45): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(198,43): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(199,43): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(204,13): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(204,22): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(205,18): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(205,28): error C2065: 'listaHabitaciones': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(225,5): error C2065: 'NodoHospitalizacion': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(225,26): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(225,35): error C2065: 'listaHospitalizaciones': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(227,12): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(229,43): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(230,39): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(231,41): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(232,37): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(233,28): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(234,27): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(239,9): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(239,18): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(251,5): error C2065: 'NodoMedico': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(251,17): error C2065: 'medico': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(251,26): error C2065: 'tablaMedicos': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(252,9): error C2065: 'medico': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(263,5): error C2065: 'NodoHospitalizacion': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(263,26): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(263,35): error C2065: 'listaHospitalizaciones': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(265,12): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(267,13): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(269,47): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(270,43): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(271,45): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(272,32): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(273,31): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(278,9): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(278,18): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(296,25): error C2065: 'TAM_HASH': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(298,9): error C2065: 'NodoMedico': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(298,21): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(298,30): error C2065: 'tablaMedicos': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(299,16): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(301,47): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(302,31): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(303,33): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(304,31): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(305,47): error C2065: 'actual': identificador no declarado
+C:\TEC\2-Semestre\E.Datos\Tareas\RepositorioE.D\proyecto2\Reportes.cpp(305,47): error C1003: el recuento de errores supera 100; se detiene la compilación
+  Generando código...
