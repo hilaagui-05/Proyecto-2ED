@@ -13,6 +13,6 @@ public:
     int nivel;
     NodoAA* izquierda;
     NodoAA* derecha;
-    NodoAA(string codigo, string nombreDiagnostico, string descripcionDiagnostico);
+    NodoAA(string codigo, string nombre, string descripcion);
 };
 #endif

@@ -1,90 +1,53 @@
 #include <iostream>
-#include <fstream>
 #include <string>
-#include <sstream> //permite separar los campos de cada linea
-#include "hpdf.h"
+#include "crud.h"
 
 using namespace std;
 
-class NodoHabitacion 
-{
-public:
-    int idHabitacion;
+// Arbol de habitaciones (AVL).
+AVL arbolHabitaciones;
+
+void insertarHabitacion(){
+    int id;
     int numero;
-    int piso;
+    string piso;
     int tipo;
     int estado;
-    NodoHabitacion* anterior;
-    NodoHabitacion* siguiente;
-
-    NodoHabitacion(int id, int numeroHabitacion, int pisoHabitacion, int tipoHabitacion, int estadoHabitacion)
-    {
-        idHabitacion = id;
-        numero = numeroHabitacion;
-        piso = pisoHabitacion;
-        tipo = tipoHabitacion;
-        estado = estadoHabitacion;
-        anterior = NULL;
-        siguiente = NULL;
-    }
-};
-
-void insertarHabitacion() {
-    int idHabitacion;
-    int numero;
-    int piso;
-    int tipo;
-    int estado;
-
-    cout << "Digite el Id de la habitacion: ";
-    cin >> idHabitacion;
-
-    if (listaHabitaciones.existe(idHabitacion)) { // valida que idhabitacion no este repetido
-        cout << "La habitacion ya existe." << endl;
-        return;
-    }
-    cout << "Digite el numero de la habitacion: ";
+    cout << "Id de la habitacion: ";
+    cin >> id; //pedimos datos
+    cout << "Numero: ";
     cin >> numero;
-    cout << "Digite el piso: ";
-    cin >> piso;
-    cin.ignore();
-    cout << "Digite el tipo de habitacion: ";
+    cin.ignore(); //ignora el enter pendiente
+    cout << "Piso: ";
+    getline(cin, piso);
+    cout << "Tipo (1 individual, 2 compartida, 3 UCI): ";
     cin >> tipo;
-    cout << "Digite el estado de la habitacion: ";
+    cout << "Estado (0 disponible, 1 ocupada): ";
     cin >> estado;
-
-    listaHabitaciones.insertar(idHabitacion, numero, piso, tipo, estado);
-    cout << "HabitaciÃ³n insertada correctamente" << endl;
+    if (arbolHabitaciones.Buscarvalor(id)) { //Revisa que no sea repetido
+        cout << "La habitacion ya existe." << endl;
+    }
+    else {
+        arbolHabitaciones.Insertar(id, numero, piso, tipo, estado);
+        cout << "Habitacion insertada correctamente." << endl;
+    }
 }
 
 void buscarHabitacion() {
-    int idHabitacion;
-
-    cout << "Id de la Habitacion: ";
-    cin >> idHabitacion;
-    if (listaHabitaciones.existe(idHabitacion)) {
-        NodoHabitacion* habitacionEncontrada = listaHabitaciones.buscar(idHabitacion);
-        listaHabitaciones.mostrar(habitacionEncontrada);
+    int id;
+    cout << "Digite el id de la habitacion: ";
+    cin >> id;
+    if (arbolHabitaciones.Buscarvalor(id)) {
+        cout << "Habitacion encontrada: ";
+        arbolHabitaciones.mostrarPorCodigo(id);
     }
     else {
         cout << "La habitacion no existe." << endl;
     }
 }
 
-void modificarHabitacion()
+// Muestra todas las habitaciones.
+void mostrarHabitaciones()
 {
-    int idHabitacion;
-    int estado;
-    cout << "Id de la habitacion: ";
-    cin >> idHabitacion;
-    NodoHabitacion* habitacion = listaHabitaciones.buscar(idHabitacion);
-    if (habitacion == NULL)
-    {
-        cout << "La habitacion no existe." << endl;
-        return;
-    }
-    cout << "Nuevo estado: ";
-    cin >> estado;
-    habitacion->estado = estado; //actualiza estado
-    cout << "Habitacion modificada correctamente." << endl;
+    arbolHabitaciones.Mostrar();
 }

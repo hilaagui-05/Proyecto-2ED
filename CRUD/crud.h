@@ -4,12 +4,15 @@
 #include "arboles/ABBusqueda.h"
 #include "arboles/arbolRN.h"
 #include "arboles/BinarioAA.h"
+#include "arboles/AVL.h"
 
 // Arboles
-extern ABBusqueda arbolPaises; //extern para qye se pueda usar en otros archivos
+extern ABBusqueda arbolPaises; //extern para que se pueda usar en otros archivos
 extern ABBusqueda arbolCiudades;
-extern BinarioRN arbolTratamientos;
+extern BinarioRN arbolTratamientos; //variable compartida
 extern BinarioAA arbolDiagnosticos;
+extern BinarioAA arbolEspecialidades;
+extern AVL arbolHabitaciones;
 
 // Paises
 void insertarPais();
@@ -27,5 +30,16 @@ void buscarTratamiento();
 void insertarDiagnostico();
 void buscarDiagnostico();
 void mostrarDiagnosticos();
+
+// Especialidades
+void insertarEspecialidad();
+void buscarEspecialidad();
+void mostrarEspecialidades();
+
+// Habitaciones
+void insertarHabitacion();
+void buscarHabitacion();
+void mostrarHabitaciones();
+
 
 #endif

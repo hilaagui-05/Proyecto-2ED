@@ -5,7 +5,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include "crud.h"
+#include "CRUD/crud.h"
 
 using namespace std;
 
@@ -58,7 +58,7 @@ bool horaValida(string hora)
 
 //------ARCHIVOS---------
 void cargarPaises(){
-    ifstream archivo("Paises.csv");
+    ifstream archivo("CSV/Paises.csv");
     if (!archivo){
         cout << "Error al abrir Paises.csv" << endl;
         return;
@@ -79,9 +79,8 @@ void cargarPaises(){
     cout << "Paises cargados correctamente." << endl;
 }
 
-void cargarCiudades()
-{
-    ifstream archivo("Ciudades.csv");
+void cargarCiudades(){
+    ifstream archivo("CSV/Ciudades.csv");
     if (!archivo)
     {
         cout << "Error al abrir Ciudades.csv" << endl;
@@ -92,21 +91,10 @@ void cargarCiudades()
     getline(archivo, linea); // Saltar encabezado
     while (getline(archivo, linea))
     {
-        if (linea.empty())
-        {
-            continue;
-        }
         stringstream datos(linea);
         getline(datos, textoCodPais, ';');
         getline(datos, textoCodCiudad, ';');
         getline(datos, nombre);
-        if (textoCodPais.empty() ||
-            textoCodCiudad.empty() ||
-            nombre.empty())
-        {
-            cout << "Registro incompleto: " << linea << endl;
-            continue;
-        }
         int codPais = stoi(textoCodPais);
         int codCiudad = stoi(textoCodCiudad);
         // Verificar que el pais exista.
@@ -129,27 +117,26 @@ void cargarCiudades()
     cout << "Ciudades cargadas correctamente." << endl;
 }
 
-
 void cargarTratamientos(){
-    ifstream archivo("Tratamiento.csv");
+    ifstream archivo("CSV/Tratamiento.csv");
     if (!archivo) {
         cout << "Error al abrir Tratamiento.csv" << endl;
         return;
     }
 
     string linea;
-    string idTratamiento, nombre, descripcion, textoCosto;
+    string idTratamiento, nombre, descripcion, Costo;
     getline(archivo, linea); // Saltar encabezado
     while (getline(archivo, linea)) {
         stringstream datos(linea);
         getline(datos, idTratamiento, ';');
         getline(datos, nombre, ';');
         getline(datos, descripcion, ';');
-        getline(datos, textoCosto);
+        getline(datos, Costo);
 
         int id = stoi(idTratamiento);
-        double costo = stod(textoCosto);
-        if (!arbolTratamientos.Buscar(id)) {
+        int costo = stoi(Costo);
+        if (!arbolTratamientos.Buscarvalor(id)) {
             arbolTratamientos.Insertar(id, nombre, descripcion, costo);
         }
     }
@@ -157,10 +144,8 @@ void cargarTratamientos(){
     cout << "Tratamientos cargados correctamente." << endl;
 }
 
-// Carga los diagnosticos desde el archivo CSV.
-void cargarDiagnosticos()
-{
-    ifstream archivo("Diagnostico.csv");
+void cargarDiagnosticos(){
+    ifstream archivo("CSV/Diagnostico.csv");
     if (!archivo)
     {
         cout << "Error al abrir Diagnostico.csv" << endl;
@@ -170,31 +155,76 @@ void cargarDiagnosticos()
     string codigo;
     string nombre;
     string descripcion;
-    getline(archivo, linea);
-    while (getline(archivo, linea))
-    {
-        if (linea.empty())
-        {
-            continue;
-        }
+    getline(archivo, linea); // Saltar encabezado
+    while (getline(archivo, linea)){
         stringstream datos(linea);
         getline(datos, codigo, ';');
         getline(datos, nombre, ';');
         getline(datos, descripcion);
-        if (codigo.empty() || nombre.empty() || descripcion.empty())
+        if (!arbolDiagnosticos.Buscarvalor(codigo))
         {
-            cout << "Registro incompleto: " << linea << endl;
-            continue;
+            arbolDiagnosticos.Insertar(codigo, nombre, descripcion);
         }
-        if (arbolDiagnosticos.buscar(codigo))
-        {
-            cout << "Diagnostico duplicado: " << codigo << endl;
-            continue;
-        }
-        arbolDiagnosticos.insertar(codigo, nombre, descripcion);
     }
     archivo.close();
     cout << "Diagnosticos cargados correctamente." << endl;
+}
+
+void cargarEspecialidades(){
+    ifstream archivo("CSV/Especialidades.csv");
+    if (!archivo)
+    {
+        cout << "Error al abrir Especialidades.csv" << endl;
+        return;
+    }
+    string linea;
+    string codigo;
+    string nombre;
+    string descripcion;
+    getline(archivo, linea); // Saltar encabezado
+    while (getline(archivo, linea)){
+        stringstream datos(linea);
+        getline(datos, codigo, ';');
+        getline(datos, nombre, ';');
+        getline(datos, descripcion);
+        if (!arbolEspecialidades.Buscarvalor(codigo)) //evita especialidades repetidas
+        {
+            arbolEspecialidades.Insertar(codigo, nombre, descripcion);
+        }
+    }
+    archivo.close();
+    cout << "Especialidades cargadas correctamente." << endl;
+}
+
+void cargarHabitaciones(){
+    ifstream archivo("Habitaciones.csv");
+    if (!archivo)
+    {
+        cout << "Error al abrir Habitaciones.csv" << endl;
+        return;
+    }
+    string linea;
+    string campo;
+    string piso;
+    getline(archivo, linea); // Saltar encabezado
+    while (getline(archivo, linea)){
+        stringstream datos(linea);
+        getline(datos, campo, ';');
+        int id = stoi(campo);
+        getline(datos, campo, ';');
+        int numero = stoi(campo);
+        getline(datos, piso, ';');
+        getline(datos, campo, ';');
+        int tipo = stoi(campo);
+        getline(datos, campo);
+        int estado = stoi(campo);
+        if (!arbolHabitaciones.Buscarvalor(id)) //evita habitaciones repetidas
+        {
+            arbolHabitaciones.Insertar(id, numero, piso, tipo, estado);
+        }
+    }
+    archivo.close();
+    cout << "Habitaciones cargadas correctamente." << endl;
 }
 
 
@@ -202,12 +232,8 @@ void cargarArchivos()
 {
     cargarPaises();
     cargarCiudades();
-    /*cargarEspecialidades();
-    cargarPacientes();
-    cargarMedicos();
+    cargarEspecialidades();
     cargarHabitaciones();
-    cargarCitas();
-    cargarHospitalizaciones();*/
 	cargarTratamientos();
     cargarDiagnosticos();
 }
@@ -227,6 +253,7 @@ void menuInserciones() {
         cout << "7. Habitacion" << endl;
         cout << "8. Hospitalizacion" << endl;
         cout << "9. Diagnostico" << endl;
+        cout << "10.Tratamiento" << endl;
         cout << "0. Regresar" << endl;
         cout << "Digite una opcion: ";
         cin >> opcion;
@@ -239,26 +266,17 @@ void menuInserciones() {
         case 2:
             insertarCiudad();
             break;
-        /*case 3:
-            insertarPaciente();
-            break;
-        case 4:
-            insertarMedico();
-            break;
-        case 5:
+        case 3:
             insertarEspecialidad();
             break;
-        case 6:
-            insertarCita();
-            break;
-        case 7:
+        case 4:
             insertarHabitacion();
             break;
-        case 8:
-            insertarHospitalizacion();
-            break;*/
-        case 9:
+        case 5:
             insertarDiagnostico();
+            break;
+        case 6:
+            insertarTratamiento();
             break;
         case 0:
             cout << "Regresando..." << endl;
@@ -294,26 +312,17 @@ void menuBusquedas() {
         case 2:
             buscarCiudad();
             break;
-        /*case 3:
-            buscarPaciente();
-            break;
-        case 4:
-            buscarMedico();
-            break;
-        case 5:
+        case 3:
             buscarEspecialidad();
             break;
-        case 6:
-            buscarCita();
-            break;
-        case 7:
+        case 4:
             buscarHabitacion();
             break;
-        case 8:
-            buscarHospitalizacionMenu();
-            break;*/
-        case 9:
+        case 5:
             buscarDiagnostico();
+            break;
+        case 6:
+            buscarTratamiento();
             break;
         case 0:
             cout << "Regresando..." << endl;
@@ -394,12 +403,6 @@ void menuMantenimiento() {
         case 2:
             menuBusquedas();
             break;
-        /*case 3:
-            menuModificaciones();
-            break;
-        case 4:
-            menuReportes();
-            break;*/
         case 0:
             cout << "Regresando..." << endl;
             break;
@@ -415,7 +418,6 @@ int main() {
         cout << "\n===== SISTEMA DE GESTION HOSPITALARIA =====" << endl;
         cout << "1. Leer archivos y construir los arboles" << endl;
         cout << "2. Mantenimiento de la base de datos" << endl;
-        cout << "3. Mostrar paises ordenados" << endl;
         cout << "0. Salir" << endl;
         cout << "Seleccione una opcion: ";
         cin >> opcion;
@@ -427,9 +429,6 @@ int main() {
             break;
         case 2:
             menuMantenimiento();
-            break;
-        case 3:
-            arbolPaises.InordenR();
             break;
         case 0:
             cout << "Programa finalizado." << endl;

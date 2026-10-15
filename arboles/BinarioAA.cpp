@@ -15,8 +15,8 @@ BinarioAA::~BinarioAA()
     liberarMemoria(raiz);
 }
 
-// Inserta un diagnostico en el arbol.
-void BinarioAA::insertar(string codigo, string nombre, string descripcion)
+// Inserta un nodo en el arbol (si el codigo ya existe no hace nada).
+void BinarioAA::Insertar(string codigo, string nombre, string descripcion)
 {
     raiz = insertarRec(raiz, codigo, nombre, descripcion);
 }
@@ -28,11 +28,11 @@ NodoAA* BinarioAA::insertarRec(NodoAA* nodo, string codigo, string nombre, strin
     {
         return new NodoAA(codigo, nombre, descripcion);
     }
-    if (codigo < nodo->codDiagnostico)
+    if (codigo < nodo->codigo)
     {
         nodo->izquierda = insertarRec(nodo->izquierda, codigo, nombre, descripcion);
     }
-    else if (codigo > nodo->codDiagnostico)
+    else if (codigo > nodo->codigo)
     {
         nodo->derecha = insertarRec(nodo->derecha, codigo, nombre, descripcion);
     }
@@ -75,13 +75,14 @@ NodoAA* BinarioAA::Reparto(NodoAA* nodo)
     return nodo;
 }
 
-// Busca un diagnostico.
-bool BinarioAA::buscar(string codigo)
+// Busca un nodo.
+bool BinarioAA::Buscarvalor(string codigo)
 {
     return buscarRec(raiz, codigo) != nullptr;
 }
 
-// Muestra los datos de un diagnostico.
+// Muestra los datos del nodo con ese codigo (no imprime nada si no existe;
+// el mensaje de "no existe" lo da el crud, igual que en paises y ciudades).
 void BinarioAA::mostrarPorCodigo(string codigo)
 {
     NodoAA* nodo = buscarRec(raiz, codigo);
@@ -90,10 +91,6 @@ void BinarioAA::mostrarPorCodigo(string codigo)
         cout << "Codigo: " << nodo->codDiagnostico << endl;
         cout << "Nombre: " << nodo->nombre << endl;
         cout << "Descripcion: " << nodo->descripcion << endl;
-    }
-    else
-    {
-        cout << "El diagnostico no existe." << endl;
     }
 }
 
@@ -104,11 +101,11 @@ NodoAA* BinarioAA::buscarRec(NodoAA* nodo, string codigo)
     {
         return nullptr;
     }
-    if (codigo == nodo->codDiagnostico)
+    if (codigo == nodo->codigo)
     {
         return nodo;
     }
-    else if (codigo < nodo->codDiagnostico)
+    else if (codigo < nodo->codigo)
     {
         return buscarRec(nodo->izquierda, codigo);
     }

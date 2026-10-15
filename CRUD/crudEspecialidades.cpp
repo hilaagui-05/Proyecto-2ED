@@ -1,82 +1,48 @@
 #include <iostream>
-#include <fstream>
 #include <string>
-#include <sstream> //permite separar los campos de cada linea
-#include "hpdf.h"
+#include "crud.h"
 
 using namespace std;
 
-class NodoEspecialidad //lista doble circular
-{
-public:
-    int idEspecialidad;
-    string nombre;
-    string descripcion;
-    NodoEspecialidad* anterior;
-    NodoEspecialidad* siguiente;
-
-    NodoEspecialidad(int id, string nombreEspecialidad, string desc)
-    {
-        idEspecialidad = id;
-        nombre = nombreEspecialidad;
-        descripcion = desc;
-        anterior = NULL;
-        siguiente = NULL;
-    }
-};
+// Arbol de especialidades.
+BinarioAA arbolEspecialidades;
 
 void insertarEspecialidad()
 {
-    int id;
+    string codigo;
     string nombre;
     string descripcion;
-    cout << "Id de especialidad: ";
-    cin >> id;
-    cin.ignore();
+    cout << "Id de la especialidad: ";
+    cin >> codigo; //pedimos datos
+    cin.ignore(); //ignora el enter pendiente
     cout << "Nombre: ";
     getline(cin, nombre);
     cout << "Descripcion: ";
     getline(cin, descripcion);
-    if (listaEspecialidades.existe(id))
-    {
-        cout << "La especialidad ya existe" << endl;
+    if (arbolEspecialidades.Buscarvalor(codigo)) { //Revisa que no sea repetido
+        cout << "La especialidad ya existe." << endl;
     }
-    else
-    {
-        listaEspecialidades.insertar(id, nombre, descripcion);
-        cout << "Especialidad insertada correctamente" << endl;
+    else {
+        arbolEspecialidades.Insertar(codigo, nombre, descripcion);
+        cout << "Especialidad insertada correctamente." << endl;
     }
 }
 
 void buscarEspecialidad() {
-    int idEspecialidad;
-
-    cout << "Id de la Especialidad: ";
-    cin >> idEspecialidad;
-    if (listaEspecialidades.existe(idEspecialidad)) {
-        NodoEspecialidad* especialidadEncontrada = listaEspecialidades.buscar(idEspecialidad);
-        listaEspecialidades.mostrar(especialidadEncontrada);
+    string codigo;
+    cout << "Digite el id de la especialidad: ";
+    cin >> codigo;
+    if (arbolEspecialidades.Buscarvalor(codigo)) {
+        cout << "Especialidad encontrada: " << endl;
+        arbolEspecialidades.mostrarPorCodigo(codigo);
     }
     else {
         cout << "La especialidad no existe." << endl;
     }
 }
 
-void modificarEspecialidad()
+// Muestra todas las especialidades.
+void mostrarEspecialidades()
 {
-    int idEspecialidad;
-    string descripcion;
-    cout << "Id de especialidad: ";
-    cin >> idEspecialidad;
-    cin.ignore();
-    NodoEspecialidad* especialidad = listaEspecialidades.buscar(idEspecialidad);
-    if (especialidad == NULL)
-    {
-        cout << "La especialidad no existe." << endl;
-        return;
-    }
-    cout << "Nueva descripcion: ";
-    getline(cin, descripcion);
-    especialidad->descripcion = descripcion; //actualiza descripcion
-    cout << "Especialidad modificada correctamente." << endl;
+    arbolEspecialidades.mostrarPreorden();
 }

@@ -4,7 +4,7 @@
 
 using namespace std;
 
-// Arbol de ciudades (clave compuesta: codPais + codCiudad).
+// Arbol de ciudades.
 ABBusqueda arbolCiudades(TipoClave::Ciudad);
 
 void insertarCiudad()
@@ -13,51 +13,39 @@ void insertarCiudad()
     int codCiudad;
     string nombre;
     cout << "Codigo del pais: ";
-    cin >> codPais;
-    if (!arbolPaises.Buscarvalor(codPais))
-    {
-        cout << "El pais no existe." << endl;
-        return;
-    }
+    cin >> codPais; //pedimos datos
     cout << "Codigo de la ciudad: ";
     cin >> codCiudad;
-    if (arbolCiudades.Buscarvalor(codPais, codCiudad))
-    {
-        cout << "La ciudad ya existe en ese pais." << endl;
-        return;
-    }
-    cin.ignore();
-    cout << "Nombre de la ciudad: ";
+    cin.ignore(); //ignora el enter pendiente
+    cout << "Nombre: ";
     getline(cin, nombre);
-    if (nombre.empty())
-    {
-        cout << "El nombre no puede estar vacio." << endl;
-        return;
+    if (!arbolPaises.Buscarvalor(codPais)) { //Revisa que el pais exista
+        cout << "El pais no existe." << endl;
     }
-    arbolCiudades.InsertaNodo(codPais, codCiudad, nombre);
-    cout << "Ciudad insertada correctamente." << endl;
+    else if (arbolCiudades.Buscarvalor(codPais, codCiudad)) { //Revisa que no sea repetida
+        cout << "La ciudad ya existe." << endl;
+    }
+    else {
+        arbolCiudades.InsertaNodo(codPais, codCiudad, nombre);
+        cout << "Ciudad insertada correctamente." << endl;
+    }
 }
 
-void buscarCiudad()
-{
+void buscarCiudad() {
     int codPais;
     int codCiudad;
     cout << "Digite el codigo del pais: ";
     cin >> codPais;
-    if (!arbolPaises.Buscarvalor(codPais))
-    {
-        cout << "El pais no existe." << endl;
-        return;
-    }
     cout << "Digite el codigo de la ciudad: ";
     cin >> codCiudad;
-    if (arbolCiudades.Buscarvalor(codPais, codCiudad))
-    {
+    if (!arbolPaises.Buscarvalor(codPais)) {
+        cout << "El pais no existe." << endl;
+    }
+    else if (arbolCiudades.Buscarvalor(codPais, codCiudad)) {
         cout << "Ciudad encontrada: ";
         arbolCiudades.mostrarPorClave(codPais, codCiudad);
     }
-    else
-    {
-        cout << "La ciudad no existe en ese pais." << endl;
+    else {
+        cout << "La ciudad no existe." << endl;
     }
 }

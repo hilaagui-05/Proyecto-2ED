@@ -3,12 +3,13 @@
 #include "crud.h"
 
 using namespace std;
+BinarioRN arbolTratamientos;
 
 void insertarTratamiento(){
     int codTratamiento;
     string nombre;
     string descripcion;
-    double costo;
+    int costo;
 
     cout << "Codigo del tratamiento: ";
     cin >> codTratamiento;

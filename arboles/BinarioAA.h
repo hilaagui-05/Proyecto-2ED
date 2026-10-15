@@ -6,6 +6,7 @@
 
 using namespace std;
 
+// Arbol AA. Se usa una instancia para Diagnosticos y otra para Especialidades.
 class BinarioAA
 {
 private:
@@ -17,12 +18,14 @@ private:
     NodoAA* buscarRec(NodoAA* nodo, string codigo);
     void mostrarPreorden(NodoAA* nodo);
     void liberarMemoria(NodoAA* nodo);
+
 public:
     BinarioAA();
-    ~BinarioAA(); //destructor
-    void insertar(string codigo, string nombre, string descripcion);
-    bool buscar(string codigo);
-    void mostrarPorCodigo(string codigo);
+    ~BinarioAA();
+
+    void Insertar(string codigo, string nombre, string descripcion);
+    bool Buscarvalor(string codigo);
+    void mostrarPorClave(string codigo); // muestra los datos si el codigo existe
     void mostrarPreorden();
     bool estaVacio();
     void limpiar();

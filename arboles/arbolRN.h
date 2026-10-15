@@ -1,7 +1,9 @@
-#ifndef BINARIORN_H
-#define BINARIORN_H
+#ifndef ARBOLRN_H
+#define ARBOLRN_H
 
 #include "NodoRN.h"
+
+using namespace std;
 
 typedef NodoRN* pNodoRN;
 
@@ -13,16 +15,19 @@ private:
     void ArreglaInsercion(pNodoRN nodo);
     void RotIzquierda(pNodoRN x);
     void RotDerecha(pNodoRN x);
+
     void MostrarInorden(pNodoRN nodo);
     void MostrarPreorden(pNodoRN nodo);
     void LiberarMemoria(pNodoRN nodo);
-    pNodoRN BuscarNodo(int idTratamiento);
 
 public:
     BinarioRN();
     ~BinarioRN();
 
-    void Insertar(int idTratamiento, string nombre,string descripcion,int costo);
+    void Insertar(int idTratamiento, string nombre,string descripcion, int costo);
+    bool Buscarvalor(int idTratamiento);
+    void mostrarPorClave(int idTratamiento);
+
     void Mostrar();
     bool EstaVacio();
     void Limpiar();

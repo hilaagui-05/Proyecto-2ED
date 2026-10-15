@@ -152,7 +152,6 @@
     <ClCompile Include="mainPrincipal.cpp" />
     <ClCompile Include="NodoABB.cpp" />
     <ClCompile Include="Pais.cpp" />
-    <ClCompile Include="Reportes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arboles de la profe\aa\BinarioAA.h" />

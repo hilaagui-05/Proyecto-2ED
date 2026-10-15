@@ -4,42 +4,42 @@
 
 using namespace std;
 
+// Arbol de diagnosticos.
 BinarioAA arbolDiagnosticos;
 
-void insertarDiagnostico()
-{
+void insertarDiagnostico(){
     string codigo;
     string nombre;
     string descripcion;
     cout << "Codigo del diagnostico: ";
-    cin >> codigo;
-    if (arbolDiagnosticos.buscar(codigo))
-    {
-        cout << "El diagnostico ya existe." << endl;
-        return;
-    }
-    cin.ignore();
-    cout << "Nombre del diagnostico: ";
+    cin >> codigo; //pedimos datos
+    cin.ignore(); //ignora el enter pendiente
+    cout << "Nombre: ";
     getline(cin, nombre);
-    cout << "Descripcion del diagnostico: ";
+    cout << "Descripcion: ";
     getline(cin, descripcion);
-    if (nombre.empty() || descripcion.empty())
-    {
-        cout << "El nombre y la descripcion no pueden estar vacios." << endl;
-        return;
+    if (arbolDiagnosticos.Buscarvalor(codigo)) { //Revisa que no sea repetido
+        cout << "El diagnostico ya existe." << endl;
     }
-    arbolDiagnosticos.insertar(codigo, nombre, descripcion);
-    cout << "Diagnostico insertado correctamente." << endl;
+    else {
+        arbolDiagnosticos.Insertar(codigo, nombre, descripcion);
+        cout << "Diagnostico insertado correctamente." << endl;
+    }
 }
 
-// Busca un diagnostico por su codigo.
-void buscarDiagnostico()
-{
+void buscarDiagnostico() {
     string codigo;
     cout << "Digite el codigo del diagnostico: ";
     cin >> codigo;
-    arbolDiagnosticos.mostrarPorCodigo(codigo);
+    if (arbolDiagnosticos.Buscarvalor(codigo)) {
+        cout << "Diagnostico encontrado: " << endl;
+        arbolDiagnosticos.mostrarPorClave(codigo);
+    }
+    else {
+        cout << "El diagnostico no existe." << endl;
+    }
 }
+
 // Muestra todos los diagnosticos.
 void mostrarDiagnosticos()
 {
