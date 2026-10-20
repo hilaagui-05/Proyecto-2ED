@@ -45,10 +45,8 @@
     <PlatformToolset>v145</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
-  <ImportGroup Label="Shared">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -64,113 +62,112 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <LocalDebuggerWorkingDirectory>$(ProjectDir)</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <LocalDebuggerWorkingDirectory>$(ProjectDir)</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <LocalDebuggerWorkingDirectory>$(ProjectDir)</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <LocalDebuggerWorkingDirectory>$(ProjectDir)</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Manifest>
-      <EnableSegmentHeap>true</EnableSegmentHeap>
-    </Manifest>
     <ClCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Manifest>
-      <EnableSegmentHeap>true</EnableSegmentHeap>
-    </Manifest>
     <ClCompile>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <Manifest>
-      <EnableSegmentHeap>true</EnableSegmentHeap>
-    </Manifest>
     <ClCompile>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <Manifest>
-      <EnableSegmentHeap>true</EnableSegmentHeap>
-    </Manifest>
     <ClCompile>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <!-- Archivos fuente del proyecto actual -->
   <ItemGroup>
-    <ClCompile Include="arboles de la profe\aa\BinarioAA.cpp" />
-    <ClCompile Include="arboles de la profe\aa\main.cpp" />
-    <ClCompile Include="arboles de la profe\aa\NodoAA.cpp" />
-    <ClCompile Include="arboles de la profe\arbolbinariocompleto\ABBusqueda.cpp" />
-    <ClCompile Include="arboles de la profe\arbolbinariocompleto\Cola.cpp" />
-    <ClCompile Include="arboles de la profe\arbolbinariocompleto\main.cpp" />
-    <ClCompile Include="arboles de la profe\arbolbinariocompleto\Nodo.cpp" />
-    <ClCompile Include="arboles de la profe\arbolbinariocompleto\Pila.cpp" />
-    <ClCompile Include="arboles de la profe\arbolb\ArbolB.cpp" />
-    <ClCompile Include="arboles de la profe\arbolb\main.cpp" />
-    <ClCompile Include="arboles de la profe\arbolb\Pagina.cpp" />
-    <ClCompile Include="arboles de la profe\avl\Binario.cpp" />
-    <ClCompile Include="arboles de la profe\avl\main.cpp" />
-    <ClCompile Include="arboles de la profe\avl\NodoBinario.cpp" />
-    <ClCompile Include="arboles de la profe\rn\BinarioRN.cpp" />
-    <ClCompile Include="arboles de la profe\rn\main.cpp" />
-    <ClCompile Include="arboles de la profe\rn\NodoRN.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="arboles\NodoABB.cpp" />
     <ClCompile Include="mainPrincipal.cpp" />
-    <ClCompile Include="NodoABB.cpp" />
-    <ClCompile Include="Pais.cpp" />
+    <ClCompile Include="CRUD\crudCiudades.cpp" />
+    <ClCompile Include="CRUD\crudDiagnostico.cpp" />
+    <ClCompile Include="CRUD\crudEspecialidades.cpp" />
+    <ClCompile Include="CRUD\crudHabitaciones.cpp" />
+    <ClCompile Include="CRUD\crudPaises.cpp" />
+    <ClCompile Include="CRUD\crudTratamiento.cpp" />
+    <ClCompile Include="CRUD\crudPacientes.cpp" />
+    <ClCompile Include="CRUD\crudMedicos.cpp" />
+    <ClCompile Include="arboles\ABBusqueda.cpp" />
+    <ClCompile Include="arboles\AVL.cpp" />
+    <ClCompile Include="arboles\BinarioAA.cpp" />
+    <ClCompile Include="arboles\NodoAA.cpp" />
+    <ClCompile Include="arboles\NodoAVL.cpp" />
+    <ClCompile Include="arboles\NodoRN.cpp" />
+    <ClCompile Include="arboles\arbolRN.cpp" />
+    <ClCompile Include="arboles\arbolB.cpp" />
+    <ClCompile Include="arboles\pagina.cpp" />
+  </ItemGroup>
+  <!-- Encabezados del proyecto actual -->
+  <ItemGroup>
+    <ClInclude Include="arboles\NodoABB.h" />
+    <ClInclude Include="CRUD\crud.h" />
+    <ClInclude Include="arboles\ABBusqueda.h" />
+    <ClInclude Include="arboles\AVL.h" />
+    <ClInclude Include="arboles\BinarioAA.h" />
+    <ClInclude Include="arboles\NodoAA.h" />
+    <ClInclude Include="arboles\NodoAVL.h" />
+    <ClInclude Include="arboles\NodoRN.h" />
+    <ClInclude Include="arboles\arbolRN.h" />
+    <ClInclude Include="arboles\arbolB.h" />
+    <ClInclude Include="arboles\pagina.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="arboles de la profe\aa\BinarioAA.h" />
-    <ClInclude Include="arboles de la profe\aa\NodoAA.h" />
-    <ClInclude Include="arboles de la profe\arbolbinariocompleto\ABBusqueda.h" />
-    <ClInclude Include="arboles de la profe\arbolbinariocompleto\Cola.h" />
-    <ClInclude Include="arboles de la profe\arbolbinariocompleto\Nodo.h" />
-    <ClInclude Include="arboles de la profe\arbolbinariocompleto\Pila.h" />
-    <ClInclude Include="arboles de la profe\arbolb\ArbolB.h" />
-    <ClInclude Include="arboles de la profe\arbolb\Pagina.h" />
-    <ClInclude Include="arboles de la profe\avl\Binario.h" />
-    <ClInclude Include="arboles de la profe\avl\NodoBinario.h" />
-    <ClInclude Include="arboles de la profe\rn\BinarioRN.h" />
-    <ClInclude Include="arboles de la profe\rn\NodoRN.h" />
-    <ClInclude Include="ArbolPaises.h" />
-    <ClInclude Include="NodoABB.h" />
-    <ClInclude Include="Pais.h" />
+    <None Include="CSV\Citas.csv" />
+    <None Include="CSV\Ciudades.csv" />
+    <None Include="CSV\Diagnostico.csv" />
+    <None Include="CSV\Especialidades.csv" />
+    <None Include="CSV\Habitaciones.csv" />
+    <None Include="CSV\Hospitalizaciones.csv" />
+    <None Include="CSV\Medicos.csv" />
+    <None Include="CSV\Pacientes.csv" />
+    <None Include="CSV\Paises.csv" />
+    <None Include="CSV\Tratamiento.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
 </Project>

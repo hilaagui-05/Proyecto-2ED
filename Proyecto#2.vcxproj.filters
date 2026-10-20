@@ -15,115 +15,109 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodoABB.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Pais.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arboles de la profe\aa\BinarioAA.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arboles de la profe\aa\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arboles de la profe\aa\NodoAA.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arboles de la profe\arbolb\ArbolB.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arboles de la profe\arbolb\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arboles de la profe\arbolb\Pagina.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arboles de la profe\arbolbinariocompleto\ABBusqueda.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arboles de la profe\arbolbinariocompleto\Cola.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arboles de la profe\arbolbinariocompleto\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arboles de la profe\arbolbinariocompleto\Nodo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arboles de la profe\arbolbinariocompleto\Pila.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arboles de la profe\avl\Binario.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arboles de la profe\avl\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arboles de la profe\avl\NodoBinario.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arboles de la profe\rn\BinarioRN.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arboles de la profe\rn\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arboles de la profe\rn\NodoRN.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="mainPrincipal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CRUD\crudCiudades.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CRUD\crudDiagnostico.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CRUD\crudEspecialidades.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CRUD\crudHabitaciones.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CRUD\crudPaises.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CRUD\crudTratamiento.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CRUD\crudPacientes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CRUD\crudMedicos.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arboles\ABBusqueda.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arboles\AVL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arboles\BinarioAA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arboles\NodoAA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arboles\NodoAVL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arboles\NodoRN.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arboles\arbolRN.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arboles\NodoABB.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arboles\arbolB.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arboles\pagina.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ArbolPaises.h">
+    <ClInclude Include="CRUD\crud.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NodoABB.h">
+    <ClInclude Include="arboles\ABBusqueda.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Pais.h">
+    <ClInclude Include="arboles\AVL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="arboles de la profe\aa\BinarioAA.h">
+    <ClInclude Include="arboles\BinarioAA.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="arboles de la profe\aa\NodoAA.h">
+    <ClInclude Include="arboles\NodoAA.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="arboles de la profe\arbolb\ArbolB.h">
+    <ClInclude Include="arboles\NodoAVL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="arboles de la profe\arbolb\Pagina.h">
+    <ClInclude Include="arboles\NodoRN.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="arboles de la profe\arbolbinariocompleto\ABBusqueda.h">
+    <ClInclude Include="arboles\arbolRN.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="arboles de la profe\arbolbinariocompleto\Cola.h">
+    <ClInclude Include="arboles\NodoABB.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="arboles de la profe\arbolbinariocompleto\Nodo.h">
+    <ClInclude Include="arboles\arbolB.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="arboles de la profe\arbolbinariocompleto\Pila.h">
+    <ClInclude Include="arboles\pagina.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="arboles de la profe\avl\Binario.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="arboles de la profe\avl\NodoBinario.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="arboles de la profe\rn\BinarioRN.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="arboles de la profe\rn\NodoRN.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CSV\Citas.csv" />
+    <None Include="CSV\Ciudades.csv" />
+    <None Include="CSV\Diagnostico.csv" />
+    <None Include="CSV\Especialidades.csv" />
+    <None Include="CSV\Habitaciones.csv" />
+    <None Include="CSV\Hospitalizaciones.csv" />
+    <None Include="CSV\Medicos.csv" />
+    <None Include="CSV\Paises.csv" />
+    <None Include="CSV\Pacientes.csv" />
+    <None Include="CSV\Tratamiento.csv" />
   </ItemGroup>
 </Project>

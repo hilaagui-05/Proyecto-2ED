@@ -228,13 +228,119 @@ void cargarHabitaciones(){
 }
 
 
+void cargarPacientes(){
+    ifstream archivo("CSV/Pacientes.csv");
+    if (!archivo)
+    {
+        cout << "Error al abrir Pacientes.csv" << endl;
+        return;
+    }
+    string linea;
+    string idPaciente, nombre, fechaNacimiento;
+    string telefono, codPais, codCiudad, correo;
+    getline(archivo, linea); // Saltar encabezado
+    while (getline(archivo, linea)){
+        stringstream datos(linea);
+        getline(datos, idPaciente, ';');
+        getline(datos, nombre, ';');
+        getline(datos, fechaNacimiento, ';');
+        getline(datos, telefono, ';');
+        getline(datos, codPais, ';');
+        getline(datos, codCiudad, ';');
+        getline(datos, correo);
+        int id = stoi(idPaciente);
+        int pais = stoi(codPais);
+        int ciudad = stoi(codCiudad);
+
+        // Verificar que el pais y la ciudad existan.
+        if (!arbolPaises.Buscarvalor(pais)){
+            cout << "No se puede cargar el paciente "
+                << id
+                << ": el pais no existe." << endl;
+            continue;
+        }
+        if (!arbolCiudades.Buscarvalor(
+            pais, ciudad))
+        {
+            cout << "No se puede cargar el paciente " << id
+                << ": la ciudad no existe para ese pais."<< endl;
+            continue;
+        }
+        if (arbolPacientes.Buscar(id) != nullptr){
+            cout << "Paciente duplicado: " << id << endl;
+            continue;
+        }
+        RegistroB paciente;
+        paciente.clave = id;
+        paciente.nombre = nombre;
+        paciente.fechaNacimiento = fechaNacimiento;
+        paciente.telefono = telefono;
+        paciente.codPais = pais;
+        paciente.codCiudad = ciudad;
+        paciente.correo = correo;
+        arbolPacientes.Insertar(paciente);
+    }
+    archivo.close();
+    cout << "Pacientes cargados correctamente." << endl;
+}
+
+
+void cargarMedicos(){
+    ifstream archivo("CSV/Medicos.csv");
+    if (!archivo)
+    {
+        cout << "Error al abrir Medicos.csv" << endl;
+        return;
+    }
+    string linea;
+    string idMedico, nombre, telefono, correo, idEspecialidad;
+    getline(archivo, linea); // Saltar encabezado
+    while (getline(archivo, linea)){
+        stringstream datos(linea);
+        getline(datos, idMedico, ';');
+        getline(datos, nombre, ';');
+        getline(datos, telefono, ';');
+        getline(datos, correo, ';');
+        getline(datos, idEspecialidad);
+        int id = stoi(idMedico);
+        // Verificar que la especialidad exista.
+        if (!arbolEspecialidades.Buscarvalor(idEspecialidad))
+        {
+            cout << "No se puede cargar el medico " << id
+                << ": la especialidad no existe." << endl;
+            continue;
+        }
+
+        if (arbolMedicos.Buscar(id) != nullptr)
+        {
+            cout << "Medico duplicado: " << id << endl;
+            continue;
+        }
+        RegistroB medico;
+        medico.clave = id;
+        medico.nombre = nombre;
+        medico.telefono = telefono;
+        medico.correo = correo;
+        medico.idEspecialidad = stoi(idEspecialidad);
+
+        arbolMedicos.Insertar(medico);
+    }
+    archivo.close();
+    cout << "Medicos cargados correctamente." << endl;
+}
+
+
+
+
 void cargarArchivos()
 {
     cargarPaises();
     cargarCiudades();
     cargarEspecialidades();
+    cargarPacientes();
+    cargarMedicos();
     cargarHabitaciones();
-	cargarTratamientos();
+    cargarTratamientos();
     cargarDiagnosticos();
 }
 
@@ -247,10 +353,12 @@ void menuInserciones() {
         cout << "\n===== INSERCIONES =====" << endl;
         cout << "1. Pais" << endl;
         cout << "2. Ciudad" << endl;
-        cout << "3. Especialidad" << endl;
-        cout << "4. Habitacion" << endl;
-        cout << "5. Diagnostico" << endl;
-        cout << "6. Tratamiento" << endl;
+        cout << "3. Paciente" << endl;
+        cout << "4. Médico" << endl;
+        cout << "5. Especialidad" << endl;
+        cout << "6. Habitacion" << endl;
+        cout << "7. Diagnostico" << endl;
+        cout << "8. Tratamiento" << endl;
         cout << "0. Regresar" << endl;
         cout << "Digite una opcion: ";
         cin >> opcion;
@@ -263,15 +371,21 @@ void menuInserciones() {
             insertarCiudad();
             break;
         case 3:
-            insertarEspecialidad();
+            insertarPaciente();
             break;
         case 4:
-            insertarHabitacion();
+            insertarMedico();
             break;
         case 5:
-            insertarDiagnostico();
+            insertarEspecialidad();
             break;
         case 6:
+            insertarHabitacion();
+            break;
+        case 7:
+            insertarDiagnostico();
+            break;
+        case 8:
             insertarTratamiento();
             break;
         case 0:
@@ -289,10 +403,12 @@ void menuBusquedas() {
         cout << "\n===== BUSQUEDAS =====" << endl;
         cout << "1. Pais" << endl;
         cout << "2. Ciudad" << endl;
-        cout << "3. Especialidad" << endl;
-        cout << "4. Habitacion" << endl;
-        cout << "5. Diagnostico" << endl;
-        cout << "6. Tratamiento" << endl;
+        cout << "3. Paciente" << endl;
+        cout << "4. Médico" << endl;
+        cout << "5. Especialidad" << endl;
+        cout << "6. Habitacion" << endl;
+        cout << "7. Diagnostico" << endl;
+        cout << "8. Tratamiento" << endl;
         cout << "0. Regresar" << endl;
         cout << "Digite una opcion: ";
         cin >> opcion;
@@ -306,15 +422,21 @@ void menuBusquedas() {
             buscarCiudad();
             break;
         case 3:
-            buscarEspecialidad();
+            buscarPaciente();
             break;
         case 4:
-            buscarHabitacion();
+            buscarMedico();
             break;
         case 5:
-            buscarDiagnostico();
+            buscarEspecialidad();
             break;
         case 6:
+            buscarHabitacion();
+            break;
+        case 7:
+            buscarDiagnostico();
+            break;
+        case 8:
             buscarTratamiento();
             break;
         case 0:
