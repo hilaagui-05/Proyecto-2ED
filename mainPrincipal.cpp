@@ -284,7 +284,6 @@ void cargarPacientes(){
     cout << "Pacientes cargados correctamente." << endl;
 }
 
-
 void cargarMedicos(){
     ifstream archivo("CSV/Medicos.csv");
     if (!archivo)
@@ -329,8 +328,74 @@ void cargarMedicos(){
     cout << "Medicos cargados correctamente." << endl;
 }
 
+void cargarCitas() {
+    ifstream archivo("CSV/Citas.csv");
+    if (!archivo)
+    {
+        cout << "Error al abrir Citas.csv" << endl;
+        return;
+    }
+    string linea;
+    string idCita, idPaciente, idMedico, idEspecialidad, fecha, hora, motivo, estado;
+    getline(archivo, linea); // Saltar encabezado
+    while (getline(archivo, linea)) {
+        if (linea[linea.length() - 1] == '\r') linea.erase(linea.length() - 1); //quita el salto de linea de Windows
+        stringstream datos(linea);
+        getline(datos, idCita, ';');
+        getline(datos, idPaciente, ';');
+        getline(datos, idMedico, ';');
+        getline(datos, idEspecialidad, ';');
+        getline(datos, fecha, ';');
+        getline(datos, hora, ';');
+        getline(datos, motivo, ';');
+        getline(datos, estado);
+        int id = stoi(idCita);
+        int paciente = stoi(idPaciente);
+        int medico = stoi(idMedico);
+        // Las validaciones de paciente y medico se hacen en las inserciones y busquedas del menu.
+        if (arbolCitas.BuscarValor(id)) {
+            cout << "Cita duplicada: " << id << endl;
+            continue;
+        }
+        arbolCitas.Insertar(id, paciente, medico, stoi(idEspecialidad), fecha, hora, motivo, stoi(estado));
+    }
+    archivo.close();
+    cout << "Citas cargadas correctamente." << endl;
+}
 
-
+void cargarHospitalizaciones() {
+    ifstream archivo("CSV/Hospitalizaciones.csv");
+    if (!archivo)
+    {
+        cout << "Error al abrir Hospitalizaciones.csv" << endl;
+        return;
+    }
+    string linea;
+    string idHosp, idPaciente, idHabitacion, idMedico, fechaIngreso, fechaSalida, motivo;
+    getline(archivo, linea); // Saltar encabezado
+    while (getline(archivo, linea)) {
+        if (linea[linea.length() - 1] == '\r') linea.erase(linea.length() - 1); //quita el salto de linea de Windows
+        stringstream datos(linea);
+        getline(datos, idHosp, ';');
+        getline(datos, idPaciente, ';');
+        getline(datos, idHabitacion, ';');
+        getline(datos, idMedico, ';');
+        getline(datos, fechaIngreso, ';');
+        getline(datos, fechaSalida, ';');
+        getline(datos, motivo);
+        int id = stoi(idHosp);
+        int paciente = stoi(idPaciente);
+        int habitacion = stoi(idHabitacion);
+        // Las validaciones de paciente y habitacion se hacen en las inserciones y busquedas del menu.
+        if (arbolHospitalizaciones.Buscarvalor(id)) {
+            cout << "Hospitalizacion duplicada: " << id << endl;
+            continue;
+        }
+        arbolHospitalizaciones.Insertar(id, paciente, habitacion, stoi(idMedico), fechaIngreso, fechaSalida, motivo);
+    }
+    archivo.close();
+    cout << "Hospitalizaciones cargadas correctamente." << endl;
+}
 
 void cargarArchivos()
 {
@@ -342,6 +407,8 @@ void cargarArchivos()
     cargarHabitaciones();
     cargarTratamientos();
     cargarDiagnosticos();
+    cargarCitas();
+    cargarHospitalizaciones();
 }
 
 
@@ -357,8 +424,10 @@ void menuInserciones() {
         cout << "4. Médico" << endl;
         cout << "5. Especialidad" << endl;
         cout << "6. Habitacion" << endl;
-        cout << "7. Diagnostico" << endl;
-        cout << "8. Tratamiento" << endl;
+        cout << "7. Cita" << endl;
+        cout << "8. Hospitalizacion" << endl;
+        cout << "9. Diagnostico" << endl;
+        cout << "10. Tratamiento" << endl;
         cout << "0. Regresar" << endl;
         cout << "Digite una opcion: ";
         cin >> opcion;
@@ -383,9 +452,15 @@ void menuInserciones() {
             insertarHabitacion();
             break;
         case 7:
-            insertarDiagnostico();
+            insertarCita();
             break;
         case 8:
+            insertarHospitalizacion();
+            break;
+        case 9:
+            insertarDiagnostico();
+            break;
+        case 10:
             insertarTratamiento();
             break;
         case 0:
@@ -407,8 +482,10 @@ void menuBusquedas() {
         cout << "4. Médico" << endl;
         cout << "5. Especialidad" << endl;
         cout << "6. Habitacion" << endl;
-        cout << "7. Diagnostico" << endl;
-        cout << "8. Tratamiento" << endl;
+        cout << "7. Cita" << endl;
+        cout << "8. Hospitalizacion" << endl;
+        cout << "9. Diagnostico" << endl;
+        cout << "10. Tratamiento" << endl;
         cout << "0. Regresar" << endl;
         cout << "Digite una opcion: ";
         cin >> opcion;
@@ -434,9 +511,15 @@ void menuBusquedas() {
             buscarHabitacion();
             break;
         case 7:
-            buscarDiagnostico();
+            buscarCita();
             break;
         case 8:
+            buscarHospitalizacion();
+            break;
+        case 9:
+            buscarDiagnostico();
+            break;
+        case 10:
             buscarTratamiento();
             break;
         case 0:

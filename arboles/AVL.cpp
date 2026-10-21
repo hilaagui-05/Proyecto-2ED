@@ -8,17 +8,42 @@ AVL::AVL()
     raiz = nullptr;
 }
 
+void AVL::Insertar(int id, int paciente, int medico, int especialidad,
+    string fecha, string hora, string motivo, int estado)
+{
+    InsertarCita(id, paciente, medico, especialidad, fecha, hora, motivo, estado);
+}
+
 // Destructor
 AVL::~AVL()
 {
     LiberarMemoria(raiz);
 }
 
-// Metodo publico para insertar (si el id ya existe no hace nada)
+//ordena primero las habitaciones y luego las citas
+bool AVL::menor(int categoria1, int id1,
+    int categoria2, int id2)
+{
+    if (categoria1 != categoria2)
+        return categoria1 < categoria2;
+
+    return id1 < id2;
+}
+
+// Metodo publico para insertar 
 void AVL::Insertar(int id, int numero, string piso, int tipo, int estado)
 {
     bool Hh = false;
-    InsertarBalanceado(raiz, Hh, id, numero, piso, tipo, estado);
+    InsertarBalanceado(raiz, Hh, 1, id, numero, piso, tipo, estado, 0, 0, 0, "", "", "");
+}
+
+void AVL::InsertarCita(int id, int paciente, int medico,
+    int especialidad, string fecha,
+    string hora, string motivo, int estado)
+{
+    bool Hh = false;
+    InsertarBalanceado(raiz, Hh, 2, id, 0, "", 0, estado,
+        paciente, medico, especialidad, fecha, hora, motivo);
 }
 
 // Busca un id de habitacion
@@ -108,15 +133,28 @@ pNodoAVL AVL::buscarNodo(pNodoAVL n, int id){
 }
 
 // InsertarBalanceado
-void AVL::InsertarBalanceado(pNodoAVL& raiz, bool& Hh, int id, int numero, string piso, int tipo, int estado){
+void AVL::InsertarBalanceado(
+    pNodoAVL& raiz, bool& Hh,int categoria, int id, int numero, string piso,
+    int tipo, int estado, int paciente, int medico, int especialidad, string fecha, string hora, string motivo){
     pNodoAVL n1;
     if (raiz == nullptr)
     {
-        raiz = new NodoAVL(id, numero, piso, tipo, estado);
+        raiz = new NodoAVL(categoria, id);
+        raiz->numero = numero;
+        raiz->piso = piso;
+        raiz->tipo = tipo;
+        raiz->estado = estado;
+        raiz->idPaciente = paciente;
+        raiz->idMedico = medico;
+        raiz->idEspecialidad = especialidad;
+        raiz->fecha = fecha;
+        raiz->hora = hora;
+        raiz->motivo = motivo;
         Hh = true;
     }else{
         if (id < raiz->idHabitacion){
-            InsertarBalanceado(raiz->Hizq, Hh, id, numero, piso, tipo, estado);
+            InsertarBalanceado(raiz->Hizq, Hh, categoria, id, numero, piso,
+                tipo, estado, paciente, medico, especialidad, fecha, hora, motivo);
             if (Hh){
                 switch (raiz->FB)
                 {
@@ -143,7 +181,8 @@ void AVL::InsertarBalanceado(pNodoAVL& raiz, bool& Hh, int id, int numero, strin
         }
         else if (id > raiz->idHabitacion)
         {
-            InsertarBalanceado(raiz->Hder, Hh, id, numero, piso, tipo, estado);
+            InsertarBalanceado(raiz->Hder, Hh, categoria, id, numero, piso,
+                tipo, estado, paciente, medico, especialidad, fecha, hora, motivo);
             if (Hh){
                 switch (raiz->FB)
                 {

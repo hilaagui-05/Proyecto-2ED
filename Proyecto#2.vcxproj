@@ -132,6 +132,8 @@
     <ClCompile Include="CRUD\crudTratamiento.cpp" />
     <ClCompile Include="CRUD\crudPacientes.cpp" />
     <ClCompile Include="CRUD\crudMedicos.cpp" />
+    <ClCompile Include="CRUD\crudCitas.cpp" />
+    <ClCompile Include="CRUD\crudHospitalizaciones.cpp" />
     <ClCompile Include="arboles\ABBusqueda.cpp" />
     <ClCompile Include="arboles\AVL.cpp" />
     <ClCompile Include="arboles\BinarioAA.cpp" />

@@ -7,14 +7,15 @@
 #include "../arboles/AVL.h"
 #include "../arboles/arbolB.h"
 
-
 // Arboles
 extern ABBusqueda arbolPaises; //extern para que se pueda usar en otros archivos
 extern ABBusqueda arbolCiudades;
 extern BinarioRN arbolTratamientos; //variable compartida
+extern BinarioRN arbolHospitalizaciones;
 extern BinarioAA arbolDiagnosticos;
 extern BinarioAA arbolEspecialidades;
 extern AVL arbolHabitaciones;
+extern AVL arbolCitas;
 extern ArbolB arbolPacientes;
 extern ArbolB arbolMedicos;
 
@@ -54,6 +55,16 @@ void mostrarPacientes();
 void insertarMedico();
 void buscarMedico();
 void mostrarMedicos();
+
+// Citas
+void insertarCita();
+void buscarCita();
+void mostrarCitas();
+
+// Hospitalizaciones
+void insertarHospitalizacion();
+void buscarHospitalizacion();
+void mostrarHospitalizaciones();
 
 
 #endif

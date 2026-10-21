@@ -9,16 +9,41 @@ BinarioRN::BinarioRN()
     raiz = nullptr;
 }
 
+void BinarioRN::Insertar(int id, int paciente, int habitacion, int medico,
+    string ingreso, string salida, string motivo)
+{
+    pNodoRN nuevo = new NodoRN(2, id);
+    nuevo->idPaciente = paciente;
+    nuevo->idHabitacion = habitacion;
+    nuevo->idMedico = medico;
+    nuevo->fechaIngreso = ingreso;
+    nuevo->fechaSalida = salida;
+    nuevo->motivo = motivo;
+    InsertarRN(nuevo);
+    ArreglaInsercion(nuevo);
+}
+
 //Destructor
 BinarioRN::~BinarioRN()
 {
     LiberarMemoria(raiz);
 }
 
-//insertar tratamiento
+bool BinarioRN::menor(int categoria1, int id1,
+    int categoria2, int id2)
+{
+    if (categoria1 != categoria2)
+        return categoria1 < categoria2;
+
+    return id1 < id2;
+}
+
 void BinarioRN::Insertar(int idTratamiento, string nombre, string descripcion, int costo)
 {
-    pNodoRN nuevo = new NodoRN(idTratamiento, nombre, descripcion, costo);
+    pNodoRN nuevo = new NodoRN(1, idTratamiento);
+    nuevo->nombre = nombre;
+    nuevo->descripcion = descripcion;
+    nuevo->costo = costo;
     InsertarRN(nuevo);
     ArreglaInsercion(nuevo);
 }
@@ -32,10 +57,11 @@ void BinarioRN::InsertarRN(pNodoRN nodo)
 	// Encuentra la posición correcta para el nuevo nodo
     while (actual != nullptr){
         padre = actual;
-        if (nodo-> codigo < actual->codigo)
-            actual = actual->Hizq;
+        int idActual;
+        if (actual->categoria == 1)
+            idActual = actual->codigo;
         else
-            actual = actual->Hder;
+            idActual = actual->idHospitalizacion;
     }
 
     nodo->padre = padre; 
