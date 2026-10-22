@@ -56,14 +56,21 @@ bool AVL::BuscarValor(int id)
 void AVL::mostrarPorCodigo(int id){
     pNodoAVL nodo = buscarNodo(raiz, id);
     if (nodo != nullptr){
+        if (nodo->categoria == 2){ //si es una cita se muestra como cita
+            mostrarCita(id);
+            return;
+        }
         string tipo;
         string estado;
         switch (nodo->tipo){
         case 1:
-            tipo = "UCI";
+            tipo = "Individual";
             break;
         case 2:
-            tipo = "Individual";
+            tipo = "Compartida";
+            break;
+        case 3:
+            tipo = "UCI";
             break;
         default:
             tipo = "Desconocido";
@@ -71,10 +78,10 @@ void AVL::mostrarPorCodigo(int id){
         }
 
         switch (nodo->estado){
-        case 1:
+        case 0:
             estado = "Disponible";
             break;
-        case 2:
+        case 1:
             estado = "Ocupada";
             break;
         default:
@@ -87,6 +94,57 @@ void AVL::mostrarPorCodigo(int id){
             << " ,Tipo: " << tipo
             << " ,Estado: " << estado << endl;
     }
+}
+
+// Muestra los datos de una cita (no imprime nada si no existe).
+void AVL::mostrarCita(int id){
+    pNodoAVL nodo = buscarNodo(raiz, id);
+    if (nodo != nullptr && nodo->categoria == 2){
+        string estado;
+        if (nodo->estado == 0){
+            estado = "Pendiente";
+        }
+        else if (nodo->estado == 1){
+            estado = "Confirmada";
+        }
+        else{
+            estado = "Desconocido";
+        }
+        cout << "Id: " << nodo->idCita
+            << " ,Paciente: " << nodo->idPaciente
+            << " ,Medico: " << nodo->idMedico
+            << " ,Especialidad: " << nodo->idEspecialidad
+            << " ,Fecha: " << nodo->fecha
+            << " ,Hora: " << nodo->hora
+            << " ,Motivo: " << nodo->motivo
+            << " ,Estado: " << estado << endl;
+    }
+}
+
+// Cambia el estado de una habitacion. Devuelve false si no existe.
+bool AVL::modificarEstadoHabitacion(int id, int nuevoEstado){
+    pNodoAVL nodo = buscarNodo(raiz, id);
+    if (nodo == nullptr || nodo->categoria != 1){
+        return false;
+    }
+    nodo->estado = nuevoEstado;
+    return true;
+}
+
+// Modifica el motivo y/o el estado de una cita. Devuelve false si no existe.
+// Si nuevoMotivo es "" o nuevoEstado es -1, ese dato se deja igual.
+bool AVL::modificarCita(int id, string nuevoMotivo, int nuevoEstado){
+    pNodoAVL nodo = buscarNodo(raiz, id);
+    if (nodo == nullptr || nodo->categoria != 2){
+        return false;
+    }
+    if (!nuevoMotivo.empty()){
+        nodo->motivo = nuevoMotivo;
+    }
+    if (nuevoEstado == 0 || nuevoEstado == 1){
+        nodo->estado = nuevoEstado;
+    }
+    return true;
 }
 
 // Metodo publico para mostrar el arbol en Inorden
@@ -121,10 +179,12 @@ pNodoAVL AVL::buscarNodo(pNodoAVL n, int id){
         return nullptr;
     }
 
-    if (id == n->idHabitacion){
+    // La llave es idHabitacion en el arbol de habitaciones e idCita en el de citas.
+    int idNodo = (n->categoria == 1) ? n->idHabitacion : n->idCita;
+    if (id == idNodo){
         return n;
     }
-    else if (id < n->idHabitacion)
+    else if (id < idNodo)
     {
         return buscarNodo(n->Hizq, id);
     }else{
@@ -152,7 +212,9 @@ void AVL::InsertarBalanceado(
         raiz->motivo = motivo;
         Hh = true;
     }else{
-        if (id < raiz->idHabitacion){
+        // La llave es idHabitacion en el arbol de habitaciones e idCita en el de citas.
+        int idRaiz = (raiz->categoria == 1) ? raiz->idHabitacion : raiz->idCita;
+        if (id < idRaiz){
             InsertarBalanceado(raiz->Hizq, Hh, categoria, id, numero, piso,
                 tipo, estado, paciente, medico, especialidad, fecha, hora, motivo);
             if (Hh){
@@ -179,7 +241,7 @@ void AVL::InsertarBalanceado(
                 }
             }
         }
-        else if (id > raiz->idHabitacion)
+        else if (id > idRaiz)
         {
             InsertarBalanceado(raiz->Hder, Hh, categoria, id, numero, piso,
                 tipo, estado, paciente, medico, especialidad, fecha, hora, motivo);
@@ -304,11 +366,23 @@ void AVL::MostrarInorden(pNodoAVL n)
     if (n != nullptr)
     {
         MostrarInorden(n->Hizq);
-        cout << "Id: " << n->idHabitacion
-            << " ,Numero: " << n->numero
-            << " ,Piso: " << n->piso
-            << " ,Tipo: " << n->tipo
-            << " ,Estado: " << n->estado << endl;
+        if (n->categoria == 2){
+            cout << "Id: " << n->idCita
+                << " ,Paciente: " << n->idPaciente
+                << " ,Medico: " << n->idMedico
+                << " ,Especialidad: " << n->idEspecialidad
+                << " ,Fecha: " << n->fecha
+                << " ,Hora: " << n->hora
+                << " ,Motivo: " << n->motivo
+                << " ,Estado: " << n->estado << endl;
+        }
+        else{
+            cout << "Id: " << n->idHabitacion
+                << " ,Numero: " << n->numero
+                << " ,Piso: " << n->piso
+                << " ,Tipo: " << n->tipo
+                << " ,Estado: " << n->estado << endl;
+        }
         MostrarInorden(n->Hder);
     }
 }

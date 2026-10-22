@@ -44,3 +44,67 @@ void buscarTratamiento()
         cout << "El tratamiento no existe." << endl;
     }
 }
+
+// Revisa que el texto tenga solo digitos (maximo 9 para que quepa en un int).
+bool soloDigitos(string texto)
+{
+    if (texto.empty() || texto.length() > 9) // || es y en cpp
+    {
+        return false;
+    }
+    for (int i = 0; i < (int)texto.length(); i++)
+    {
+        if (texto[i] < '0' || texto[i] > '9')
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+// se valida que el id exista y se puede modificar el nombre, la descripcion y/o el costo.
+void modificarTratamiento()
+{
+    int codTratamiento;
+    string nombre;
+    string descripcion;
+    string textoCosto;
+    int costo = -1; //-1 significa dejar el costo igual
+
+    cout << "Digite el codigo del tratamiento: ";
+    cin >> codTratamiento;
+    cin.ignore(); //ignora el enter pendiente
+    if (!arbolTratamientos.Buscarvalor(codTratamiento)) { //que el tratamiento exista
+        cout << "El tratamiento no existe." << endl;
+        return;
+    }
+    cout << "Datos actuales:";
+    arbolTratamientos.mostrarPorClave(codTratamiento);
+    cout << "Nuevo nombre (Enter para dejarlo igual): ";
+    getline(cin, nombre);
+    cout << "Nueva descripcion (Enter para dejarla igual): ";
+    getline(cin, descripcion);
+    bool costoValido = false;
+    while (!costoValido) {
+        cout << "Nuevo costo (Enter para dejarlo igual): ";
+        getline(cin, textoCosto);
+        if (textoCosto.empty()) {
+            costoValido = true;
+        }
+        else if (soloDigitos(textoCosto)) {
+            costo = stoi(textoCosto);
+            costoValido = true;
+        }
+        else {
+            cout << "Costo no valido, digite solo numeros." << endl;
+        }
+    }
+    if (nombre.empty() && descripcion.empty() && costo == -1) {
+        cout << "No se hicieron cambios." << endl;
+        return;
+    }
+    arbolTratamientos.modificarTratamiento(codTratamiento, nombre, descripcion, costo);
+    cout << "Tratamiento modificado correctamente." << endl;
+    cout << "Datos nuevos:";
+    arbolTratamientos.mostrarPorClave(codTratamiento);
+}

@@ -56,7 +56,24 @@ bool horaValida(string hora)
     return true;
 }
 
-//------ARCHIVOS---------
+// Quita el '\r' final (archivos con saltos de linea de Windows) y devuelve true
+// si la linea no trae datos: vacia o con solo ';' y espacios.
+bool lineaVacia(string& linea)
+{
+    if (!linea.empty() && linea[linea.length() - 1] == '\r')
+    {
+        linea.erase(linea.length() - 1);
+    }
+    for (int i = 0; i < (int)linea.length(); i++)
+    {
+        if (linea[i] != ';' && linea[i] != ' ' && linea[i] != '\t')
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
 void cargarPaises(){
     ifstream archivo("CSV/Paises.csv");
     if (!archivo){
@@ -67,6 +84,7 @@ void cargarPaises(){
     string codigo, nombre;
     getline(archivo, linea); // Saltar encabezado
     while (getline(archivo, linea)){
+        if (lineaVacia(linea)) continue; //ignora filas vacias y quita el \r del final
         stringstream datos(linea);
         getline(datos, codigo, ';');
         getline(datos, nombre);
@@ -91,6 +109,7 @@ void cargarCiudades(){
     getline(archivo, linea); // Saltar encabezado
     while (getline(archivo, linea))
     {
+        if (lineaVacia(linea)) continue; //ignora filas vacias y quita el \r del final
         stringstream datos(linea);
         getline(datos, textoCodPais, ';');
         getline(datos, textoCodCiudad, ';');
@@ -128,6 +147,7 @@ void cargarTratamientos(){
     string idTratamiento, nombre, descripcion, Costo;
     getline(archivo, linea); // Saltar encabezado
     while (getline(archivo, linea)) {
+        if (lineaVacia(linea)) continue; //ignora filas vacias y quita el \r del final
         stringstream datos(linea);
         getline(datos, idTratamiento, ';');
         getline(datos, nombre, ';');
@@ -157,6 +177,7 @@ void cargarDiagnosticos(){
     string descripcion;
     getline(archivo, linea); // Saltar encabezado
     while (getline(archivo, linea)){
+        if (lineaVacia(linea)) continue; //ignora filas vacias y quita el \r del final
         stringstream datos(linea);
         getline(datos, codigo, ';');
         getline(datos, nombre, ';');
@@ -183,6 +204,7 @@ void cargarEspecialidades(){
     string descripcion;
     getline(archivo, linea); // Saltar encabezado
     while (getline(archivo, linea)){
+        if (lineaVacia(linea)) continue; //ignora filas vacias y quita el \r del final
         stringstream datos(linea);
         getline(datos, codigo, ';');
         getline(datos, nombre, ';');
@@ -208,6 +230,7 @@ void cargarHabitaciones(){
     string piso;
     getline(archivo, linea); // Saltar encabezado
     while (getline(archivo, linea)){
+        if (lineaVacia(linea)) continue; //ignora filas vacias y quita el \r del final
         stringstream datos(linea);
         getline(datos, campo, ';');
         int id = stoi(campo);
@@ -240,6 +263,7 @@ void cargarPacientes(){
     string telefono, codPais, codCiudad, correo;
     getline(archivo, linea); // Saltar encabezado
     while (getline(archivo, linea)){
+        if (lineaVacia(linea)) continue; //ignora filas vacias y quita el \r del final
         stringstream datos(linea);
         getline(datos, idPaciente, ';');
         getline(datos, nombre, ';');
@@ -295,6 +319,7 @@ void cargarMedicos(){
     string idMedico, nombre, telefono, correo, idEspecialidad;
     getline(archivo, linea); // Saltar encabezado
     while (getline(archivo, linea)){
+        if (lineaVacia(linea)) continue; //ignora filas vacias y quita el \r del final
         stringstream datos(linea);
         getline(datos, idMedico, ';');
         getline(datos, nombre, ';');
@@ -339,6 +364,7 @@ void cargarCitas() {
     string idCita, idPaciente, idMedico, idEspecialidad, fecha, hora, motivo, estado;
     getline(archivo, linea); // Saltar encabezado
     while (getline(archivo, linea)) {
+        if (lineaVacia(linea)) continue; //ignora filas vacias y quita el \r del final
         if (linea[linea.length() - 1] == '\r') linea.erase(linea.length() - 1); //quita el salto de linea de Windows
         stringstream datos(linea);
         getline(datos, idCita, ';');
@@ -374,6 +400,7 @@ void cargarHospitalizaciones() {
     string idHosp, idPaciente, idHabitacion, idMedico, fechaIngreso, fechaSalida, motivo;
     getline(archivo, linea); // Saltar encabezado
     while (getline(archivo, linea)) {
+        if (lineaVacia(linea)) continue; //ignora filas vacias y quita el \r del final
         if (linea[linea.length() - 1] == '\r') linea.erase(linea.length() - 1); //quita el salto de linea de Windows
         stringstream datos(linea);
         getline(datos, idHosp, ';');
@@ -531,22 +558,24 @@ void menuBusquedas() {
     } while (opcion != 0);
 }
 
-/*void menuModificaciones()
-{
+void menuModificaciones() {
     int opcion;
     do {
         cout << "\n===== MODIFICACIONES =====" << endl;
         cout << "1. Pais" << endl;
         cout << "2. Ciudad" << endl;
         cout << "3. Paciente" << endl;
-        cout << "4. Medico" << endl;
+        cout << "4. Médico" << endl;
         cout << "5. Especialidad" << endl;
-        cout << "6. Cita" << endl;
-        cout << "7. Habitacion" << endl;
+        cout << "6. Habitacion" << endl;
+        cout << "7. Cita" << endl;
         cout << "8. Hospitalizacion" << endl;
+        cout << "9. Diagnostico" << endl;
+        cout << "10. Tratamiento" << endl;
         cout << "0. Regresar" << endl;
         cout << "Digite una opcion: ";
         cin >> opcion;
+
         switch (opcion)
         {
         case 1:
@@ -565,13 +594,19 @@ void menuBusquedas() {
             modificarEspecialidad();
             break;
         case 6:
-            modificarCita();
+            modificarHabitacion();
             break;
         case 7:
-            modificarHabitacion();
+            modificarCita();
             break;
         case 8:
             modificarHospitalizacion();
+            break;
+        case 9:
+            modificarDiagnostico();
+            break;
+        case 10:
+            modificarTratamiento();
             break;
         case 0:
             cout << "Regresando..." << endl;
@@ -580,7 +615,7 @@ void menuBusquedas() {
             cout << "Opcion no valida." << endl;
         }
     } while (opcion != 0);
-}*/
+}
 
 void menuMantenimiento() {
     int opcion;
@@ -588,6 +623,7 @@ void menuMantenimiento() {
         cout << "\n===== MANTENIMIENTO DE LA BASE DE DATOS =====" << endl;
         cout << "1. Inserciones" << endl;
         cout << "2. Busquedas" << endl;
+        cout << "3. Modificaciones" << endl;
         cout << "0. Regresar" << endl;
         cout << "Digite una opcion: ";
         cin >> opcion;
@@ -598,6 +634,9 @@ void menuMantenimiento() {
             break;
         case 2:
             menuBusquedas();
+            break;
+        case 3:
+            menuModificaciones();
             break;
         case 0:
             cout << "Regresando..." << endl;

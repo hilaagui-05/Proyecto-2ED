@@ -94,6 +94,18 @@ void BinarioAA::mostrarPorCodigo(string codigo)
     }
 }
 
+// Cambia la descripcion del nodo con ese codigo. Devuelve false si no existe.
+bool BinarioAA::modificarDescripcion(string codigo, string nuevaDescripcion)
+{
+    NodoAA* nodo = buscarRec(raiz, codigo);
+    if (nodo == nullptr)
+    {
+        return false;
+    }
+    nodo->descripcion = nuevaDescripcion;
+    return true;
+}
+
 // Busqueda recursiva.
 NodoAA* BinarioAA::buscarRec(NodoAA* nodo, string codigo)
 {

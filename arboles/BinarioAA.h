@@ -26,6 +26,7 @@ public:
     void Insertar(string codigo, string nombre, string descripcion);
     bool Buscarvalor(string codigo);
     void mostrarPorCodigo(string codigo); // muestra los datos si el codigo existe
+    bool modificarDescripcion(string codigo, string nuevaDescripcion); // false si el codigo no existe
     void mostrarPreorden();
     bool estaVacio();
     void limpiar();

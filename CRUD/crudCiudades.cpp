@@ -49,3 +49,35 @@ void buscarCiudad() {
         cout << "La ciudad no existe." << endl;
     }
 }
+
+// se valida que el pais y la ciudad existan y se puede modificar el nombre
+void modificarCiudad(){
+    int codPais;
+    int codCiudad;
+    string nombre;
+    cout << "Digite el codigo del pais: ";
+    cin >> codPais;
+    cout << "Digite el codigo de la ciudad: ";
+    cin >> codCiudad;
+    cin.ignore(); //ignora el enter pendiente
+    if (!arbolPaises.Buscarvalor(codPais)){ //que el pais exista
+        cout << "El pais no existe." << endl;
+        return;
+    }
+    if (!arbolCiudades.Buscarvalor(codPais, codCiudad)){ //que la ciudad exista en ese pais
+        cout << "La ciudad no existe." << endl;
+        return;
+    }
+    cout << "Datos actuales: ";
+    arbolCiudades.mostrarPorClave(codPais, codCiudad);
+    cout << "Nuevo nombre (Enter para dejarlo igual): ";
+    getline(cin, nombre);
+    if (nombre.empty()){
+        cout << "No se hicieron cambios." << endl;
+        return;
+    }
+    arbolCiudades.modificarNombre(codPais, codCiudad, nombre);
+    cout << "Ciudad modificada correctamente." << endl;
+    cout << "Datos nuevos: ";
+    arbolCiudades.mostrarPorClave(codPais, codCiudad);
+}

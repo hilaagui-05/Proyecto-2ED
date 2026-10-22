@@ -75,3 +75,49 @@ void mostrarPacientes()
 {
     arbolPacientes.Imprimir();
 }
+
+// se valida que la ciudad exista y que el paciente exista en esa ciudad
+// se puede modificar el telefono y/o el correo
+void modificarPaciente(){
+    int idPaciente, codPais, codCiudad;
+    string telefono, correo;
+    cout << "Codigo del pais: ";
+    cin >> codPais;
+    cout << "Codigo de la ciudad: ";
+    cin >> codCiudad;
+    if (!arbolCiudades.Buscarvalor(codPais, codCiudad)){ //que la ciudad exista
+        cout << "La ciudad no existe para ese pais." << endl;
+        return;
+    }
+    cout << "Id del paciente: ";
+    cin >> idPaciente;
+    cin.ignore(); //ignora el enter pendiente
+    RegistroB* paciente = arbolPacientes.Buscar(idPaciente);
+    if (paciente == nullptr ||
+        paciente->codPais != codPais ||
+        paciente->codCiudad != codCiudad)
+    {
+        cout << "No existe ese paciente en la ciudad indicada." << endl;
+        return;
+    }
+    cout << "Nombre: " << paciente->nombre << endl;
+    cout << "Telefono actual: " << paciente->telefono << endl;
+    cout << "Nuevo telefono (Enter para dejarlo igual): ";
+    getline(cin, telefono);
+    cout << "Correo actual: " << paciente->correo << endl;
+    cout << "Nuevo correo (Enter para dejarlo igual): ";
+    getline(cin, correo);
+    if (telefono.empty() && correo.empty()){
+        cout << "No se hicieron cambios." << endl;
+        return;
+    }
+    if (!telefono.empty()){
+        paciente->telefono = telefono; //se modifica directamente en el arbol B
+    }
+    if (!correo.empty()){
+        paciente->correo = correo;
+    }
+    cout << "Paciente modificado correctamente." << endl;
+    cout << "Telefono: " << paciente->telefono << endl;
+    cout << "Correo: " << paciente->correo << endl;
+}

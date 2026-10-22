@@ -79,3 +79,43 @@ void mostrarHospitalizaciones()
 {
     arbolHospitalizaciones.Mostrar();
 }
+
+// se valida que el paciente, la habitacion y la hospitalizacion existan
+// se puede modificar el motivo
+void modificarHospitalizacion() {
+    int idHospitalizacion;
+    int idPaciente;
+    int idHabitacion;
+    string motivo;
+    cout << "Id del paciente: ";
+    cin >> idPaciente;
+    if (arbolPacientes.Buscar(idPaciente) == nullptr) { //que el paciente exista
+        cout << "El paciente no existe." << endl;
+        return;
+    }
+    cout << "Id de la habitacion: ";
+    cin >> idHabitacion;
+    if (!arbolHabitaciones.BuscarValor(idHabitacion)) { //que la habitacion exista
+        cout << "La habitacion no existe." << endl;
+        return;
+    }
+    cout << "Id de la hospitalizacion: ";
+    cin >> idHospitalizacion;
+    cin.ignore(); //ignora el enter pendiente
+    if (!arbolHospitalizaciones.Buscarvalor(idHospitalizacion)) { //que la hospitalizacion exista
+        cout << "La hospitalizacion no existe." << endl;
+        return;
+    }
+    cout << "Datos actuales:" << endl;
+    arbolHospitalizaciones.mostrarPorClave(idHospitalizacion);
+    cout << "Nuevo motivo (Enter para dejarlo igual): ";
+    getline(cin, motivo);
+    if (motivo.empty()) {
+        cout << "No se hicieron cambios." << endl;
+        return;
+    }
+    arbolHospitalizaciones.modificarHospitalizacion(idHospitalizacion, motivo);
+    cout << "Hospitalizacion modificada correctamente." << endl;
+    cout << "Datos nuevos:" << endl;
+    arbolHospitalizaciones.mostrarPorClave(idHospitalizacion);
+}

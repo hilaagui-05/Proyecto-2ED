@@ -91,6 +91,10 @@ public:
     void mostrarPorClave(int codigo);
     void mostrarPorClave(int codPais, int codCiudad);
 
+    // Modificar: cambia el nombre de un pais (codCiudad = 0) o de una ciudad.
+    // Devuelve false si no existe.
+    bool modificarNombre(int codPais, int codCiudad, string nuevoNombre);
+
     void InordenR();
     void PreordenR();
     void PostordenR();

@@ -302,6 +302,16 @@ pnodo ABBusqueda::buscarNodo(pnodo raiz, int codPais, int codCiudad){
     }
 }
 
+// Cambia el nombre de un pais (codCiudad = 0) o de una ciudad. Devuelve false si no existe.
+bool ABBusqueda::modificarNombre(int codPais, int codCiudad, string nuevoNombre){
+    pnodo encontrado = buscarNodo(raiz, codPais, codCiudad);
+    if (encontrado == nullptr){
+        return false;
+    }
+    encontrado->nombre = nuevoNombre;
+    return true;
+}
+
 // Busca y muestra un pais por su codigo.
 void ABBusqueda::mostrarPorClave(int codigo){
     if (tipoClave != TipoClave::Pais){
@@ -337,7 +347,7 @@ pnodo ABBusqueda::InsertaBinario(pnodo raiz,int codPais,int codCiudad,string nom
     }
     else if (comparacion > 0)
     {
-       raiz->Hder = InsertaBinario(raiz->Hder,codPais,codCiudad,nombre);
+        raiz->Hder = InsertaBinario(raiz->Hder,codPais,codCiudad,nombre);
     }
     return raiz;
 }
@@ -405,4 +415,3 @@ void ABBusqueda::destruirArbol(pnodo raiz){
     destruirArbol(raiz->Hder);
     delete raiz;
 }
-

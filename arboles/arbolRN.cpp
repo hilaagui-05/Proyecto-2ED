@@ -54,6 +54,13 @@ void BinarioRN::InsertarRN(pNodoRN nodo)
     pNodoRN actual = raiz;
     pNodoRN padre = nullptr;
 
+    // La llave es codigo en el arbol de tratamientos e idHospitalizacion en el de hospitalizaciones
+    int idNuevo;
+    if (nodo->categoria == 1)
+        idNuevo = nodo->codigo;
+    else
+        idNuevo = nodo->idHospitalizacion;
+
 	// Encuentra la posición correcta para el nuevo nodo
     while (actual != nullptr){
         padre = actual;
@@ -62,13 +69,26 @@ void BinarioRN::InsertarRN(pNodoRN nodo)
             idActual = actual->codigo;
         else
             idActual = actual->idHospitalizacion;
+        // Avanza hacia el hijo correspondiente (antes no avanzaba y el ciclo era infinito)
+        if (idNuevo < idActual)
+            actual = actual->Hizq;
+        else
+            actual = actual->Hder;
+    }
+
+    int idPadre = 0;
+    if (padre != nullptr) {
+        if (padre->categoria == 1)
+            idPadre = padre->codigo;
+        else
+            idPadre = padre->idHospitalizacion;
     }
 
     nodo->padre = padre; 
     if (padre == nullptr) {
         raiz = nodo;
     }
-    else if (nodo->codigo < padre->codigo) {
+    else if (idNuevo < idPadre) {
         padre->Hizq = nodo;
     }
     else { 
@@ -199,9 +219,51 @@ void BinarioRN::RotDerecha(pNodoRN nodo)
 bool BinarioRN::Buscarvalor(int idTratamiento){
     pNodoRN actual = raiz;
     while (actual != nullptr){
-        if (idTratamiento == actual -> codigo)
+        // La llave es codigo (tratamientos) o idHospitalizacion (hospitalizaciones)
+        int idActual = (actual->categoria == 1) ? actual->codigo : actual->idHospitalizacion;
+        if (idTratamiento == idActual)
             return true;
-        if (idTratamiento < actual -> codigo)
+        if (idTratamiento < idActual)
+            actual = actual->Hizq;
+        else
+            actual = actual->Hder;
+    }
+    return false;
+}
+
+// Cambia nombre, descripcion y/o costo de un tratamiento. Devuelve false si no existe.
+// Si nombre o descripcion son "" o el costo es -1, ese dato se deja igual.
+bool BinarioRN::modificarTratamiento(int id, string nombre, string descripcion, int costo)
+{
+    pNodoRN actual = raiz;
+    while (actual != nullptr){
+        if (id == actual->codigo){
+            if (!nombre.empty())
+                actual->nombre = nombre;
+            if (!descripcion.empty())
+                actual->descripcion = descripcion;
+            if (costo >= 0)
+                actual->costo = costo;
+            return true;
+        }
+        if (id < actual->codigo)
+            actual = actual->Hizq;
+        else
+            actual = actual->Hder;
+    }
+    return false;
+}
+
+// Cambia el motivo de una hospitalizacion. Devuelve false si no existe.
+bool BinarioRN::modificarHospitalizacion(int id, string nuevoMotivo)
+{
+    pNodoRN actual = raiz;
+    while (actual != nullptr){
+        if (id == actual->idHospitalizacion){
+            actual->motivo = nuevoMotivo;
+            return true;
+        }
+        if (id < actual->idHospitalizacion)
             actual = actual->Hizq;
         else
             actual = actual->Hder;
@@ -214,7 +276,19 @@ void BinarioRN::mostrarPorClave(int idTratamiento)
 {
     pNodoRN actual = raiz;
     while (actual != nullptr) {
-        if (idTratamiento == actual-> codigo) {
+        // La llave es codigo (tratamientos) o idHospitalizacion (hospitalizaciones)
+        int idActual = (actual->categoria == 1) ? actual->codigo : actual->idHospitalizacion;
+        if (idTratamiento == idActual) {
+            if (actual->categoria == 2) { //si es una hospitalizacion se muestra como tal
+                cout << "\nId: " << actual->idHospitalizacion << endl;
+                cout << "Paciente: " << actual->idPaciente << endl;
+                cout << "Habitacion: " << actual->idHabitacion << endl;
+                cout << "Medico: " << actual->idMedico << endl;
+                cout << "Fecha de ingreso: " << actual->fechaIngreso << endl;
+                cout << "Fecha de salida (0 si sigue hospitalizado): " << actual->fechaSalida << endl;
+                cout << "Motivo: " << actual->motivo << endl;
+                return;
+            }
             cout << "\nCodigo: " << actual-> codigo << endl;
             cout << "Nombre: " << actual->nombre << endl;
             cout << "Descripcion: " << actual->descripcion << endl;
@@ -222,7 +296,7 @@ void BinarioRN::mostrarPorClave(int idTratamiento)
             return;
         }
 
-        if (idTratamiento < actual-> codigo)
+        if (idTratamiento < idActual)
             actual = actual->Hizq;
         else
             actual = actual->Hder;
@@ -246,7 +320,7 @@ void BinarioRN::Mostrar()
 // Recorrido preorden
 void BinarioRN::MostrarPreorden(pNodoRN nodo){
     if (nodo != nullptr){
-        cout << nodo-> codigo << (nodo->color ? "(R) " : "(N) ");
+        cout << ((nodo->categoria == 1) ? nodo->codigo : nodo->idHospitalizacion) << (nodo->color ? "(R) " : "(N) ");
         MostrarPreorden(nodo->Hizq);
         MostrarPreorden(nodo->Hder);
     }
@@ -256,7 +330,7 @@ void BinarioRN::MostrarPreorden(pNodoRN nodo){
 void BinarioRN::MostrarInorden(pNodoRN nodo){
     if (nodo != nullptr){
         MostrarInorden(nodo->Hizq);
-        cout << nodo-> codigo << (nodo->color ? "(R) " : "(N) ");
+        cout << ((nodo->categoria == 1) ? nodo->codigo : nodo->idHospitalizacion) << (nodo->color ? "(R) " : "(N) ");
         MostrarInorden(nodo->Hder);
     }
 }

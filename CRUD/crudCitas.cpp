@@ -81,3 +81,60 @@ void mostrarCitas()
 {
     arbolCitas.Mostrar();
 }
+
+// se valida que el paciente, el medico y la cita existan
+// se puede modificar el motivo y/o el estado
+void modificarCita() {
+    int idPaciente;
+    int idMedico;
+    int idCita;
+    string motivo;
+    string textoEstado;
+    int estado = -1; //-1 significa dejar el estado igual
+    cout << "Id del paciente: ";
+    cin >> idPaciente;
+    if (arbolPacientes.Buscar(idPaciente) == nullptr) { //que el paciente exista
+        cout << "El paciente no existe." << endl;
+        return;
+    }
+    cout << "Id del medico: ";
+    cin >> idMedico;
+    if (arbolMedicos.Buscar(idMedico) == nullptr) { //que el medico exista
+        cout << "El medico no existe." << endl;
+        return;
+    }
+    cout << "Id de la cita: ";
+    cin >> idCita;
+    cin.ignore(); //ignora el enter pendiente
+    if (!arbolCitas.BuscarValor(idCita)) { //que la cita exista
+        cout << "La cita no existe." << endl;
+        return;
+    }
+    cout << "Datos actuales: " << endl;
+    arbolCitas.mostrarPorCodigo(idCita);
+    cout << "Nuevo motivo (Enter para dejarlo igual): ";
+    getline(cin, motivo);
+    bool estadoValido = false;
+    while (!estadoValido) {
+        cout << "Nuevo estado (0 pendiente, 1 confirmada, Enter para dejarlo igual): ";
+        getline(cin, textoEstado);
+        if (textoEstado.empty()) {
+            estadoValido = true;
+        }
+        else if (textoEstado == "0" || textoEstado == "1") {
+            estado = stoi(textoEstado);
+            estadoValido = true;
+        }
+        else {
+            cout << "Estado no valido, digite 0 o 1." << endl;
+        }
+    }
+    if (motivo.empty() && estado == -1) {
+        cout << "No se hicieron cambios." << endl;
+        return;
+    }
+    arbolCitas.modificarCita(idCita, motivo, estado);
+    cout << "Cita modificada correctamente." << endl;
+    cout << "Datos nuevos: " << endl;
+    arbolCitas.mostrarPorCodigo(idCita);
+}

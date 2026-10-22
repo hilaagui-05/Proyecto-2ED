@@ -45,3 +45,28 @@ void mostrarDiagnosticos()
 {
     arbolDiagnosticos.mostrarPreorden();
 }
+
+// se valida que el codigo exista y se puede modificar la descripcion.
+void modificarDiagnostico(){
+    string codigo;
+    string descripcion;
+    cout << "Digite el codigo del diagnostico: ";
+    cin >> codigo;
+    cin.ignore(); //ignora el enter pendiente
+    if (!arbolDiagnosticos.Buscarvalor(codigo)){ //que el diagnostico exista
+        cout << "El diagnostico no existe." << endl;
+        return;
+    }
+    cout << "Datos actuales: " << endl;
+    arbolDiagnosticos.mostrarPorCodigo(codigo);
+    cout << "Nueva descripcion (Enter para dejarla igual): ";
+    getline(cin, descripcion);
+    if (descripcion.empty()){
+        cout << "No se hicieron cambios." << endl;
+        return;
+    }
+    arbolDiagnosticos.modificarDescripcion(codigo, descripcion);
+    cout << "Diagnostico modificado correctamente." << endl;
+    cout << "Datos nuevos: " << endl;
+    arbolDiagnosticos.mostrarPorCodigo(codigo);
+}

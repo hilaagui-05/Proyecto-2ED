@@ -39,3 +39,28 @@ void buscarPais(){
 }
 
 
+
+// se valida que el codigo exista y se puede modificar el nombre.
+void modificarPais(){
+    int codPais;
+    string nombre;
+    cout << "Digite el codigo del pais: ";
+    cin >> codPais;
+    cin.ignore(); //ignora el enter pendiente
+    if (!arbolPaises.Buscarvalor(codPais)){ //que el pais exista
+        cout << "El pais no existe." << endl;
+        return;
+    }
+    cout << "Datos actuales: ";
+    arbolPaises.mostrarPorClave(codPais);
+    cout << "Nuevo nombre (Enter para dejarlo igual): ";
+    getline(cin, nombre);
+    if (nombre.empty()){
+        cout << "No se hicieron cambios." << endl;
+        return;
+    }
+    arbolPaises.modificarNombre(codPais, 0, nombre);
+    cout << "Pais modificado correctamente." << endl;
+    cout << "Datos nuevos: ";
+    arbolPaises.mostrarPorClave(codPais);
+}

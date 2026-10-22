@@ -51,3 +51,37 @@ void mostrarHabitaciones()
 {
     arbolHabitaciones.Mostrar();
 }
+
+// se valida que el id exista y se puede modificar el estado.
+void modificarHabitacion(){
+    int id;
+    string textoEstado;
+    cout << "Digite el id de la habitacion: ";
+    cin >> id;
+    cin.ignore(); //ignora el enter pendiente
+    if (!arbolHabitaciones.BuscarValor(id)){ //que la habitacion exista
+        cout << "La habitacion no existe." << endl;
+        return;
+    }
+    cout << "Datos actuales: ";
+    arbolHabitaciones.mostrarPorCodigo(id);
+    bool estadoValido = false;
+    while (!estadoValido){
+        cout << "Nuevo estado (0 disponible, 1 ocupada, Enter para dejarlo igual): ";
+        getline(cin, textoEstado);
+        if (textoEstado.empty()){
+            cout << "No se hicieron cambios." << endl;
+            return;
+        }
+        if (textoEstado == "0" || textoEstado == "1"){
+            estadoValido = true;
+        }
+        else{
+            cout << "Estado no valido, digite 0 o 1." << endl;
+        }
+    }
+    arbolHabitaciones.modificarEstadoHabitacion(id, stoi(textoEstado));
+    cout << "Habitacion modificada correctamente." << endl;
+    cout << "Datos nuevos: ";
+    arbolHabitaciones.mostrarPorCodigo(id);
+}

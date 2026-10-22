@@ -38,6 +38,11 @@ public:
     bool BuscarValor(int id);
     void mostrarPorCodigo(int id);
 
+    // Modificar (devuelven false si el id no existe)
+    bool modificarEstadoHabitacion(int id, int nuevoEstado);
+    // motivo "" o estado -1 significa dejar ese dato igual
+    bool modificarCita(int id, std::string nuevoMotivo, int nuevoEstado);
+
     // Citas: categoria 2
     void InsertarCita(int id, int paciente, int medico,
         int especialidad, std::string fecha,

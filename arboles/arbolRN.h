@@ -35,6 +35,12 @@ public:
     bool Buscarvalor(int id);
     void mostrarPorClave(int id);
 
+    // Modificar (devuelven false si el id no existe)
+    // nombre "" , descripcion "" o costo -1 significa dejar ese dato igual
+    bool modificarTratamiento(int id, std::string nombre,
+        std::string descripcion, int costo);
+    bool modificarHospitalizacion(int id, std::string nuevoMotivo);
+
     // Hospitalizaciones: categoria 2
     void InsertarHospitalizacion(int id, int paciente,
         int habitacion, int medico, std::string ingreso, std::string salida, std::string motivo);
