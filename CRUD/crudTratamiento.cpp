@@ -48,7 +48,7 @@ void buscarTratamiento()
 // Revisa que el texto tenga solo digitos (maximo 9 para que quepa en un int).
 bool soloDigitos(string texto)
 {
-    if (texto.empty() || texto.length() > 9) // || es y en cpp
+    if (texto.empty() || texto.length() > 9) // || es o en cpp
     {
         return false;
     }
