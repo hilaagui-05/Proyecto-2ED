@@ -448,7 +448,7 @@ void menuInserciones() {
         cout << "1. Pais" << endl;
         cout << "2. Ciudad" << endl;
         cout << "3. Paciente" << endl;
-        cout << "4. Médico" << endl;
+        cout << "4. Medico" << endl;
         cout << "5. Especialidad" << endl;
         cout << "6. Habitacion" << endl;
         cout << "7. Cita" << endl;
@@ -506,7 +506,7 @@ void menuBusquedas() {
         cout << "1. Pais" << endl;
         cout << "2. Ciudad" << endl;
         cout << "3. Paciente" << endl;
-        cout << "4. Médico" << endl;
+        cout << "4. Medico" << endl;
         cout << "5. Especialidad" << endl;
         cout << "6. Habitacion" << endl;
         cout << "7. Cita" << endl;
@@ -565,7 +565,7 @@ void menuModificaciones() {
         cout << "1. Pais" << endl;
         cout << "2. Ciudad" << endl;
         cout << "3. Paciente" << endl;
-        cout << "4. Médico" << endl;
+        cout << "4. Medico" << endl;
         cout << "5. Especialidad" << endl;
         cout << "6. Habitacion" << endl;
         cout << "7. Cita" << endl;
