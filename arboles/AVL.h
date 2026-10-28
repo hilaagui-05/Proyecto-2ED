@@ -53,6 +53,7 @@ public:
     void Mostrar();
     bool EstaVacio();
     void Limpiar();
+    pNodoAVL obtenerRaiz(); // devuelve la raiz para recorrer el arbol en los reportes
 };
 
 #endif

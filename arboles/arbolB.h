@@ -17,6 +17,7 @@ public:
     ArbolB();
     void Insertar(const RegistroB& registro);
     RegistroB* Buscar(int clave);
+    Pagina* obtenerRaiz(); // devuelve la raiz para recorrer el arbol en los reportes
     void Imprimir();
 };
 

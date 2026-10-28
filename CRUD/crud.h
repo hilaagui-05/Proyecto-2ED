@@ -76,5 +76,26 @@ void buscarHospitalizacion();
 void modificarHospitalizacion();
 void mostrarHospitalizaciones();
 
+// Reportes 
+extern string fechaHoraEmision; // fecha y hora que se escribe en todos los reportes
+
+void reportePaises();
+void reporteCiudades();
+void reportePacientes();
+void reporteEspecialidades();
+void reporteHabitacionesDisponibles();
+void reporteHabitacionesOcupadas();
+void reporteHospitalizaciones();
+void reporteHospitalizacionesPorMedico();
+void reporteMedicos();
+void reporteMedicosPorEspecialidad();
+void reporteCitasPorFecha();
+void reporteCitasPorEspecialidad();
+void reporteCitasPorMedico();
+void reportePacientesPorPais();
+void reportePacientesPorCiudad();
+void reporteCitasPorPaciente();
+void reporteDiagnosticos();
+void reporteTratamientos();
 
 #endif

@@ -173,3 +173,8 @@ void BinarioAA::liberarMemoria(NodoAA* nodo)
         delete nodo;
     }
 }
+
+NodoAA* BinarioAA::obtenerRaiz()
+{
+    return raiz;
+}

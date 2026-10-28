@@ -30,6 +30,7 @@ public:
     void mostrarPreorden();
     bool estaVacio();
     void limpiar();
+    NodoAA* obtenerRaiz(); // devuelve la raiz para recorrer el arbol en los reportes
 };
 
 #endif

@@ -174,3 +174,8 @@ void ArbolB::Imprimir() {
     cout << "Recorrido en preorden:\n";
     Mostrar(Raiz, 0);
 }
+
+Pagina* ArbolB::obtenerRaiz()
+{
+    return Raiz;
+}

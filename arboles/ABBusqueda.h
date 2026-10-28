@@ -95,6 +95,8 @@ public:
     // Devuelve false si no existe.
     bool modificarNombre(int codPais, int codCiudad, string nuevoNombre);
 
+    pnodo obtenerRaiz(); // devuelve la raiz para recorrer el arbol en los reportes
+
     void InordenR();
     void PreordenR();
     void PostordenR();

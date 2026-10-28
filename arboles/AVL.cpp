@@ -395,3 +395,8 @@ void AVL::LiberarMemoria(pNodoAVL n){
         delete n;
     }
 }
+
+pNodoAVL AVL::obtenerRaiz()
+{
+    return raiz;
+}

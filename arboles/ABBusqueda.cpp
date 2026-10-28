@@ -245,7 +245,7 @@ void ABBusqueda::postordenI(){
     }
 }
 
-//--------METODOS PRIVADOS ------------
+//METODOS PRIVADOS
 
 // Compara las claves segun el tipo de arbol.
 // Devuelve -1 si es menor, 0 si es igual y 1 si es mayor.
@@ -414,4 +414,9 @@ void ABBusqueda::destruirArbol(pnodo raiz){
     destruirArbol(raiz->Hizq);
     destruirArbol(raiz->Hder);
     delete raiz;
+}
+
+pnodo ABBusqueda::obtenerRaiz()
+{
+    return raiz;
 }

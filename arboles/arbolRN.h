@@ -50,6 +50,7 @@ public:
     void Mostrar();
     bool EstaVacio();
     void Limpiar();
+    pNodoRN obtenerRaiz(); // devuelve la raiz para recorrer el arbol en los reportes
 };
 
 #endif

@@ -357,3 +357,8 @@ void BinarioRN::LiberarMemoria(pNodoRN nodo)
         delete nodo;
     }
 }
+
+pNodoRN BinarioRN::obtenerRaiz()
+{
+    return raiz;
+}

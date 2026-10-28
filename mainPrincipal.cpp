@@ -438,6 +438,28 @@ void cargarArchivos()
     cargarHospitalizaciones();
 }
 
+// Pide la fecha y la hora que se escriben en los reportes (se usan las validaciones de arriba)
+void pedirFechaHoraEmision()
+{
+    string fecha;
+    string hora;
+    do {
+        cout << "Fecha de hoy (AAAA-MM-DD): ";
+        cin >> fecha;
+        if (!fechaValida(fecha)) {
+            cout << "La fecha no es valida." << endl;
+        }
+    } while (!fechaValida(fecha) && cin.good());
+    do {
+        cout << "Hora actual (HH:MM): ";
+        cin >> hora;
+        if (!horaValida(hora)) {
+            cout << "La hora no es valida." << endl;
+        }
+    } while (!horaValida(hora) && cin.good());
+    fechaHoraEmision = fecha + " " + hora;
+}
+
 
 //---------MENÚ-------
 
@@ -607,6 +629,100 @@ void menuModificaciones() {
             break;
         case 10:
             modificarTratamiento();
+            break;
+        case 0:
+            cout << "Regresando..." << endl;
+            break;
+        default:
+            cout << "Opcion no valida." << endl;
+        }
+    } while (opcion != 0);
+}
+
+void menuReportes() {
+    int opcion;
+    if (fechaHoraEmision == "") { //solo la primera vez que se entra
+        pedirFechaHoraEmision();
+    }
+    do {
+        cout << "\n===== REPORTES =====" << endl;
+        cout << "1. Paises" << endl;
+        cout << "2. Ciudades de un pais" << endl;
+        cout << "3. Pacientes" << endl;
+        cout << "4. Especialidades" << endl;
+        cout << "5. Habitaciones disponibles" << endl;
+        cout << "6. Habitaciones ocupadas" << endl;
+        cout << "7. Hospitalizaciones" << endl;
+        cout << "8. Hospitalizaciones de un medico" << endl;
+        cout << "9. Medicos" << endl;
+        cout << "10. Medicos de una especialidad" << endl;
+        cout << "11. Citas por fecha" << endl;
+        cout << "12. Citas por especialidad" << endl;
+        cout << "13. Citas de un medico" << endl;
+        cout << "14. Pacientes de un pais" << endl;
+        cout << "15. Pacientes de una ciudad" << endl;
+        cout << "16. Citas de un paciente" << endl;
+        cout << "17. Diagnosticos" << endl;
+        cout << "18. Tratamientos" << endl;
+        cout << "0. Regresar" << endl;
+        cout << "Digite una opcion: ";
+        cin >> opcion;
+
+        switch (opcion)
+        {
+        case 1:
+            reportePaises();
+            break;
+        case 2:
+            reporteCiudades();
+            break;
+        case 3:
+            reportePacientes();
+            break;
+        case 4:
+            reporteEspecialidades();
+            break;
+        case 5:
+            reporteHabitacionesDisponibles();
+            break;
+        case 6:
+            reporteHabitacionesOcupadas();
+            break;
+        case 7:
+            reporteHospitalizaciones();
+            break;
+        case 8:
+            reporteHospitalizacionesPorMedico();
+            break;
+        case 9:
+            reporteMedicos();
+            break;
+        case 10:
+            reporteMedicosPorEspecialidad();
+            break;
+        case 11:
+            reporteCitasPorFecha();
+            break;
+        case 12:
+            reporteCitasPorEspecialidad();
+            break;
+        case 13:
+            reporteCitasPorMedico();
+            break;
+        case 14:
+            reportePacientesPorPais();
+            break;
+        case 15:
+            reportePacientesPorCiudad();
+            break;
+        case 16:
+            reporteCitasPorPaciente();
+            break;
+        case 17:
+            reporteDiagnosticos();
+            break;
+        case 18:
+            reporteTratamientos();
             break;
         case 0:
             cout << "Regresando..." << endl;
