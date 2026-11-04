@@ -64,3 +64,12 @@ void modificarPais(){
     cout << "Datos nuevos: ";
     arbolPaises.mostrarPorClave(codPais);
 }
+
+// Funciones para la interfaz gráfica
+bool paisExiste(int codigo) {
+    return arbolPaises.Buscarvalor(codigo);
+}
+
+void paisInsertar(int codigo, const char* nombre) {
+    arbolPaises.InsertaNodo(codigo, 0, string(nombre));
+}

@@ -1,5 +1,5 @@
 //Elaborado por : Hilary Aguilar y Arina Tarasova
-//Proyecto Programado #2 - Estructuras de Datos
+//Proyecto Programado #3 - Estructuras de Datos
 
 #include <iostream>
 #include <fstream>
@@ -740,6 +740,7 @@ void menuMantenimiento() {
         cout << "1. Inserciones" << endl;
         cout << "2. Busquedas" << endl;
         cout << "3. Modificaciones" << endl;
+        cout << "4. Reportes" << endl;
         cout << "0. Regresar" << endl;
         cout << "Digite una opcion: ";
         cin >> opcion;
@@ -754,6 +755,9 @@ void menuMantenimiento() {
         case 3:
             menuModificaciones();
             break;
+        case 4:
+            menuReportes();
+            break;
         case 0:
             cout << "Regresando..." << endl;
             break;
@@ -763,6 +767,8 @@ void menuMantenimiento() {
     } while (opcion != 0);
 }
 
+//El programa ahora inicia desde form1.cpp
+#ifdef MODO_CONSOLA
 int main() {
     int opcion;
     do {
@@ -790,3 +796,4 @@ int main() {
     } while (opcion != 0);
     return 0;
 }
+#endif
