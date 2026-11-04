@@ -62,6 +62,9 @@
     <ClInclude Include="CRUD\crud.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Ventanas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainInterfaz.cpp">
@@ -142,13 +145,13 @@
     <ClCompile Include="mainPrincipal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Ventanas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico">
       <Filter>Resource Files</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="[Proyecto#3.vcxproj]" />
   </ItemGroup>
 </Project>

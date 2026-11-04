@@ -5,6 +5,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <vector>
 #include "CRUD/crud.h"
 
 using namespace std;
@@ -74,22 +75,22 @@ bool lineaVacia(string& linea)
     return true;
 }
 
-void cargarPaises(){
+void cargarPaises() {
     ifstream archivo("CSV/Paises.csv");
-    if (!archivo){
+    if (!archivo) {
         cout << "Error al abrir Paises.csv" << endl;
         return;
     }
     string linea;
     string codigo, nombre;
     getline(archivo, linea); // Saltar encabezado
-    while (getline(archivo, linea)){
+    while (getline(archivo, linea)) {
         if (lineaVacia(linea)) continue; //ignora filas vacias y quita el \r del final
         stringstream datos(linea);
         getline(datos, codigo, ';');
         getline(datos, nombre);
         int codPais = stoi(codigo);
-        if (!arbolPaises.Buscarvalor(codPais)){
+        if (!arbolPaises.Buscarvalor(codPais)) {
             arbolPaises.InsertaNodo(codPais, 0, nombre);
         }
     }
@@ -97,7 +98,7 @@ void cargarPaises(){
     cout << "Paises cargados correctamente." << endl;
 }
 
-void cargarCiudades(){
+void cargarCiudades() {
     ifstream archivo("CSV/Ciudades.csv");
     if (!archivo)
     {
@@ -136,7 +137,7 @@ void cargarCiudades(){
     cout << "Ciudades cargadas correctamente." << endl;
 }
 
-void cargarTratamientos(){
+void cargarTratamientos() {
     ifstream archivo("CSV/Tratamiento.csv");
     if (!archivo) {
         cout << "Error al abrir Tratamiento.csv" << endl;
@@ -164,7 +165,7 @@ void cargarTratamientos(){
     cout << "Tratamientos cargados correctamente." << endl;
 }
 
-void cargarDiagnosticos(){
+void cargarDiagnosticos() {
     ifstream archivo("CSV/Diagnostico.csv");
     if (!archivo)
     {
@@ -176,7 +177,7 @@ void cargarDiagnosticos(){
     string nombre;
     string descripcion;
     getline(archivo, linea); // Saltar encabezado
-    while (getline(archivo, linea)){
+    while (getline(archivo, linea)) {
         if (lineaVacia(linea)) continue; //ignora filas vacias y quita el \r del final
         stringstream datos(linea);
         getline(datos, codigo, ';');
@@ -191,7 +192,7 @@ void cargarDiagnosticos(){
     cout << "Diagnosticos cargados correctamente." << endl;
 }
 
-void cargarEspecialidades(){
+void cargarEspecialidades() {
     ifstream archivo("CSV/Especialidades.csv");
     if (!archivo)
     {
@@ -203,7 +204,7 @@ void cargarEspecialidades(){
     string nombre;
     string descripcion;
     getline(archivo, linea); // Saltar encabezado
-    while (getline(archivo, linea)){
+    while (getline(archivo, linea)) {
         if (lineaVacia(linea)) continue; //ignora filas vacias y quita el \r del final
         stringstream datos(linea);
         getline(datos, codigo, ';');
@@ -218,7 +219,7 @@ void cargarEspecialidades(){
     cout << "Especialidades cargadas correctamente." << endl;
 }
 
-void cargarHabitaciones(){
+void cargarHabitaciones() {
     ifstream archivo("CSV/Habitaciones.csv");
     if (!archivo)
     {
@@ -229,7 +230,7 @@ void cargarHabitaciones(){
     string campo;
     string piso;
     getline(archivo, linea); // Saltar encabezado
-    while (getline(archivo, linea)){
+    while (getline(archivo, linea)) {
         if (lineaVacia(linea)) continue; //ignora filas vacias y quita el \r del final
         stringstream datos(linea);
         getline(datos, campo, ';');
@@ -251,7 +252,7 @@ void cargarHabitaciones(){
 }
 
 
-void cargarPacientes(){
+void cargarPacientes() {
     ifstream archivo("CSV/Pacientes.csv");
     if (!archivo)
     {
@@ -262,7 +263,7 @@ void cargarPacientes(){
     string idPaciente, nombre, fechaNacimiento;
     string telefono, codPais, codCiudad, correo;
     getline(archivo, linea); // Saltar encabezado
-    while (getline(archivo, linea)){
+    while (getline(archivo, linea)) {
         if (lineaVacia(linea)) continue; //ignora filas vacias y quita el \r del final
         stringstream datos(linea);
         getline(datos, idPaciente, ';');
@@ -277,7 +278,7 @@ void cargarPacientes(){
         int ciudad = stoi(codCiudad);
 
         // Verificar que el pais y la ciudad existan.
-        if (!arbolPaises.Buscarvalor(pais)){
+        if (!arbolPaises.Buscarvalor(pais)) {
             cout << "No se puede cargar el paciente "
                 << id
                 << ": el pais no existe." << endl;
@@ -287,10 +288,10 @@ void cargarPacientes(){
             pais, ciudad))
         {
             cout << "No se puede cargar el paciente " << id
-                << ": la ciudad no existe para ese pais."<< endl;
+                << ": la ciudad no existe para ese pais." << endl;
             continue;
         }
-        if (arbolPacientes.Buscar(id) != nullptr){
+        if (arbolPacientes.Buscar(id) != nullptr) {
             cout << "Paciente duplicado: " << id << endl;
             continue;
         }
@@ -308,7 +309,7 @@ void cargarPacientes(){
     cout << "Pacientes cargados correctamente." << endl;
 }
 
-void cargarMedicos(){
+void cargarMedicos() {
     ifstream archivo("CSV/Medicos.csv");
     if (!archivo)
     {
@@ -318,7 +319,7 @@ void cargarMedicos(){
     string linea;
     string idMedico, nombre, telefono, correo, idEspecialidad;
     getline(archivo, linea); // Saltar encabezado
-    while (getline(archivo, linea)){
+    while (getline(archivo, linea)) {
         if (lineaVacia(linea)) continue; //ignora filas vacias y quita el \r del final
         stringstream datos(linea);
         getline(datos, idMedico, ';');
@@ -438,6 +439,9 @@ void cargarArchivos()
     cargarHospitalizaciones();
 }
 
+// ---- Menus de consola del Proyecto #2 (solo se compilan con MODO_CONSOLA) ----
+// Se dejan fuera del proyecto con interfaz porque usan los reportes (Reportes.cpp).
+#ifdef MODO_CONSOLA
 // Pide la fecha y la hora que se escriben en los reportes (se usan las validaciones de arriba)
 void pedirFechaHoraEmision()
 {
@@ -768,7 +772,6 @@ void menuMantenimiento() {
 }
 
 //El programa ahora inicia desde form1.cpp
-#ifdef MODO_CONSOLA
 int main() {
     int opcion;
     do {
@@ -797,3 +800,114 @@ int main() {
     return 0;
 }
 #endif
+
+
+// =====================================================================
+// Conexion con las ventanas (C++/CLI). Ventanas.cpp llama a esta funcion:
+//   ejecutar:  usa insertar/modificar/buscar de CRUD/ con los datos de la ventana
+// Las funciones de consola leen con cin y escriben con cout; aqui se les conecta el texto
+// de la ventana como entrada y se captura lo que escriben como salida.
+// =====================================================================
+namespace servicios {
+
+    namespace {
+
+        // Guarda en un string todo lo que se escribe con cout
+        class BufSalida : public streambuf {
+        public:
+            string texto;
+        protected:
+            int_type overflow(int_type c) override {
+                if (c != traits_type::eof()) texto.push_back((char)c);
+                return c;
+            }
+            streamsize xsputn(const char* s, streamsize n) override {
+                texto.append(s, (size_t)n);
+                return n;
+            }
+        };
+
+        // Entrega los campos como si el usuario los hubiera digitado. Cada vez que el programa
+        // va a leer, borra de la salida el "prompt" pendiente (la linea que termina en ": ").
+        class BufEntrada : public streambuf {
+        public:
+            string datos;
+            size_t pos;
+            BufSalida* salida;
+            BufEntrada(const string& d, BufSalida* s) : datos(d), pos(0), salida(s) {}
+        protected:
+            void quitarPrompt() {
+                string& t = salida->texto;
+                size_t p = t.find_last_of('\n');
+                size_t inicio = (p == string::npos) ? 0 : p + 1;
+                if (t.size() - inicio >= 2 && t.compare(t.size() - 2, 2, ": ") == 0) {
+                    t.erase(inicio);
+                }
+            }
+            int_type underflow() override {
+                quitarPrompt();
+                if (pos >= datos.size()) return traits_type::eof();
+                return (unsigned char)datos[pos];
+            }
+            int_type uflow() override {
+                quitarPrompt();
+                if (pos >= datos.size()) return traits_type::eof();
+                return (unsigned char)datos[pos++];
+            }
+        };
+
+        // Conecta la entrada y salida estandar mientras vive el objeto
+        class Captura {
+        public:
+            BufSalida salida;
+            BufEntrada entrada;
+            streambuf* cinAntes;
+            streambuf* coutAntes;
+            Captura(const string& texto) : entrada(texto, &salida) {
+                cinAntes = cin.rdbuf(&entrada);
+                coutAntes = cout.rdbuf(&salida);
+                cin.clear();
+            }
+            ~Captura() {
+                cout.rdbuf(coutAntes);
+                cin.rdbuf(cinAntes);
+                cin.clear();
+            }
+            string resultado() {
+                string r = salida.texto;
+                while (!r.empty() && (r.back() == '\n' || r.back() == ' ')) r.pop_back();
+                return r;
+            }
+        };
+
+        string unir(const vector<string>& campos) {
+            string r;
+            for (size_t i = 0; i < campos.size(); i++) {
+                r += campos[i];
+                r += '\n';
+            }
+            return r;
+        }
+
+        typedef void (*Funcion)();
+
+        Funcion INSERTAR[10] = { insertarPais, insertarCiudad, insertarPaciente, insertarMedico,
+            insertarEspecialidad, insertarHabitacion, insertarCita, insertarHospitalizacion,
+            insertarDiagnostico, insertarTratamiento };
+        Funcion MODIFICAR[10] = { modificarPais, modificarCiudad, modificarPaciente, modificarMedico,
+            modificarEspecialidad, modificarHabitacion, modificarCita, modificarHospitalizacion,
+            modificarDiagnostico, modificarTratamiento };
+        Funcion BUSCAR[10] = { buscarPais, buscarCiudad, buscarPaciente, buscarMedico,
+            buscarEspecialidad, buscarHabitacion, buscarCita, buscarHospitalizacion,
+            buscarDiagnostico, buscarTratamiento };
+    }
+
+    string ejecutar(int tipo, int entidad, const vector<string>& campos) {
+        if (entidad < 0 || entidad > 9) return "Entidad no valida.";
+        Captura c(unir(campos));
+        if (tipo == 0) INSERTAR[entidad]();
+        else if (tipo == 1) MODIFICAR[entidad]();
+        else BUSCAR[entidad]();
+        return c.resultado();
+    }
+}

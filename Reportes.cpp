@@ -1,7 +1,7 @@
 //Reportes en PDF con libHaru 
 #include <iostream>
 #include <string>
-#include "hpdf.h"
+//#include "hpdf.h"
 #include "CRUD/crud.h"
 
 using namespace std;
