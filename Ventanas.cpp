@@ -307,9 +307,8 @@ namespace mainInterfaz {
 		cli::array<String^>^ lineas = gcnew cli::array<String^>{
 			L"Sistema de Gestión Hospitalaria",
 			L"Hospital San Rafael",
-			L"Proyecto Programado #3 - Estructuras de Datos",
+			L"Proyecto #3 - Estructuras de Datos",
 			L"Instituto Tecnológico de Costa Rica",
-			L"Versión: Avance 2",
 			L"Elaborado por:",
 			L"Arina Tarasova",
 			L"Hilary Aguilar" };
