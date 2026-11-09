@@ -27,11 +27,30 @@ namespace mainInterfaz {
 		void Cerrar_Click(System::Object^ sender, System::EventArgs^ e);
 	};
 
+	// Ventana pequeña que sale al tocar un icono: tiene los botones Insertar, Modificar y Buscar
+	public ref class FormEntidad : public System::Windows::Forms::Form
+	{
+	public:
+		FormEntidad(int indice, String^ nombre);
+	private:
+		int indice;   // entidad (0 = País ... 9 = Tratamiento)
+
+		// Un solo evento para los tres botones: la etiqueta (Tag) dice cual se toco
+		void Boton_Click(System::Object^ sender, System::EventArgs^ e);
+		void Cerrar_Click(System::Object^ sender, System::EventArgs^ e);
+	};
+
 	// Punto de entrada que usa el menu
 	public ref class Ventanas abstract sealed
 	{
 	public:
 		// tipo: 0 inserción, 1 modificación, 2 consulta
 		static void Abrir(Form^ padre, int tipo, int indice);
+
+		// Ventana con Insertar / Modificar / Buscar de una entidad (la que sale al tocar un icono)
+		static void AbrirEntidad(Form^ padre, int indice);
+
+		// Ventana "Acerca de"
+		static void AbrirAcercaDe(Form^ padre);
 	};
 }

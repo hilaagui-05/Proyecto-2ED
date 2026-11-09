@@ -23,9 +23,10 @@ namespace mainInterfaz {
 		cargar->Click += gcnew System::EventHandler(this, &Form1::opcion_Click);
 		mantenimiento->DropDownItems->Add(cargar);
 
-		// Reportes y Acerca de no son parte del Avance 1: solo se muestran los títulos
+		// Reportes todavía no se hace, solo se muestra el título
 		ToolStripMenuItem^ menuReportes = gcnew ToolStripMenuItem(L"Reportes");
 		ToolStripMenuItem^ acerca = gcnew ToolStripMenuItem(L"Acerca de");
+		acerca->Click += gcnew System::EventHandler(this, &Form1::acerca_Click);
 
 		this->menuStrip1->Items->Add(mantenimiento);
 		this->menuStrip1->Items->Add(menuReportes);
@@ -44,6 +45,10 @@ namespace mainInterfaz {
 		cli::array<int>^ rgb = gcnew cli::array<int>{ 255, 238, 200, 210, 230, 248, 214, 242, 232, 225, 225, 250,
 			250, 222, 236, 255, 230, 208, 206, 236, 250, 232, 224, 250, 255, 246, 204, 255, 222, 222 };
 
+		// Las tarjetas tienen Citas antes que Habitaciones, pero las ventanas las tienen
+		// al revés. Esta lista convierte la posición de la tarjeta en el número de entidad correcto.
+		cli::array<int>^ entidadDeTarjeta = gcnew cli::array<int>{ 0, 1, 2, 3, 4, 6, 5, 7, 8, 9 };
+
 		for (int i = 0; i < claves->Length; i++) {
 			Panel^ panel = gcnew Panel();
 			PictureBox^ imagen = gcnew PictureBox();
@@ -53,7 +58,7 @@ namespace mainInterfaz {
 			imagen->Dock = DockStyle::Fill;
 			imagen->BackColor = System::Drawing::Color::Transparent;
 			imagen->SizeMode = PictureBoxSizeMode::Zoom;
-			imagen->Cursor = System::Windows::Forms::Cursors::Default;
+			imagen->Cursor = System::Windows::Forms::Cursors::Hand;
 			imagen->Image = Cargar(imagenes[i]);
 
 			texto->Name = String::Concat(L"lbl", claves[i]);
@@ -64,16 +69,25 @@ namespace mainInterfaz {
 			texto->Font = gcnew System::Drawing::Font(L"Segoe UI", 9.75, System::Drawing::FontStyle::Bold);
 			texto->TextAlign = ContentAlignment::MiddleCenter;
 			texto->Text = textos[i];
-			texto->Cursor = System::Windows::Forms::Cursors::Default;
+			texto->Cursor = System::Windows::Forms::Cursors::Hand;
 
 			panel->Name = String::Concat(L"pnl", claves[i]);
 			panel->Dock = DockStyle::Fill;
 			panel->Margin = System::Windows::Forms::Padding(8);
 			panel->Padding = System::Windows::Forms::Padding(10, 12, 10, 10);
 			panel->BackColor = System::Drawing::Color::FromArgb(rgb[i * 3], rgb[i * 3 + 1], rgb[i * 3 + 2]);
-			panel->Cursor = System::Windows::Forms::Cursors::Default;
+			panel->Cursor = System::Windows::Forms::Cursors::Hand;
 			panel->Controls->Add(imagen);   // primero el que llena
 			panel->Controls->Add(texto);    // despues el que va abajo
+
+			// El clic funciona sobre el panel, la imagen o el texto. El Tag guarda el número de entidad
+			String^ numeroEntidad = Convert::ToString(entidadDeTarjeta[i]);
+			panel->Tag = numeroEntidad;
+			imagen->Tag = numeroEntidad;
+			texto->Tag = numeroEntidad;
+			panel->Click += gcnew System::EventHandler(this, &Form1::tarjeta_Click);
+			imagen->Click += gcnew System::EventHandler(this, &Form1::tarjeta_Click);
+			texto->Click += gcnew System::EventHandler(this, &Form1::tarjeta_Click);
 
 			this->tablaTarjetas->Controls->Add(panel, i % 4, i / 4);
 		}
@@ -143,5 +157,18 @@ namespace mainInterfaz {
 			return;
 		}
 		Ventanas::Abrir(this, tipo, indice);
+	}
+
+	//clic en un icono: abre la ventana con Insertar, Modificar y Buscar de esa entidad
+	//el tag del control tocado trae el número de entidad
+	System::Void Form1::tarjeta_Click(System::Object^ sender, System::EventArgs^ e) {
+		Control^ control = safe_cast<Control^>(sender);
+		int indice = Int32::Parse(safe_cast<String^>(control->Tag));
+		Ventanas::AbrirEntidad(this, indice);
+	}
+
+	//clic en el menú acerca de
+	System::Void Form1::acerca_Click(System::Object^ sender, System::EventArgs^ e) {
+		Ventanas::AbrirAcercaDe(this);
 	}
 }

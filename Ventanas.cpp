@@ -214,12 +214,126 @@ namespace mainInterfaz {
 		this->Close();
 	}
 
+	// Ventana con tres botones (Insertar, Modificar, Buscar) para la entidad del icono tocado
+	FormEntidad::FormEntidad(int indice, String^ nombre)
+	{
+		this->indice = indice;
+		this->Text = nombre;
+		this->Font = gcnew System::Drawing::Font(L"Segoe UI", 9.75F);
+		this->BackColor = Color::FromArgb(238, 246, 247);
+		this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
+		this->MaximizeBox = false;
+		this->MinimizeBox = false;
+		this->StartPosition = FormStartPosition::CenterParent;
+		this->ClientSize = System::Drawing::Size(300, 260);
+
+		// Titulo con el nombre de la entidad
+		Label^ lblTitulo = gcnew Label();
+		lblTitulo->Text = nombre;
+		lblTitulo->AutoSize = true;
+		lblTitulo->Location = Point(20, 14);
+		lblTitulo->ForeColor = Color::FromArgb(16, 52, 66);
+		lblTitulo->Font = gcnew System::Drawing::Font(L"Segoe UI", 13.0F, FontStyle::Bold);
+		this->Controls->Add(lblTitulo);
+
+		// Los tres botones se crean con un ciclo. El Tag guarda el tipo (0, 1 o 2)
+		// igual que en el menu: 0 inserción, 1 modificación, 2 consulta
+		cli::array<String^>^ textos = gcnew cli::array<String^>{ L"Insertar", L"Modificar", L"Buscar" };
+		for (int i = 0; i < 3; i++) {
+			Button^ boton = gcnew Button();
+			boton->Text = textos[i];
+			boton->Tag = Convert::ToString(i);
+			boton->Location = Point(40, 60 + i * 52);
+			boton->Size = System::Drawing::Size(220, 40);
+			boton->BackColor = Color::FromArgb(20, 110, 130);
+			boton->ForeColor = Color::White;
+			boton->FlatStyle = FlatStyle::Flat;
+			boton->Click += gcnew System::EventHandler(this, &FormEntidad::Boton_Click);
+			this->Controls->Add(boton);
+		}
+
+		Button^ btnCerrar = gcnew Button();
+		btnCerrar->Text = L"Cerrar";
+		btnCerrar->Location = Point(40, 60 + 3 * 52);
+		btnCerrar->Size = System::Drawing::Size(220, 36);
+		btnCerrar->Click += gcnew System::EventHandler(this, &FormEntidad::Cerrar_Click);
+		this->Controls->Add(btnCerrar);
+		this->CancelButton = btnCerrar;
+	}
+
+	// Al tocar Insertar, Modificar o Buscar se abre el mismo formulario que ya usa el menu
+	void FormEntidad::Boton_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		Button^ boton = safe_cast<Button^>(sender);
+		int tipo = Int32::Parse(safe_cast<String^>(boton->Tag));
+		Ventanas::Abrir(this, tipo, indice);
+	}
+
+	void FormEntidad::Cerrar_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		this->Close();
+	}
+
 	// ======================= Ventanas =======================
 	void Ventanas::Abrir(Form^ padre, int tipo, int indice)
 	{
 		const wchar_t** tabla = (tipo == 0) ? INSERTAR : (tipo == 1) ? MODIFICAR : CONSULTAR;
 		String^ titulo = String::Concat(gcnew String(TIPOS[tipo]), L" de ", gcnew String(ENTIDADES[indice]));
 		FormDatos^ f = gcnew FormDatos(tipo, indice, titulo, gcnew String(tabla[indice]));
+		f->ShowDialog(padre);
+	}
+
+	// Abre la ventana con los botones Insertar / Modificar / Buscar de la entidad
+	void Ventanas::AbrirEntidad(Form^ padre, int indice)
+	{
+		FormEntidad^ f = gcnew FormEntidad(indice, gcnew String(ENTIDADES[indice]));
+		f->ShowDialog(padre);
+	}
+
+	// Ventana "Acerca de": datos del sistema y de las autoras
+	void Ventanas::AbrirAcercaDe(Form^ padre)
+	{
+		Form^ f = gcnew Form();
+		f->Text = L"Acerca de";
+		f->Font = gcnew System::Drawing::Font(L"Segoe UI", 10.0F);
+		f->BackColor = Color::FromArgb(238, 246, 247);
+		f->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
+		f->MaximizeBox = false;
+		f->MinimizeBox = false;
+		f->StartPosition = FormStartPosition::CenterParent;
+		f->ClientSize = System::Drawing::Size(460, 300);
+
+		// Cada línea del texto se muestra en una etiqueta (se crean con un ciclo)
+		cli::array<String^>^ lineas = gcnew cli::array<String^>{
+			L"Sistema de Gestión Hospitalaria",
+			L"Hospital San Rafael",
+			L"Proyecto Programado #3 - Estructuras de Datos",
+			L"Instituto Tecnológico de Costa Rica",
+			L"Versión: Avance 2",
+			L"Elaborado por:",
+			L"Arina Tarasova",
+			L"Hilary Aguilar" };
+		for (int i = 0; i < lineas->Length; i++) {
+			Label^ etiqueta = gcnew Label();
+			etiqueta->Text = lineas[i];
+			etiqueta->AutoSize = true;
+			etiqueta->Location = Point(30, 20 + i * 28);
+			etiqueta->ForeColor = Color::FromArgb(16, 52, 66);
+			if (i == 0) {
+				etiqueta->Font = gcnew System::Drawing::Font(L"Segoe UI", 13.0F, FontStyle::Bold);
+			}
+			f->Controls->Add(etiqueta);
+		}
+
+		Button^ btnCerrar = gcnew Button();
+		btnCerrar->Text = L"Cerrar";
+		btnCerrar->Location = Point(330, 250);
+		btnCerrar->Size = System::Drawing::Size(100, 32);
+		btnCerrar->DialogResult = System::Windows::Forms::DialogResult::OK;   // cierra la ventana
+		f->Controls->Add(btnCerrar);
+		f->AcceptButton = btnCerrar;
+		f->CancelButton = btnCerrar;
+
 		f->ShowDialog(padre);
 	}
 }
