@@ -184,8 +184,10 @@ public
 		// Eventos implementados en Form1.cpp
 	private:
 		System::Void timer1_Tick(System::Object ^ sender, System::EventArgs ^ e);
+
 	private:
 		System::Void opcion_Click(System::Object ^ sender, System::EventArgs ^ e);
+
 	private:
 		System::Void tarjeta_Click(System::Object ^ sender, System::EventArgs ^ e); // clic en un icono
 	private:

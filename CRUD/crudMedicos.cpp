@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <string>
 #include "crud.h"
@@ -113,4 +112,28 @@ void modificarMedico(){
     cout << "Medico modificado correctamente." << endl;
     cout << "Telefono: " << medico->telefono << endl;
     cout << "Correo: " << medico->correo << endl;
+}
+
+// Se valida que la especialidad exista y que el medico pertenezca a ella, luego se elimina.
+void eliminarMedico(){
+    int idMedico;
+    string idEspecialidad;
+    cout << "Id de la especialidad: ";
+    cin >> idEspecialidad;
+    if (!arbolEspecialidades.Buscarvalor(idEspecialidad)) //que la especialidad exista
+    {
+        cout << "La especialidad no existe." << endl;
+        return;
+    }
+    cout << "Id del medico: ";
+    cin >> idMedico;
+    RegistroB* medico = arbolMedicos.Buscar(idMedico);
+    if (medico == nullptr ||
+        medico->idEspecialidad != stoi(idEspecialidad))
+    {
+        cout << "No existe el medico en la especialidad." << endl;
+        return;
+    }
+    arbolMedicos.Eliminar(idMedico);
+    cout << "Medico eliminado correctamente." << endl;
 }

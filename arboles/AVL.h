@@ -1,4 +1,3 @@
-
 #ifndef AVL_H
 #define AVL_H
 
@@ -26,6 +25,13 @@ private:
     void MostrarInorden(pNodoAVL n);
     void LiberarMemoria(pNodoAVL n);
 
+    // Borrado (metodos de la profesora)
+    int claveDe(pNodoAVL n);
+    void copiarDatos(pNodoAVL destino, pNodoAVL origen);
+    void Equilibrar1(pNodoAVL& n, bool& Hh);
+    void Equilibrar2(pNodoAVL& n, bool& Hh);
+    void BorrarBalanceado(pNodoAVL& raiz, bool& Hh, int id);
+
 public:
     AVL();
     ~AVL();
@@ -42,6 +48,9 @@ public:
     bool modificarEstadoHabitacion(int id, int nuevoEstado);
     // motivo "" o estado -1 significa dejar ese dato igual
     bool modificarCita(int id, std::string nuevoMotivo, int nuevoEstado);
+
+    // Eliminar (devuelve false si el id no existe)
+    bool Eliminar(int id);
 
     // Citas: categoria 2
     void InsertarCita(int id, int paciente, int medico,

@@ -71,3 +71,16 @@ void modificarEspecialidad(){
     cout << "Datos nuevos: " << endl;
     arbolEspecialidades.mostrarPorCodigo(codigo);
 }
+
+// Se valida que el id de la especialidad exista y se elimina.
+void eliminarEspecialidad() {
+    string codigo;
+    cout << "Digite el id de la especialidad: ";
+    cin >> codigo;
+    if (!arbolEspecialidades.Buscarvalor(codigo)) { //que la especialidad exista
+        cout << "La especialidad no existe." << endl;
+        return;
+    }
+    arbolEspecialidades.Eliminar(codigo);
+    cout << "Especialidad eliminada correctamente." << endl;
+}

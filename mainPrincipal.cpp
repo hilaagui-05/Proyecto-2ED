@@ -643,6 +643,65 @@ void menuModificaciones() {
     } while (opcion != 0);
 }
 
+void menuBorrados() {
+    int opcion;
+    do {
+        cout << "\n===== BORRADOS =====" << endl;
+        cout << "1. Pais" << endl;
+        cout << "2. Ciudad" << endl;
+        cout << "3. Paciente" << endl;
+        cout << "4. Medico" << endl;
+        cout << "5. Especialidad" << endl;
+        cout << "6. Habitacion" << endl;
+        cout << "7. Cita" << endl;
+        cout << "8. Hospitalizacion" << endl;
+        cout << "9. Diagnostico" << endl;
+        cout << "10. Tratamiento" << endl;
+        cout << "0. Regresar" << endl;
+        cout << "Digite una opcion: ";
+        cin >> opcion;
+
+        switch (opcion)
+        {
+        case 1:
+            eliminarPais();
+            break;
+        case 2:
+            eliminarCiudad();
+            break;
+        case 3:
+            eliminarPaciente();
+            break;
+        case 4:
+            eliminarMedico();
+            break;
+        case 5:
+            eliminarEspecialidad();
+            break;
+        case 6:
+            eliminarHabitacion();
+            break;
+        case 7:
+            eliminarCita();
+            break;
+        case 8:
+            eliminarHospitalizacion();
+            break;
+        case 9:
+            eliminarDiagnostico();
+            break;
+        case 10:
+            eliminarTratamiento();
+            break;
+        case 0:
+            cout << "Regresando..." << endl;
+            break;
+        default:
+            cout << "Opcion no valida." << endl;
+        }
+    } while (opcion != 0);
+}
+
 void menuReportes() {
     int opcion;
     if (fechaHoraEmision == "") { //solo la primera vez que se entra
@@ -745,6 +804,7 @@ void menuMantenimiento() {
         cout << "2. Busquedas" << endl;
         cout << "3. Modificaciones" << endl;
         cout << "4. Reportes" << endl;
+        cout << "5. Borrados" << endl;
         cout << "0. Regresar" << endl;
         cout << "Digite una opcion: ";
         cin >> opcion;
@@ -761,6 +821,9 @@ void menuMantenimiento() {
             break;
         case 4:
             menuReportes();
+            break;
+        case 5:
+            menuBorrados();
             break;
         case 0:
             cout << "Regresando..." << endl;
@@ -804,7 +867,7 @@ int main() {
 
 // =====================================================================
 // Conexion con las ventanas (C++/CLI). Ventanas.cpp llama a esta funcion:
-//   ejecutar:  usa insertar/modificar/buscar de CRUD/ con los datos de la ventana
+//   ejecutar:  usa insertar/modificar/buscar/eliminar de CRUD/ con los datos de la ventana
 // Las funciones de consola leen con cin y escriben con cout; aqui se les conecta el texto
 // de la ventana como entrada y se captura lo que escriben como salida.
 // =====================================================================
@@ -900,14 +963,20 @@ namespace servicios {
         Funcion BUSCAR[10] = { buscarPais, buscarCiudad, buscarPaciente, buscarMedico,
             buscarEspecialidad, buscarHabitacion, buscarCita, buscarHospitalizacion,
             buscarDiagnostico, buscarTratamiento };
+        Funcion ELIMINAR[10] = { eliminarPais, eliminarCiudad, eliminarPaciente, eliminarMedico,
+            eliminarEspecialidad, eliminarHabitacion, eliminarCita, eliminarHospitalizacion,
+            eliminarDiagnostico, eliminarTratamiento };
     }
 
     string ejecutar(int tipo, int entidad, const vector<string>& campos) {
         if (entidad < 0 || entidad > 9) return "Entidad no valida.";
         Captura c(unir(campos));
+        // tipo: 0 inserción, 1 modificación, 2 consulta, 3 eliminación
         if (tipo == 0) INSERTAR[entidad]();
         else if (tipo == 1) MODIFICAR[entidad]();
-        else BUSCAR[entidad]();
+        else if (tipo == 2) BUSCAR[entidad]();
+        else if (tipo == 3) ELIMINAR[entidad]();
+        else return "Operacion no valida.";
         return c.resultado();
     }
 }

@@ -121,3 +121,28 @@ void modificarPaciente(){
     cout << "Telefono: " << paciente->telefono << endl;
     cout << "Correo: " << paciente->correo << endl;
 }
+
+// Se valida que la ciudad exista y que el paciente exista en esa ciudad, luego se elimina.
+void eliminarPaciente(){
+    int idPaciente, codPais, codCiudad;
+    cout << "Codigo del pais: ";
+    cin >> codPais;
+    cout << "Codigo de la ciudad: ";
+    cin >> codCiudad;
+    if (!arbolCiudades.Buscarvalor(codPais, codCiudad)){ //que la ciudad exista
+        cout << "La ciudad no existe para ese pais." << endl;
+        return;
+    }
+    cout << "Id del paciente: ";
+    cin >> idPaciente;
+    RegistroB* paciente = arbolPacientes.Buscar(idPaciente);
+    if (paciente == nullptr ||
+        paciente->codPais != codPais ||
+        paciente->codCiudad != codCiudad)
+    {
+        cout << "No existe ese paciente en la ciudad indicada." << endl;
+        return;
+    }
+    arbolPacientes.Eliminar(idPaciente);
+    cout << "Paciente eliminado correctamente." << endl;
+}

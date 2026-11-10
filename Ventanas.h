@@ -12,7 +12,7 @@ namespace mainInterfaz {
 	public:
 		FormDatos(int tipo, int indice, String^ titulo, String^ spec);
 	private:
-		int tipo;     // 0 insertar, 1 modificar, 2 consultar
+		int tipo;     // 0 insertar, 1 modificar, 2 consultar, 3 eliminar
 		int indice;   // entidad
 		cli::array<TextBox^>^ cajas;
 		cli::array<String^>^ etiquetas;
@@ -44,7 +44,7 @@ namespace mainInterfaz {
 	public ref class Ventanas abstract sealed
 	{
 	public:
-		// tipo: 0 inserción, 1 modificación, 2 consulta
+		// tipo: 0 inserción, 1 modificación, 2 consulta, 3 borrado
 		static void Abrir(Form^ padre, int tipo, int indice);
 
 		// Ventana con Insertar / Modificar / Buscar de una entidad (la que sale al tocar un icono)

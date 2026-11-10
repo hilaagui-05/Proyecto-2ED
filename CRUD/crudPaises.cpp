@@ -73,3 +73,16 @@ bool paisExiste(int codigo) {
 void paisInsertar(int codigo, const char* nombre) {
     arbolPaises.InsertaNodo(codigo, 0, string(nombre));
 }
+
+// Se valida que el codigo del pais exista y se elimina.
+void eliminarPais(){
+    int codPais;
+    cout << "Digite el codigo del pais: ";
+    cin >> codPais;
+    if (!arbolPaises.Buscarvalor(codPais)){ //que el pais exista
+        cout << "El pais no existe." << endl;
+        return;
+    }
+    arbolPaises.EliminarNodo(codPais, 0);
+    cout << "Pais eliminado correctamente." << endl;
+}

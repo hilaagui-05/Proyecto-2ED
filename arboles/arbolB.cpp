@@ -175,6 +175,190 @@ void ArbolB::Imprimir() {
     Mostrar(Raiz, 0);
 }
 
+// Elimina el registro con esa clave. Devuelve false si no existe.
+bool ArbolB::Eliminar(int C1)
+{
+    bool Encontrado;
+    Pagina* P;
+
+    EliminarRegistro(C1, Raiz, Encontrado);
+
+    if (!Encontrado)
+    {
+        return false;
+    }
+
+    // Si la raiz quedo sin claves, el arbol baja un nivel
+    if (Raiz != nullptr && Raiz->Cuenta == 0)
+    {
+        P = Raiz;
+        Raiz = Raiz->Ramas[0];
+        delete P;
+    }
+    return true;
+}
+
+void ArbolB::EliminarRegistro(int C1, Pagina*& R, bool& Encontrado)
+{
+    int K = 0;
+
+    if (ArbolVacio(R))
+    {
+        Encontrado = false;
+    }
+    else
+    {
+        BuscarNodo(C1, R, Encontrado, K);
+        if (Encontrado) {
+            if (R->Ramas[K] == nullptr)
+            {
+                Quitar(R, K);
+            }
+            else
+            {
+                Sucesor(R, K);
+                EliminarRegistro(R->Claves[K].clave, R->Ramas[K], Encontrado);
+                if (!Encontrado)
+                {
+                    cout << "Error en el proceso\n";
+                }
+                // Si la rama quedo con menos claves del minimo, se restablece
+                if (R->Ramas[K] != nullptr && R->Ramas[K]->Cuenta < MIN)
+                {
+                    Restablecer(R, K);
+                }
+            }
+        }
+        else
+        {
+            EliminarRegistro(C1, R->Ramas[K], Encontrado);
+            if (R->Ramas[K] != nullptr && R->Ramas[K]->Cuenta < MIN)
+            {
+                Restablecer(R, K);
+            }
+        }
+    }
+}
+
+void ArbolB::Quitar(Pagina* P, int K)
+{
+    for (int j = K + 1; j <= P->Cuenta; j++)
+    {
+        P->Claves[j - 1] = P->Claves[j];
+        P->Ramas[j - 1] = P->Ramas[j];
+    }
+    P->Cuenta--;
+}
+
+// Copia en la posicion K el registro sucesor (el menor de la rama derecha)
+void ArbolB::Sucesor(Pagina* P, int K)
+{
+    Pagina* Q = P->Ramas[K];
+    while (Q->Ramas[0] != nullptr)
+    {
+        Q = Q->Ramas[0];
+    }
+    P->Claves[K] = Q->Claves[1];
+}
+
+void ArbolB::Restablecer(Pagina* P, int K)
+{
+    if (K > 0)
+    {
+        if (P->Ramas[K - 1]->Cuenta > MIN)
+        {
+            MoverDerecha(P, K);
+        }
+        else
+        {
+            Combina(P, K);
+        }
+    }
+    else
+    {
+        if (P->Ramas[1]->Cuenta > MIN)
+        {
+            MoverIzquierda(P, 1);
+        }
+        else
+        {
+            Combina(P, 1);
+        }
+    }
+}
+
+void ArbolB::MoverDerecha(Pagina* P, int K)
+{
+    Pagina* H = P->Ramas[K];
+    Pagina* HIzq = P->Ramas[K - 1];
+
+    for (int j = H->Cuenta; j >= 1; j--)
+    {
+        H->Claves[j + 1] = H->Claves[j];
+        H->Ramas[j + 1] = H->Ramas[j];
+    }
+
+    H->Ramas[1] = H->Ramas[0];
+    H->Cuenta++;
+    H->Claves[1] = P->Claves[K];
+    H->Ramas[0] = HIzq->Ramas[HIzq->Cuenta];
+    P->Claves[K] = HIzq->Claves[HIzq->Cuenta];
+    HIzq->Cuenta--;
+}
+
+void ArbolB::MoverIzquierda(Pagina* P, int K)
+{
+    Pagina* HIzq = P->Ramas[K - 1];
+    Pagina* H = P->Ramas[K];
+
+    HIzq->Cuenta++;
+    HIzq->Claves[HIzq->Cuenta] = P->Claves[K];
+    HIzq->Ramas[HIzq->Cuenta] = H->Ramas[0];
+
+    P->Claves[K] = H->Claves[1];
+    H->Ramas[0] = H->Ramas[1];
+
+    for (int j = 1; j < H->Cuenta; j++)
+    {
+        H->Claves[j] = H->Claves[j + 1];
+        H->Ramas[j] = H->Ramas[j + 1];
+    }
+
+    H->Cuenta--;
+}
+
+void ArbolB::Combina(Pagina* P, int K)
+{
+    Pagina* Q = P->Ramas[K];
+    Pagina* HIzq = P->Ramas[K - 1];
+
+    HIzq->Cuenta++;
+    HIzq->Claves[HIzq->Cuenta] = P->Claves[K];
+    HIzq->Ramas[HIzq->Cuenta] = Q->Ramas[0];
+
+    for (int j = 1; j <= Q->Cuenta; j++)
+    {
+        HIzq->Cuenta++;
+        HIzq->Claves[HIzq->Cuenta] = Q->Claves[j];
+        HIzq->Ramas[HIzq->Cuenta] = Q->Ramas[j];
+    }
+
+    for (int j = K; j < P->Cuenta; j++)
+    {
+        P->Claves[j] = P->Claves[j + 1];
+        P->Ramas[j] = P->Ramas[j + 1];
+    }
+
+    P->Cuenta--;
+
+    delete Q;
+}
+
+bool ArbolB::ArbolVacio(Pagina* P)
+{
+    return P == nullptr;
+}
+
 Pagina* ArbolB::obtenerRaiz()
 {
     return Raiz;

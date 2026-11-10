@@ -81,6 +81,10 @@ private:
 
     void destruirArbol(pnodo raiz);
 
+    // Borrado (metodos de la profesora)
+    pnodo EliminarNodo(pnodo raiz, int codPais, int codCiudad);
+    pnodo encontrarMinimo(pnodo raiz);
+
 public:
     ABBusqueda(TipoClave tipoClave);
     ~ABBusqueda();
@@ -94,6 +98,10 @@ public:
     // Modificar: cambia el nombre de un pais (codCiudad = 0) o de una ciudad.
     // Devuelve false si no existe.
     bool modificarNombre(int codPais, int codCiudad, string nuevoNombre);
+
+    // Eliminar: borra un pais (codCiudad = 0) o una ciudad.
+    // Devuelve false si no existe.
+    bool EliminarNodo(int codPais, int codCiudad);
 
     pnodo obtenerRaiz(); // devuelve la raiz para recorrer el arbol en los reportes
 

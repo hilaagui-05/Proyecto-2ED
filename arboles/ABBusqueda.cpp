@@ -312,6 +312,77 @@ bool ABBusqueda::modificarNombre(int codPais, int codCiudad, string nuevoNombre)
     return true;
 }
 
+// Elimina un pais (codCiudad = 0) o una ciudad. Devuelve false si no existe.
+bool ABBusqueda::EliminarNodo(int codPais, int codCiudad){
+    if (buscarNodo(raiz, codPais, codCiudad) == nullptr){
+        return false;
+    }
+    raiz = EliminarNodo(raiz, codPais, codCiudad);
+    return true;
+}
+
+// Devuelve el nodo con la clave menor de un subarbol (el que esta mas a la izquierda).
+pnodo ABBusqueda::encontrarMinimo(pnodo raiz)
+{
+    while (raiz->Hizq != nullptr)
+    {
+        raiz = raiz->Hizq;
+    }
+    return raiz;
+}
+
+// Eliminacion recursiva (metodo de la profesora).
+// Hoja: se borra. Un hijo: lo reemplaza. Dos hijos: se copian los datos del sucesor
+// (el menor de la derecha) y se borra ese sucesor.
+pnodo ABBusqueda::EliminarNodo(pnodo raiz, int codPais, int codCiudad)
+{
+    if (raiz == nullptr)
+    {
+        return nullptr;
+    }
+
+    int comparacion = compararClaves(raiz, codPais, codCiudad);
+    if (comparacion < 0)
+    {
+        raiz->Hizq = EliminarNodo(raiz->Hizq, codPais, codCiudad);
+    }
+    else if (comparacion > 0)
+    {
+        raiz->Hder = EliminarNodo(raiz->Hder, codPais, codCiudad);
+    }
+    else
+    {
+        // Nodo encontrado
+        if (raiz->Hizq == nullptr && raiz->Hder == nullptr)
+        {
+            delete raiz;
+            return nullptr;
+        }
+        else if (raiz->Hizq == nullptr)
+        {
+            pnodo temp = raiz->Hder;
+            delete raiz;
+            return temp;
+        }
+        else if (raiz->Hder == nullptr)
+        {
+            pnodo temp = raiz->Hizq;
+            delete raiz;
+            return temp;
+        }
+        else
+        {
+            pnodo sucesor = encontrarMinimo(raiz->Hder);
+            raiz->codPais = sucesor->codPais;
+            raiz->codCiudad = sucesor->codCiudad;
+            raiz->nombre = sucesor->nombre;
+            raiz->Hder = EliminarNodo(raiz->Hder, sucesor->codPais, sucesor->codCiudad);
+        }
+    }
+
+    return raiz;
+}
+
 // Busca y muestra un pais por su codigo.
 void ABBusqueda::mostrarPorClave(int codigo){
     if (tipoClave != TipoClave::Pais){

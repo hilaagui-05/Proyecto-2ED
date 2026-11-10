@@ -70,3 +70,16 @@ void modificarDiagnostico(){
     cout << "Datos nuevos: " << endl;
     arbolDiagnosticos.mostrarPorCodigo(codigo);
 }
+
+// Se valida que el codigo del diagnostico exista y se elimina.
+void eliminarDiagnostico() {
+    string codigo;
+    cout << "Digite el codigo del diagnostico: ";
+    cin >> codigo;
+    if (!arbolDiagnosticos.Buscarvalor(codigo)) { //que el diagnostico exista
+        cout << "El diagnostico no existe." << endl;
+        return;
+    }
+    arbolDiagnosticos.Eliminar(codigo);
+    cout << "Diagnostico eliminado correctamente." << endl;
+}

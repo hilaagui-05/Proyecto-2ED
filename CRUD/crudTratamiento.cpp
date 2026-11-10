@@ -108,3 +108,19 @@ void modificarTratamiento()
     cout << "Datos nuevos:";
     arbolTratamientos.mostrarPorClave(codTratamiento);
 }
+
+// Se valida que el codigo del tratamiento exista y se elimina.
+void eliminarTratamiento()
+{
+    int codTratamiento;
+
+    cout << "Digite el codigo del tratamiento: ";
+    cin >> codTratamiento;
+
+    if (!arbolTratamientos.Buscarvalor(codTratamiento)) { //que el tratamiento exista
+        cout << "El tratamiento no existe." << endl;
+        return;
+    }
+    arbolTratamientos.Eliminar(codTratamiento);
+    cout << "Tratamiento eliminado correctamente." << endl;
+}

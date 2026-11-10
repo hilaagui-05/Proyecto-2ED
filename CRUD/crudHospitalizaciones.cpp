@@ -119,3 +119,30 @@ void modificarHospitalizacion() {
     cout << "Datos nuevos:" << endl;
     arbolHospitalizaciones.mostrarPorClave(idHospitalizacion);
 }
+
+// Se valida que el paciente y la habitacion existan y que la hospitalizacion exista, luego se elimina.
+void eliminarHospitalizacion() {
+    int idHospitalizacion;
+    int idPaciente;
+    int idHabitacion;
+    cout << "Id del paciente: ";
+    cin >> idPaciente;
+    if (arbolPacientes.Buscar(idPaciente) == nullptr) {
+        cout << "El paciente no existe." << endl;
+        return;
+    }
+    cout << "Id de la habitacion: ";
+    cin >> idHabitacion;
+    if (!arbolHabitaciones.BuscarValor(idHabitacion)) {
+        cout << "La habitacion no existe." << endl;
+        return;
+    }
+    cout << "Id de la hospitalizacion: ";
+    cin >> idHospitalizacion;
+    if (!arbolHospitalizaciones.Buscarvalor(idHospitalizacion)) { //que la hospitalizacion exista
+        cout << "La hospitalizacion no existe." << endl;
+        return;
+    }
+    arbolHospitalizaciones.Eliminar(idHospitalizacion);
+    cout << "Hospitalizacion eliminada correctamente." << endl;
+}

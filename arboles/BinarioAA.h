@@ -18,6 +18,7 @@ private:
     NodoAA* buscarRec(NodoAA* nodo, string codigo);
     void mostrarPreorden(NodoAA* nodo);
     void liberarMemoria(NodoAA* nodo);
+    NodoAA* eliminarRec(NodoAA* nodo, string codigo); // borrado (metodo de la profesora)
 
 public:
     BinarioAA();
@@ -28,6 +29,7 @@ public:
     void mostrarPorCodigo(string codigo); // muestra los datos si el codigo existe
     bool modificarDescripcion(string codigo, string nuevaDescripcion); // false si el codigo no existe
     void mostrarPreorden();
+    bool Eliminar(string codigo); // false si el codigo no existe
     bool estaVacio();
     void limpiar();
     NodoAA* obtenerRaiz(); // devuelve la raiz para recorrer el arbol en los reportes

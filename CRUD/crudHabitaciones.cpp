@@ -85,3 +85,16 @@ void modificarHabitacion(){
     cout << "Datos nuevos: ";
     arbolHabitaciones.mostrarPorCodigo(id);
 }
+
+// Se valida que el id de la habitacion exista y se elimina.
+void eliminarHabitacion() {
+    int id;
+    cout << "Digite el id de la habitacion: ";
+    cin >> id;
+    if (!arbolHabitaciones.BuscarValor(id)) { //que la habitacion exista
+        cout << "La habitacion no existe." << endl;
+        return;
+    }
+    arbolHabitaciones.Eliminar(id);
+    cout << "Habitacion eliminada correctamente." << endl;
+}

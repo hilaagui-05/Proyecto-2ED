@@ -174,6 +174,104 @@ void BinarioAA::liberarMemoria(NodoAA* nodo)
     }
 }
 
+// Elimina el nodo con ese codigo. Devuelve false si no existe.
+bool BinarioAA::Eliminar(string codigo)
+{
+    if (buscarRec(raiz, codigo) == nullptr)
+    {
+        return false;
+    }
+    raiz = eliminarRec(raiz, codigo);
+    return true;
+}
+
+// Eliminacion recursiva (metodo de la profesora).
+NodoAA* BinarioAA::eliminarRec(NodoAA* nodo, string codigo)
+{
+    if (nodo == nullptr)
+        return nullptr;
+
+    if (codigo < nodo->codigo)
+    {
+        nodo->izquierda = eliminarRec(nodo->izquierda, codigo);
+    }
+    else if (codigo > nodo->codigo)
+    {
+        nodo->derecha = eliminarRec(nodo->derecha, codigo);
+    }
+    else
+    {
+        // Caso 1: Hoja
+        if (nodo->izquierda == nullptr && nodo->derecha == nullptr)
+        {
+            delete nodo;
+            return nullptr;
+        }
+
+        // Caso 2: Un hijo
+        if (nodo->izquierda == nullptr)
+        {
+            NodoAA* temp = nodo->derecha;
+            delete nodo;
+            return temp;
+        }
+        else if (nodo->derecha == nullptr)
+        {
+            NodoAA* temp = nodo->izquierda;
+            delete nodo;
+            return temp;
+        }
+
+        // Caso 3: Dos hijos => tomar el sucesor
+        NodoAA* sucesor = nodo->derecha;
+        while (sucesor->izquierda != nullptr)
+            sucesor = sucesor->izquierda;
+
+        nodo->codigo = sucesor->codigo;
+        nodo->nombre = sucesor->nombre;
+        nodo->descripcion = sucesor->descripcion;
+        nodo->derecha = eliminarRec(nodo->derecha, sucesor->codigo);
+    }
+
+    // Ajuste de niveles (propio AA)
+    // El nivel de un nodo no puede ser mayor que (nivel del menor hijo + 1); un hijo nulo vale 0
+    int nivelIzq = 0;
+    if (nodo->izquierda != nullptr)
+        nivelIzq = nodo->izquierda->nivel;
+
+    int nivelDer = 0;
+    if (nodo->derecha != nullptr)
+        nivelDer = nodo->derecha->nivel;
+
+    int nivelEsperado = nivelIzq + 1;
+    if (nivelDer + 1 < nivelEsperado)
+        nivelEsperado = nivelDer + 1;
+
+    if (nivelEsperado < nodo->nivel)
+    {
+        nodo->nivel = nivelEsperado;
+
+        if (nodo->derecha != nullptr && nodo->derecha->nivel > nivelEsperado)
+            nodo->derecha->nivel = nivelEsperado;
+    }
+
+    // Rebalancear AA: tres giros y dos repartos
+    nodo = Giro(nodo);
+
+    if (nodo->derecha != nullptr)
+        nodo->derecha = Giro(nodo->derecha);
+
+    if (nodo->derecha != nullptr && nodo->derecha->derecha != nullptr)
+        nodo->derecha->derecha = Giro(nodo->derecha->derecha);
+
+    nodo = Reparto(nodo);
+
+    if (nodo->derecha != nullptr)
+        nodo->derecha = Reparto(nodo->derecha);
+
+    return nodo;
+}
+
 NodoAA* BinarioAA::obtenerRaiz()
 {
     return raiz;

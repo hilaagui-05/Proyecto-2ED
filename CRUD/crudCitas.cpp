@@ -138,3 +138,30 @@ void modificarCita() {
     cout << "Datos nuevos: " << endl;
     arbolCitas.mostrarPorCodigo(idCita);
 }
+
+// Se valida que el paciente y el medico existan y que la cita exista, luego se elimina.
+void eliminarCita() {
+    int idPaciente;
+    int idMedico;
+    int idCita;
+    cout << "Id del paciente: ";
+    cin >> idPaciente;
+    if (arbolPacientes.Buscar(idPaciente) == nullptr) {
+        cout << "El paciente no existe." << endl;
+        return;
+    }
+    cout << "Id del medico: ";
+    cin >> idMedico;
+    if (arbolMedicos.Buscar(idMedico) == nullptr) {
+        cout << "El medico no existe." << endl;
+        return;
+    }
+    cout << "Id de la cita: ";
+    cin >> idCita;
+    if (!arbolCitas.BuscarValor(idCita)) { //que la cita exista
+        cout << "La cita no existe." << endl;
+        return;
+    }
+    arbolCitas.Eliminar(idCita);
+    cout << "Cita eliminada correctamente." << endl;
+}

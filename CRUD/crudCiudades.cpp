@@ -81,3 +81,23 @@ void modificarCiudad(){
     cout << "Datos nuevos: ";
     arbolCiudades.mostrarPorClave(codPais, codCiudad);
 }
+
+// Se valida que el pais y la ciudad existan y se elimina la ciudad.
+void eliminarCiudad() {
+    int codPais;
+    int codCiudad;
+    cout << "Digite el codigo del pais: ";
+    cin >> codPais;
+    cout << "Digite el codigo de la ciudad: ";
+    cin >> codCiudad;
+    if (!arbolPaises.Buscarvalor(codPais)) { //que el pais exista
+        cout << "El pais no existe." << endl;
+        return;
+    }
+    if (!arbolCiudades.Buscarvalor(codPais, codCiudad)) { //que la ciudad exista en ese pais
+        cout << "La ciudad no existe." << endl;
+        return;
+    }
+    arbolCiudades.EliminarNodo(codPais, codCiudad);
+    cout << "Ciudad eliminada correctamente." << endl;
+}

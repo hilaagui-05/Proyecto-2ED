@@ -1,4 +1,3 @@
-
 #ifndef ARBOLRN_H
 #define ARBOLRN_H
 
@@ -23,6 +22,13 @@ private:
     void MostrarPreorden(pNodoRN nodo);
     void LiberarMemoria(pNodoRN nodo);
 
+    // Borrado (metodos de la profesora)
+    int claveDe(pNodoRN nodo);
+    void EliminarRN(pNodoRN nodo);
+    void Sustitucion(pNodoRN u, pNodoRN v);
+    pNodoRN Minimo(pNodoRN nodo);
+    void ArreglaEliminacion(pNodoRN nodo);
+
 public:
     BinarioRN();
     ~BinarioRN();
@@ -46,6 +52,9 @@ public:
         int habitacion, int medico, std::string ingreso, std::string salida, std::string motivo);
     bool BuscarHospitalizacion(int id);
     void mostrarHospitalizacion(int id);
+
+    // Eliminar (devuelve false si el id no existe)
+    bool Eliminar(int id);
 
     void Mostrar();
     bool EstaVacio();

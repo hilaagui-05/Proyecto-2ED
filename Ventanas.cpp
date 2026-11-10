@@ -77,7 +77,8 @@ namespace mainInterfaz {
 		L"$CodDiagnóstico",
 		L"#CodTratamiento" };
 
-	static const wchar_t* TIPOS[3] = { L"Inserción", L"Modificación", L"Consulta" };
+	// Para borrar se piden los mismos datos que para consultar (la llave del registro)
+	static const wchar_t* TIPOS[4] = { L"Inserción", L"Modificación", L"Consulta", L"Borrado" };
 
 	// ======================= FormDatos =======================
 	FormDatos::FormDatos(int tipo, int indice, String^ titulo, String^ spec)
@@ -134,7 +135,7 @@ namespace mainInterfaz {
 
 		int y = 62 + n * 36 + 8;
 		btnAccion = gcnew Button();
-		btnAccion->Text = (tipo == 0) ? L"Insertar" : (tipo == 1) ? L"Modificar" : L"Buscar";
+		btnAccion->Text = (tipo == 0) ? L"Insertar" : (tipo == 1) ? L"Modificar" : (tipo == 2) ? L"Buscar" : L"Eliminar";
 		btnAccion->Location = Point(280, y);
 		btnAccion->Size = System::Drawing::Size(120, 32);
 		btnAccion->BackColor = Color::FromArgb(20, 110, 130);
@@ -191,6 +192,16 @@ namespace mainInterfaz {
 			campos.push_back(aStd(t));
 		}
 
+		// Antes de borrar se pide confirmación
+		if (tipo == 3) {
+			System::Windows::Forms::DialogResult respuesta = MessageBox::Show(this,
+				L"¿Está seguro de que desea eliminar este registro?", L"Confirmar eliminación",
+				MessageBoxButtons::YesNo, MessageBoxIcon::Question);
+			if (respuesta != System::Windows::Forms::DialogResult::Yes) {
+				return;
+			}
+		}
+
 		this->Cursor = System::Windows::Forms::Cursors::WaitCursor;
 		std::string r;
 		try {
@@ -202,7 +213,7 @@ namespace mainInterfaz {
 		this->Cursor = System::Windows::Forms::Cursors::Default;
 
 		String^ texto = aNet(r);
-		if (tipo == 0 && texto->Contains(L"correctamente")) {
+		if ((tipo == 0 || tipo == 3) && texto->Contains(L"correctamente")) {
 			for (int i = 0; i < cajas->Length; i++) cajas[i]->Clear();
 			if (cajas->Length > 0) cajas[0]->Focus();
 		}
@@ -214,10 +225,12 @@ namespace mainInterfaz {
 		this->Close();
 	}
 
-	// Ventana con tres botones (Insertar, Modificar, Buscar) para la entidad del icono tocado
+	// ======================= FormEntidad =======================
+	// Ventana con cuatro botones (Insertar, Modificar, Buscar, Eliminar) para la entidad del icono tocado
 	FormEntidad::FormEntidad(int indice, String^ nombre)
 	{
 		this->indice = indice;
+
 		this->Text = nombre;
 		this->Font = gcnew System::Drawing::Font(L"Segoe UI", 9.75F);
 		this->BackColor = Color::FromArgb(238, 246, 247);
@@ -225,7 +238,7 @@ namespace mainInterfaz {
 		this->MaximizeBox = false;
 		this->MinimizeBox = false;
 		this->StartPosition = FormStartPosition::CenterParent;
-		this->ClientSize = System::Drawing::Size(300, 260);
+		this->ClientSize = System::Drawing::Size(300, 330);
 
 		// Titulo con el nombre de la entidad
 		Label^ lblTitulo = gcnew Label();
@@ -236,10 +249,10 @@ namespace mainInterfaz {
 		lblTitulo->Font = gcnew System::Drawing::Font(L"Segoe UI", 13.0F, FontStyle::Bold);
 		this->Controls->Add(lblTitulo);
 
-		// Los tres botones se crean con un ciclo. El Tag guarda el tipo (0, 1 o 2)
-		// igual que en el menu: 0 inserción, 1 modificación, 2 consulta
-		cli::array<String^>^ textos = gcnew cli::array<String^>{ L"Insertar", L"Modificar", L"Buscar" };
-		for (int i = 0; i < 3; i++) {
+		// Los cuatro botones se crean con un ciclo. El Tag guarda el tipo (0, 1, 2 o 3)
+		// igual que en el menu: 0 inserción, 1 modificación, 2 consulta, 3 borrado
+		cli::array<String^>^ textos = gcnew cli::array<String^>{ L"Insertar", L"Modificar", L"Buscar", L"Eliminar" };
+		for (int i = 0; i < 4; i++) {
 			Button^ boton = gcnew Button();
 			boton->Text = textos[i];
 			boton->Tag = Convert::ToString(i);
@@ -254,7 +267,7 @@ namespace mainInterfaz {
 
 		Button^ btnCerrar = gcnew Button();
 		btnCerrar->Text = L"Cerrar";
-		btnCerrar->Location = Point(40, 60 + 3 * 52);
+		btnCerrar->Location = Point(40, 60 + 4 * 52);
 		btnCerrar->Size = System::Drawing::Size(220, 36);
 		btnCerrar->Click += gcnew System::EventHandler(this, &FormEntidad::Cerrar_Click);
 		this->Controls->Add(btnCerrar);
@@ -277,7 +290,7 @@ namespace mainInterfaz {
 	// ======================= Ventanas =======================
 	void Ventanas::Abrir(Form^ padre, int tipo, int indice)
 	{
-		const wchar_t** tabla = (tipo == 0) ? INSERTAR : (tipo == 1) ? MODIFICAR : CONSULTAR;
+		const wchar_t** tabla = (tipo == 0) ? INSERTAR : (tipo == 1) ? MODIFICAR : CONSULTAR;   // tipo 2 y 3 piden la llave
 		String^ titulo = String::Concat(gcnew String(TIPOS[tipo]), L" de ", gcnew String(ENTIDADES[indice]));
 		FormDatos^ f = gcnew FormDatos(tipo, indice, titulo, gcnew String(tabla[indice]));
 		f->ShowDialog(padre);
@@ -307,8 +320,9 @@ namespace mainInterfaz {
 		cli::array<String^>^ lineas = gcnew cli::array<String^>{
 			L"Sistema de Gestión Hospitalaria",
 			L"Hospital San Rafael",
-			L"Proyecto #3 - Estructuras de Datos",
+			L"Proyecto Programado #3 - Estructuras de Datos",
 			L"Instituto Tecnológico de Costa Rica",
+			L"Versión: Avance 2",
 			L"Elaborado por:",
 			L"Arina Tarasova",
 			L"Hilary Aguilar" };

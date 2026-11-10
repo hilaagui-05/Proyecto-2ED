@@ -23,57 +23,67 @@ extern ArbolB arbolMedicos;
 void insertarPais();
 void buscarPais();
 void modificarPais();
+void eliminarPais();
 
 // Ciudades
 void insertarCiudad();
 void buscarCiudad();
 void modificarCiudad();
+void eliminarCiudad();
 
 // Tratamientos
 void insertarTratamiento();
 void buscarTratamiento();
 void modificarTratamiento();
+void eliminarTratamiento();
 
 // Diagnosticos
 void insertarDiagnostico();
 void buscarDiagnostico();
 void modificarDiagnostico();
+void eliminarDiagnostico();
 void mostrarDiagnosticos();
 
 // Especialidades
 void insertarEspecialidad();
 void buscarEspecialidad();
 void modificarEspecialidad();
+void eliminarEspecialidad();
 void mostrarEspecialidades();
 
 // Habitaciones
 void insertarHabitacion();
 void buscarHabitacion();
 void modificarHabitacion();
+void eliminarHabitacion();
 void mostrarHabitaciones();
 
 // Pacientes
 void insertarPaciente();
 void buscarPaciente();
 void modificarPaciente();
+void eliminarPaciente();
 void mostrarPacientes();
 
 // Medicos
 void insertarMedico();
 void buscarMedico();
 void modificarMedico();
+void eliminarMedico();
 void mostrarMedicos();
 
 // Citas
 void insertarCita();
 void buscarCita();
 void modificarCita();
+void eliminarCita();
 void mostrarCitas();
 
 // Hospitalizaciones
 void insertarHospitalizacion();
 void buscarHospitalizacion();
 void modificarHospitalizacion();
+void eliminarHospitalizacion();
 void mostrarHospitalizaciones();
 
 // Reportes 

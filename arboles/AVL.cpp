@@ -360,6 +360,174 @@ void AVL::RotacionSimpleIzquierda(pNodoAVL& n, pNodoAVL& n1)
     n = n1;
 }
 
+// Devuelve la llave del nodo: idHabitacion en el arbol de habitaciones e idCita en el de citas.
+int AVL::claveDe(pNodoAVL n)
+{
+    return (n->categoria == 1) ? n->idHabitacion : n->idCita;
+}
+
+// Copia todos los datos de un nodo a otro (menos el factor de balance y los hijos).
+void AVL::copiarDatos(pNodoAVL destino, pNodoAVL origen)
+{
+    destino->categoria = origen->categoria;
+    destino->idHabitacion = origen->idHabitacion;
+    destino->numero = origen->numero;
+    destino->piso = origen->piso;
+    destino->tipo = origen->tipo;
+    destino->estado = origen->estado;
+    destino->idCita = origen->idCita;
+    destino->idPaciente = origen->idPaciente;
+    destino->idMedico = origen->idMedico;
+    destino->idEspecialidad = origen->idEspecialidad;
+    destino->fecha = origen->fecha;
+    destino->hora = origen->hora;
+    destino->motivo = origen->motivo;
+}
+
+// Metodo publico para eliminar. Devuelve false si el id no existe.
+bool AVL::Eliminar(int id)
+{
+    if (buscarNodo(raiz, id) == nullptr)
+    {
+        return false;
+    }
+    bool Hh = false;
+    BorrarBalanceado(raiz, Hh, id);
+    return true;
+}
+
+// Eliminar balanceado (metodo de la profesora)
+void AVL::BorrarBalanceado(pNodoAVL& raiz, bool& Hh, int id)
+{
+    pNodoAVL q, reemplazo;
+
+    if (raiz != nullptr)
+    {
+        int idRaiz = claveDe(raiz);
+
+        // Buscar por izquierda
+        if (id < idRaiz)
+        {
+            BorrarBalanceado(raiz->Hizq, Hh, id);
+
+            if (Hh)
+                Equilibrar1(raiz, Hh);
+        }
+
+        // Buscar por derecha
+        else if (id > idRaiz)
+        {
+            BorrarBalanceado(raiz->Hder, Hh, id);
+
+            if (Hh)
+                Equilibrar2(raiz, Hh);
+        }
+
+        // Nodo encontrado
+        else
+        {
+            q = raiz;
+
+            // Caso 1: solo hijo derecho o sin hijos
+            if (q->Hizq == nullptr)
+            {
+                raiz = q->Hder;
+                delete q;
+                Hh = true;
+            }
+
+            // Caso 2: solo hijo izquierdo
+            else if (q->Hder == nullptr)
+            {
+                raiz = q->Hizq;
+                delete q;
+                Hh = true;
+            }
+
+            // Caso 3: dos hijos
+            else
+            {
+                // Buscar el mayor de la izquierda
+                reemplazo = q->Hizq;
+
+                while (reemplazo->Hder != nullptr)
+                {
+                    reemplazo = reemplazo->Hder;
+                }
+
+                // Copiar los datos del reemplazo
+                int idReemplazo = claveDe(reemplazo);
+                copiarDatos(q, reemplazo);
+
+                // Borrar el nodo reemplazo
+                BorrarBalanceado(q->Hizq, Hh, idReemplazo);
+
+                // Reequilibrar
+                if (Hh)
+                    Equilibrar1(raiz, Hh);
+            }
+        }
+    }
+}
+
+// Equilibrar1: se usa cuando la rama izquierda se hizo mas baja
+void AVL::Equilibrar1(pNodoAVL& n, bool& Hh)
+{
+    pNodoAVL n1;
+    switch (n->FB)
+    {
+    case -1:
+        n->FB = 0;
+        break;
+    case 0:
+        n->FB = 1;
+        Hh = false;
+        break;
+    case 1:
+        n1 = n->Hder;
+        if (n1->FB >= 0)
+        {
+            if (n1->FB == 0)
+                Hh = false;
+            RotacionSimpleDerecha(n, n1);
+        }
+        else
+        {
+            RotacionDobleDerecha(n, n1);
+        }
+        break;
+    }
+}
+
+// Equilibrar2: se usa cuando la rama derecha se hizo mas baja
+void AVL::Equilibrar2(pNodoAVL& n, bool& Hh)
+{
+    pNodoAVL n1;
+    switch (n->FB)
+    {
+    case 1:
+        n->FB = 0;
+        break;
+    case 0:
+        n->FB = -1;
+        Hh = false;
+        break;
+    case -1:
+        n1 = n->Hizq;
+        if (n1->FB <= 0)
+        {
+            if (n1->FB == 0)
+                Hh = false;
+            RotacionSimpleIzquierda(n, n1);
+        }
+        else
+        {
+            RotacionDobleIzquierda(n, n1);
+        }
+        break;
+    }
+}
+
 // Mostrar Arbol en Inorden
 void AVL::MostrarInorden(pNodoAVL n)
 {

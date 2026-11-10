@@ -358,6 +358,262 @@ void BinarioRN::LiberarMemoria(pNodoRN nodo)
     }
 }
 
+// Devuelve la llave del nodo: codigo en el arbol de tratamientos e idHospitalizacion en el de hospitalizaciones.
+int BinarioRN::claveDe(pNodoRN nodo)
+{
+    return (nodo->categoria == 1) ? nodo->codigo : nodo->idHospitalizacion;
+}
+
+// Metodo publico para eliminar. Devuelve false si el id no existe.
+bool BinarioRN::Eliminar(int id)
+{
+    pNodoRN nodo = raiz;
+    while (nodo != nullptr && claveDe(nodo) != id)
+    {
+        if (id < claveDe(nodo))
+            nodo = nodo->Hizq;
+        else
+            nodo = nodo->Hder;
+    }
+    if (nodo == nullptr)
+        return false;
+
+    EliminarRN(nodo);
+    return true;
+}
+
+void BinarioRN::EliminarRN(pNodoRN z)
+{
+    pNodoRN y = z;
+    pNodoRN x;
+    pNodoRN xPadre = nullptr;
+    bool yOriginalColor = y->color;
+
+    if (z->Hizq == nullptr)
+    {
+        x = z->Hder;
+        xPadre = z->padre;
+        Sustitucion(z, z->Hder);
+    }
+    else
+        if (z->Hder == nullptr)
+        {
+            x = z->Hizq;
+            xPadre = z->padre;
+            Sustitucion(z, z->Hizq);
+        }
+        else
+        {
+            y = Minimo(z->Hder);
+            yOriginalColor = y->color;
+            x = y->Hder;
+            xPadre = y->padre;
+
+            if (y->padre == z)
+            {
+                xPadre = y;
+                if (x != nullptr)
+                    x->padre = y;
+            }
+            else
+            {
+                Sustitucion(y, y->Hder);
+                y->Hder = z->Hder;
+                if (y->Hder != nullptr)
+                    y->Hder->padre = y;
+            }
+
+            Sustitucion(z, y);
+            y->Hizq = z->Hizq;
+            if (y->Hizq != nullptr)
+                y->Hizq->padre = y;
+            y->color = z->color;
+        }
+
+    delete z;
+
+    if (!yOriginalColor)
+    {
+        // Si x es nullptr, crear un nodo centinela temporal
+        if (x == nullptr)
+        {
+            pNodoRN centinela = new NodoRN(1, 0);
+            centinela->color = false;
+            centinela->padre = xPadre;
+            centinela->Hizq = nullptr;
+            centinela->Hder = nullptr;
+
+            // Conectar el centinela al padre
+            if (xPadre != nullptr)
+            {
+                if (xPadre->Hizq == nullptr)
+                    xPadre->Hizq = centinela;
+                else
+                    xPadre->Hder = centinela;
+            }
+
+            ArreglaEliminacion(centinela);
+
+            // Desconectar y eliminar el centinela
+            if (xPadre != nullptr)
+            {
+                if (xPadre->Hizq == centinela)
+                    xPadre->Hizq = nullptr;
+                if (xPadre->Hder == centinela)
+                    xPadre->Hder = nullptr;
+            }
+
+            delete centinela;
+        }
+        else
+        {
+            ArreglaEliminacion(x);
+        }
+    }
+}
+
+void BinarioRN::Sustitucion(pNodoRN u, pNodoRN v)
+{
+    if (u->padre == nullptr)
+    {
+        raiz = v;
+    }
+    else
+        if (u == u->padre->Hizq)
+        {
+            u->padre->Hizq = v;
+        }
+        else
+        {
+            u->padre->Hder = v;
+        }
+
+    if (v != nullptr)
+    {
+        v->padre = u->padre;
+    }
+}
+
+pNodoRN BinarioRN::Minimo(pNodoRN nodo)
+{
+    while (nodo->Hizq != nullptr)
+    {
+        nodo = nodo->Hizq;
+    }
+    return nodo;
+}
+
+void BinarioRN::ArreglaEliminacion(pNodoRN x)
+{
+    while (x != raiz && x->color == false)
+    {
+        if (x->padre == nullptr)
+            break;
+
+        if (x == x->padre->Hizq)
+        {
+            pNodoRN w = x->padre->Hder;
+
+            // Caso 1: hermano es rojo
+            if (w != nullptr && w->color == true)
+            {
+                w->color = false;
+                x->padre->color = true;
+                RotIzquierda(x->padre);
+                w = x->padre->Hder;
+            }
+
+            if (w == nullptr)
+            {
+                x = x->padre;
+                continue;
+            }
+
+            // Caso 2: hermano es negro y ambos hijos del hermano son negros
+            if ((w->Hizq == nullptr || w->Hizq->color == false) && (w->Hder == nullptr || w->Hder->color == false))
+            {
+                w->color = true;
+                x = x->padre;
+            }
+            else
+            {
+                // Caso 3: hermano es negro, hijo derecho del hermano es negro, hijo izquierdo es rojo
+                if (w->Hder == nullptr || w->Hder->color == false)
+                {
+                    if (w->Hizq != nullptr)
+                        w->Hizq->color = false;
+                    w->color = true;
+                    RotDerecha(w);
+                    w = x->padre->Hder;
+                }
+
+                // Caso 4: hermano es negro, hijo derecho del hermano es rojo
+                if (w != nullptr)
+                {
+                    w->color = x->padre->color;
+                    x->padre->color = false;
+                    if (w->Hder != nullptr)
+                        w->Hder->color = false;
+                    RotIzquierda(x->padre);
+                }
+                x = raiz;
+            }
+        }
+        else
+        {
+            // Casos simetricos (x es hijo derecho)
+            pNodoRN w = x->padre->Hizq;
+
+            // Caso 1 simetrico
+            if (w != nullptr && w->color == true)
+            {
+                w->color = false;
+                x->padre->color = true;
+                RotDerecha(x->padre);
+                w = x->padre->Hizq;
+            }
+
+            if (w == nullptr)
+            {
+                x = x->padre;
+                continue;
+            }
+
+            // Caso 2 simetrico
+            if ((w->Hder == nullptr || w->Hder->color == false) && (w->Hizq == nullptr || w->Hizq->color == false))
+            {
+                w->color = true;
+                x = x->padre;
+            }
+            else {
+                // Caso 3 simetrico
+                if (w->Hizq == nullptr || w->Hizq->color == false)
+                {
+                    if (w->Hder != nullptr)
+                        w->Hder->color = false;
+                    w->color = true;
+                    RotIzquierda(w);
+                    w = x->padre->Hizq;
+                }
+
+                // Caso 4 simetrico
+                if (w != nullptr)
+                {
+                    w->color = x->padre->color;
+                    x->padre->color = false;
+                    if (w->Hizq != nullptr)
+                        w->Hizq->color = false;
+                    RotDerecha(x->padre);
+                }
+                x = raiz;
+            }
+        }
+    }
+
+    if (x != nullptr)
+        x->color = false;
+}
+
 pNodoRN BinarioRN::obtenerRaiz()
 {
     return raiz;
