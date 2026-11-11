@@ -195,7 +195,7 @@ namespace mainInterfaz {
 		// Antes de borrar se pide confirmación
 		if (tipo == 3) {
 			System::Windows::Forms::DialogResult respuesta = MessageBox::Show(this,
-				L"¿Está seguro de que desea eliminar este registro?", L"Confirmar eliminación",
+				L"¿Está seguro de que desea eliminar este registro?\nTambién se eliminarán los registros relacionados.", L"Confirmar eliminación",
 				MessageBoxButtons::YesNo, MessageBoxIcon::Question);
 			if (respuesta != System::Windows::Forms::DialogResult::Yes) {
 				return;

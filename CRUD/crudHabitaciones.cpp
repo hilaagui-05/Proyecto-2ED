@@ -7,7 +7,7 @@ using namespace std;
 // Arbol de habitaciones (AVL).
 AVL arbolHabitaciones;
 
-void insertarHabitacion(){
+void insertarHabitacion() {
     int id;
     int numero;
     string piso;
@@ -53,30 +53,30 @@ void mostrarHabitaciones()
 }
 
 // se valida que el id exista y se puede modificar el estado.
-void modificarHabitacion(){
+void modificarHabitacion() {
     int id;
     string textoEstado;
     cout << "Digite el id de la habitacion: ";
     cin >> id;
     cin.ignore(); //ignora el enter pendiente
-    if (!arbolHabitaciones.BuscarValor(id)){ //que la habitacion exista
+    if (!arbolHabitaciones.BuscarValor(id)) { //que la habitacion exista
         cout << "La habitacion no existe." << endl;
         return;
     }
     cout << "Datos actuales: ";
     arbolHabitaciones.mostrarPorCodigo(id);
     bool estadoValido = false;
-    while (!estadoValido){
+    while (!estadoValido) {
         cout << "Nuevo estado (0 disponible, 1 ocupada, Enter para dejarlo igual): ";
         getline(cin, textoEstado);
-        if (textoEstado.empty()){
+        if (textoEstado.empty()) {
             cout << "No se hicieron cambios." << endl;
             return;
         }
-        if (textoEstado == "0" || textoEstado == "1"){
+        if (textoEstado == "0" || textoEstado == "1") {
             estadoValido = true;
         }
-        else{
+        else {
             cout << "Estado no valido, digite 0 o 1." << endl;
         }
     }
@@ -95,6 +95,7 @@ void eliminarHabitacion() {
         cout << "La habitacion no existe." << endl;
         return;
     }
+    eliminarHospitalizacionesDeHabitacion(id); //las hospitalizaciones de esa habitacion tambien se eliminan
     arbolHabitaciones.Eliminar(id);
     cout << "Habitacion eliminada correctamente." << endl;
 }

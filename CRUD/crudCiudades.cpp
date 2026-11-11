@@ -51,7 +51,7 @@ void buscarCiudad() {
 }
 
 // se valida que el pais y la ciudad existan y se puede modificar el nombre
-void modificarCiudad(){
+void modificarCiudad() {
     int codPais;
     int codCiudad;
     string nombre;
@@ -60,11 +60,11 @@ void modificarCiudad(){
     cout << "Digite el codigo de la ciudad: ";
     cin >> codCiudad;
     cin.ignore(); //ignora el enter pendiente
-    if (!arbolPaises.Buscarvalor(codPais)){ //que el pais exista
+    if (!arbolPaises.Buscarvalor(codPais)) { //que el pais exista
         cout << "El pais no existe." << endl;
         return;
     }
-    if (!arbolCiudades.Buscarvalor(codPais, codCiudad)){ //que la ciudad exista en ese pais
+    if (!arbolCiudades.Buscarvalor(codPais, codCiudad)) { //que la ciudad exista en ese pais
         cout << "La ciudad no existe." << endl;
         return;
     }
@@ -72,7 +72,7 @@ void modificarCiudad(){
     arbolCiudades.mostrarPorClave(codPais, codCiudad);
     cout << "Nuevo nombre (Enter para dejarlo igual): ";
     getline(cin, nombre);
-    if (nombre.empty()){
+    if (nombre.empty()) {
         cout << "No se hicieron cambios." << endl;
         return;
     }
@@ -83,6 +83,37 @@ void modificarCiudad(){
 }
 
 // Se valida que el pais y la ciudad existan y se elimina la ciudad.
+// Busca la primera ciudad del pais. Devuelve -1 si no hay.
+int primeraCiudadDePais(pnodo nodo, int codPais)
+{
+    if (nodo == nullptr)
+    {
+        return -1;
+    }
+    int encontrada = primeraCiudadDePais(nodo->Hizq, codPais);
+    if (encontrada != -1)
+    {
+        return encontrada;
+    }
+    if (nodo->codPais == codPais)
+    {
+        return nodo->codCiudad;
+    }
+    return primeraCiudadDePais(nodo->Hder, codPais);
+}
+
+// Borrado en cascada: elimina las ciudades de un pais, cada una con sus pacientes
+void eliminarCiudadesDePais(int codPais)
+{
+    int codCiudad = primeraCiudadDePais(arbolCiudades.obtenerRaiz(), codPais);
+    while (codCiudad != -1)
+    {
+        eliminarPacientesDeCiudad(codPais, codCiudad);
+        arbolCiudades.EliminarNodo(codPais, codCiudad);
+        codCiudad = primeraCiudadDePais(arbolCiudades.obtenerRaiz(), codPais);
+    }
+}
+
 void eliminarCiudad() {
     int codPais;
     int codCiudad;
@@ -98,6 +129,7 @@ void eliminarCiudad() {
         cout << "La ciudad no existe." << endl;
         return;
     }
+    eliminarPacientesDeCiudad(codPais, codCiudad); //los pacientes de esa ciudad tambien se eliminan
     arbolCiudades.EliminarNodo(codPais, codCiudad);
     cout << "Ciudad eliminada correctamente." << endl;
 }

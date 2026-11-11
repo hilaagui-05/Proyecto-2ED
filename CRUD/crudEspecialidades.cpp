@@ -48,13 +48,13 @@ void mostrarEspecialidades()
 }
 
 // se valida que el id exista y se puede modificar la descripcion.
-void modificarEspecialidad(){
+void modificarEspecialidad() {
     string codigo;
     string descripcion;
     cout << "Digite el id de la especialidad: ";
     cin >> codigo;
     cin.ignore(); //ignora el enter pendiente
-    if (!arbolEspecialidades.Buscarvalor(codigo)){ //que la especialidad exista
+    if (!arbolEspecialidades.Buscarvalor(codigo)) { //que la especialidad exista
         cout << "La especialidad no existe." << endl;
         return;
     }
@@ -62,7 +62,7 @@ void modificarEspecialidad(){
     arbolEspecialidades.mostrarPorCodigo(codigo);
     cout << "Nueva descripcion (Enter para dejarla igual): ";
     getline(cin, descripcion);
-    if (descripcion.empty()){
+    if (descripcion.empty()) {
         cout << "No se hicieron cambios." << endl;
         return;
     }
@@ -81,6 +81,7 @@ void eliminarEspecialidad() {
         cout << "La especialidad no existe." << endl;
         return;
     }
+    eliminarMedicosDeEspecialidad(stoi(codigo)); //los medicos de esa especialidad tambien se eliminan
     arbolEspecialidades.Eliminar(codigo);
     cout << "Especialidad eliminada correctamente." << endl;
 }

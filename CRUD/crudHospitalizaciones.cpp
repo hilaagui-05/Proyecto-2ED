@@ -120,6 +120,50 @@ void modificarHospitalizacion() {
     arbolHospitalizaciones.mostrarPorClave(idHospitalizacion);
 }
 
+// Busca la primera hospitalizacion del paciente (modo 1) o de la habitacion (modo 2). Devuelve -1 si no hay.
+int primeraHospitalizacion(pNodoRN nodo, int modo, int id)
+{
+    if (nodo == nullptr)
+    {
+        return -1;
+    }
+    int encontrada = primeraHospitalizacion(nodo->Hizq, modo, id);
+    if (encontrada != -1)
+    {
+        return encontrada;
+    }
+    if (nodo->categoria == 2)
+    {
+        if ((modo == 1 && nodo->idPaciente == id) || (modo == 2 && nodo->idHabitacion == id))
+        {
+            return nodo->idHospitalizacion;
+        }
+    }
+    return primeraHospitalizacion(nodo->Hder, modo, id);
+}
+
+// Borrado en cascada: elimina todas las hospitalizaciones de un paciente
+void eliminarHospitalizacionesDePaciente(int idPaciente)
+{
+    int idHosp = primeraHospitalizacion(arbolHospitalizaciones.obtenerRaiz(), 1, idPaciente);
+    while (idHosp != -1)
+    {
+        arbolHospitalizaciones.Eliminar(idHosp);
+        idHosp = primeraHospitalizacion(arbolHospitalizaciones.obtenerRaiz(), 1, idPaciente);
+    }
+}
+
+// Borrado en cascada: elimina todas las hospitalizaciones de una habitacion
+void eliminarHospitalizacionesDeHabitacion(int idHabitacion)
+{
+    int idHosp = primeraHospitalizacion(arbolHospitalizaciones.obtenerRaiz(), 2, idHabitacion);
+    while (idHosp != -1)
+    {
+        arbolHospitalizaciones.Eliminar(idHosp);
+        idHosp = primeraHospitalizacion(arbolHospitalizaciones.obtenerRaiz(), 2, idHabitacion);
+    }
+}
+
 // Se valida que el paciente y la habitacion existan y que la hospitalizacion exista, luego se elimina.
 void eliminarHospitalizacion() {
     int idHospitalizacion;

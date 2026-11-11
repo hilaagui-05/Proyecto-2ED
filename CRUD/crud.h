@@ -86,6 +86,18 @@ void modificarHospitalizacion();
 void eliminarHospitalizacion();
 void mostrarHospitalizaciones();
 
+// Borrados en cascada: buscan el primer registro relacionado, lo borran y repiten hasta que no quede ninguno
+void eliminarCitasDePaciente(int idPaciente);
+void eliminarCitasDeMedico(int idMedico);
+void eliminarHospitalizacionesDePaciente(int idPaciente);
+void eliminarHospitalizacionesDeHabitacion(int idHabitacion);
+void eliminarPacienteConRelacionados(int idPaciente); // borra al paciente, sus citas y sus hospitalizaciones
+void eliminarPacientesDeCiudad(int codPais, int codCiudad);
+void eliminarPacientesDePais(int codPais);
+void eliminarMedicoConRelacionados(int idMedico); // borra al medico y sus citas
+void eliminarMedicosDeEspecialidad(int idEspecialidad);
+void eliminarCiudadesDePais(int codPais); // borra cada ciudad con sus pacientes
+
 // Reportes 
 extern string fechaHoraEmision; // fecha y hora que se escribe en todos los reportes
 

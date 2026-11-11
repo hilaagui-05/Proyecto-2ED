@@ -139,6 +139,50 @@ void modificarCita() {
     arbolCitas.mostrarPorCodigo(idCita);
 }
 
+// Busca la primera cita del paciente (modo 1) o del medico (modo 2). Devuelve -1 si no hay.
+int primeraCita(pNodoAVL nodo, int modo, int id)
+{
+    if (nodo == nullptr)
+    {
+        return -1;
+    }
+    int encontrada = primeraCita(nodo->Hizq, modo, id);
+    if (encontrada != -1)
+    {
+        return encontrada;
+    }
+    if (nodo->categoria == 2)
+    {
+        if ((modo == 1 && nodo->idPaciente == id) || (modo == 2 && nodo->idMedico == id))
+        {
+            return nodo->idCita;
+        }
+    }
+    return primeraCita(nodo->Hder, modo, id);
+}
+
+// Borrado en cascada: elimina todas las citas de un paciente
+void eliminarCitasDePaciente(int idPaciente)
+{
+    int idCita = primeraCita(arbolCitas.obtenerRaiz(), 1, idPaciente);
+    while (idCita != -1)
+    {
+        arbolCitas.Eliminar(idCita);
+        idCita = primeraCita(arbolCitas.obtenerRaiz(), 1, idPaciente);
+    }
+}
+
+// Borrado en cascada: elimina todas las citas de un medico
+void eliminarCitasDeMedico(int idMedico)
+{
+    int idCita = primeraCita(arbolCitas.obtenerRaiz(), 2, idMedico);
+    while (idCita != -1)
+    {
+        arbolCitas.Eliminar(idCita);
+        idCita = primeraCita(arbolCitas.obtenerRaiz(), 2, idMedico);
+    }
+}
+
 // Se valida que el paciente y el medico existan y que la cita exista, luego se elimina.
 void eliminarCita() {
     int idPaciente;

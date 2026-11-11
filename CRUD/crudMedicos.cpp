@@ -6,7 +6,7 @@ using namespace std;
 
 ArbolB arbolMedicos;
 
-void insertarMedico(){
+void insertarMedico() {
     RegistroB medico;
     string idEspecialidad;
     cout << "Id del medico: ";
@@ -36,7 +36,7 @@ void insertarMedico(){
     cout << "Medico insertado correctamente." << endl;
 }
 
-void buscarMedico(){
+void buscarMedico() {
     int idMedico;
     string idEspecialidad;
     cout << "Id de la especialidad: ";
@@ -71,7 +71,7 @@ void mostrarMedicos()
 
 // se valida que la especialidad exista y que el medico exista en ella
 // se puede modificar el telefono y/o el correo
-void modificarMedico(){
+void modificarMedico() {
     int idMedico;
     string idEspecialidad;
     string telefono, correo;
@@ -99,14 +99,14 @@ void modificarMedico(){
     cout << "Correo actual: " << medico->correo << endl;
     cout << "Nuevo correo (Enter para dejarlo igual): ";
     getline(cin, correo);
-    if (telefono.empty() && correo.empty()){
+    if (telefono.empty() && correo.empty()) {
         cout << "No se hicieron cambios." << endl;
         return;
     }
-    if (!telefono.empty()){
+    if (!telefono.empty()) {
         medico->telefono = telefono; //se modifica directamente en el arbol B
     }
-    if (!correo.empty()){
+    if (!correo.empty()) {
         medico->correo = correo;
     }
     cout << "Medico modificado correctamente." << endl;
@@ -115,7 +115,47 @@ void modificarMedico(){
 }
 
 // Se valida que la especialidad exista y que el medico pertenezca a ella, luego se elimina.
-void eliminarMedico(){
+// Busca el primer medico de la especialidad. Devuelve -1 si no hay.
+int primerMedicoDeEspecialidad(Pagina* p, int idEspecialidad)
+{
+    if (p == nullptr)
+    {
+        return -1;
+    }
+    for (int i = 1; i <= p->Cuenta; i++)
+    {
+        int encontrado = primerMedicoDeEspecialidad(p->Ramas[i - 1], idEspecialidad);
+        if (encontrado != -1)
+        {
+            return encontrado;
+        }
+        if (p->Claves[i].idEspecialidad == idEspecialidad)
+        {
+            return p->Claves[i].clave;
+        }
+    }
+    return primerMedicoDeEspecialidad(p->Ramas[p->Cuenta], idEspecialidad);
+}
+
+// Borrado en cascada: elimina al medico junto con sus citas
+void eliminarMedicoConRelacionados(int idMedico)
+{
+    eliminarCitasDeMedico(idMedico);
+    arbolMedicos.Eliminar(idMedico);
+}
+
+// Borrado en cascada: elimina los medicos de una especialidad
+void eliminarMedicosDeEspecialidad(int idEspecialidad)
+{
+    int idMedico = primerMedicoDeEspecialidad(arbolMedicos.obtenerRaiz(), idEspecialidad);
+    while (idMedico != -1)
+    {
+        eliminarMedicoConRelacionados(idMedico);
+        idMedico = primerMedicoDeEspecialidad(arbolMedicos.obtenerRaiz(), idEspecialidad);
+    }
+}
+
+void eliminarMedico() {
     int idMedico;
     string idEspecialidad;
     cout << "Id de la especialidad: ";
@@ -134,6 +174,6 @@ void eliminarMedico(){
         cout << "No existe el medico en la especialidad." << endl;
         return;
     }
-    arbolMedicos.Eliminar(idMedico);
+    eliminarMedicoConRelacionados(idMedico); //tambien se eliminan sus citas
     cout << "Medico eliminado correctamente." << endl;
 }

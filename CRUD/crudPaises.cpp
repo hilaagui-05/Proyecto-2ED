@@ -16,24 +16,24 @@ void insertarPais()
     cin.ignore(); //ignora el enter pendiente
     cout << "Nombre: ";
     getline(cin, nombre); //
-    if (arbolPaises.Buscarvalor(codigo)){ //Revisa que no sea repetido
+    if (arbolPaises.Buscarvalor(codigo)) { //Revisa que no sea repetido
         cout << "El pais ya existe." << endl;
     }
-    else{
+    else {
         arbolPaises.InsertaNodo(codigo, 0, nombre);
         cout << "Pais insertado correctamente." << endl;
     }
 }
 
-void buscarPais(){
+void buscarPais() {
     int codPais;
     cout << "Digite el codigo del pais: ";
     cin >> codPais;
-    if (arbolPaises.Buscarvalor(codPais)){
+    if (arbolPaises.Buscarvalor(codPais)) {
         cout << "Pais encontrado: ";
         arbolPaises.mostrarPorClave(codPais);
     }
-    else{
+    else {
         cout << "El pais no existe." << endl;
     }
 }
@@ -41,13 +41,13 @@ void buscarPais(){
 
 
 // se valida que el codigo exista y se puede modificar el nombre.
-void modificarPais(){
+void modificarPais() {
     int codPais;
     string nombre;
     cout << "Digite el codigo del pais: ";
     cin >> codPais;
     cin.ignore(); //ignora el enter pendiente
-    if (!arbolPaises.Buscarvalor(codPais)){ //que el pais exista
+    if (!arbolPaises.Buscarvalor(codPais)) { //que el pais exista
         cout << "El pais no existe." << endl;
         return;
     }
@@ -55,7 +55,7 @@ void modificarPais(){
     arbolPaises.mostrarPorClave(codPais);
     cout << "Nuevo nombre (Enter para dejarlo igual): ";
     getline(cin, nombre);
-    if (nombre.empty()){
+    if (nombre.empty()) {
         cout << "No se hicieron cambios." << endl;
         return;
     }
@@ -75,14 +75,16 @@ void paisInsertar(int codigo, const char* nombre) {
 }
 
 // Se valida que el codigo del pais exista y se elimina.
-void eliminarPais(){
+void eliminarPais() {
     int codPais;
     cout << "Digite el codigo del pais: ";
     cin >> codPais;
-    if (!arbolPaises.Buscarvalor(codPais)){ //que el pais exista
+    if (!arbolPaises.Buscarvalor(codPais)) { //que el pais exista
         cout << "El pais no existe." << endl;
         return;
     }
+    eliminarPacientesDePais(codPais); //se eliminan los pacientes del pais
+    eliminarCiudadesDePais(codPais); //y las ciudades relacionadas
     arbolPaises.EliminarNodo(codPais, 0);
     cout << "Pais eliminado correctamente." << endl;
 }
