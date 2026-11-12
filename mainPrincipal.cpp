@@ -439,8 +439,8 @@ void cargarArchivos()
     cargarHospitalizaciones();
 }
 
-// ---- Menus de consola del Proyecto #2 (solo se compilan con MODO_CONSOLA) ----
-// Se dejan fuera del proyecto con interfaz porque usan los reportes (Reportes.cpp).
+// Menus de consola del Proyecto #2 (solo se compilan con MODO_CONSOLA)
+// Se dejan fuera del proyecto con interfaz porque ahora los menus son las ventanas.
 #ifdef MODO_CONSOLA
 // Pide la fecha y la hora que se escriben en los reportes (se usan las validaciones de arriba)
 void pedirFechaHoraEmision()
@@ -866,8 +866,9 @@ int main() {
 
 
 // =====================================================================
-// Conexion con las ventanas (C++/CLI). Ventanas.cpp llama a esta funcion:
+// Conexion con las ventanas (C++/CLI). Ventanas.cpp llama a estas funciones:
 //   ejecutar:  usa insertar/modificar/buscar/eliminar de CRUD/ con los datos de la ventana
+//   generarReporte: usa los reportes de Reportes.cpp (PDF con libHaru) con los datos de la ventana
 // Las funciones de consola leen con cin y escriben con cout; aqui se les conecta el texto
 // de la ventana como entrada y se captura lo que escriben como salida.
 // =====================================================================
@@ -966,6 +967,14 @@ namespace servicios {
         Funcion ELIMINAR[10] = { eliminarPais, eliminarCiudad, eliminarPaciente, eliminarMedico,
             eliminarEspecialidad, eliminarHabitacion, eliminarCita, eliminarHospitalizacion,
             eliminarDiagnostico, eliminarTratamiento };
+
+        // Los 18 reportes, en el mismo orden del menu Reportes
+        Funcion REPORTES[18] = { reportePaises, reporteCiudades, reportePacientes, reporteEspecialidades,
+            reporteHabitacionesDisponibles, reporteHabitacionesOcupadas, reporteHospitalizaciones,
+            reporteHospitalizacionesPorMedico, reporteMedicos, reporteMedicosPorEspecialidad,
+            reporteCitasPorFecha, reporteCitasPorEspecialidad, reporteCitasPorMedico,
+            reportePacientesPorPais, reportePacientesPorCiudad, reporteCitasPorPaciente,
+            reporteDiagnosticos, reporteTratamientos };
     }
 
     string ejecutar(int tipo, int entidad, const vector<string>& campos) {
@@ -978,5 +987,23 @@ namespace servicios {
         else if (tipo == 3) ELIMINAR[entidad]();
         else return "Operacion no valida.";
         return c.resultado();
+    }
+
+    // Genera el reporte PDF numero 0..17 con los datos que pidio la ventana
+    string generarReporte(int numero, const vector<string>& campos) {
+        if (numero < 0 || numero > 17) return "Reporte no valido.";
+        Captura c(unir(campos));
+        REPORTES[numero]();
+        return c.resultado();
+    }
+
+    // La ventana escribe aqui la fecha y la hora de emision que salen en el PDF
+    void establecerFechaHora(const string& texto) {
+        fechaHoraEmision = texto;
+    }
+
+    // Nombre del ultimo PDF generado (la ventana lo abre)
+    string ultimoArchivoReporte() {
+        return ultimoReporte;
     }
 }

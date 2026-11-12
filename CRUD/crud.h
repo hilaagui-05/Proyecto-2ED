@@ -99,6 +99,7 @@ void eliminarMedicosDeEspecialidad(int idEspecialidad);
 void eliminarCiudadesDePais(int codPais); // borra cada ciudad con sus pacientes
 
 // Reportes 
+extern string ultimoReporte;    // nombre del ultimo PDF generado (la ventana lo abre)
 extern string fechaHoraEmision; // fecha y hora que se escribe en todos los reportes
 
 void reportePaises();

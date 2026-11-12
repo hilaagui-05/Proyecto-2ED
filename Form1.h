@@ -189,6 +189,9 @@ public
 		System::Void opcion_Click(System::Object ^ sender, System::EventArgs ^ e);
 
 	private:
+		System::Void reporte_Click(System::Object ^ sender, System::EventArgs ^ e); // clic en una opción de Reportes
+
+	private:
 		System::Void tarjeta_Click(System::Object ^ sender, System::EventArgs ^ e); // clic en un icono
 	private:
 		System::Void acerca_Click(System::Object ^ sender, System::EventArgs ^ e); // menú Acerca de

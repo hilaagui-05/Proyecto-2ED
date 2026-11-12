@@ -15,6 +15,9 @@ using namespace System::Runtime::InteropServices;
 // Funciones nativas que estan al final de mainPrincipal.cpp
 namespace servicios {
 	std::string ejecutar(int tipo, int entidad, const std::vector<std::string>& campos);
+	std::string generarReporte(int numero, const std::vector<std::string>& campos);
+	void establecerFechaHora(const std::string& texto);
+	std::string ultimoArchivoReporte();
 }
 
 namespace mainInterfaz {
@@ -80,6 +83,23 @@ namespace mainInterfaz {
 	// Para borrar se piden los mismos datos que para consultar (la llave del registro)
 	static const wchar_t* TIPOS[4] = { L"Inserción", L"Modificación", L"Consulta", L"Borrado" };
 
+	// Los 18 reportes (mismo orden del menú Reportes y de servicios::generarReporte)
+	static const wchar_t* REPORTES_NOMBRES[18] = {
+		L"Países", L"Ciudades de un país", L"Pacientes", L"Especialidades",
+		L"Habitaciones disponibles", L"Habitaciones ocupadas", L"Hospitalizaciones",
+		L"Hospitalizaciones de un médico", L"Médicos", L"Médicos de una especialidad",
+		L"Citas por fecha", L"Citas por especialidad", L"Citas de un médico",
+		L"Pacientes de un país", L"Pacientes de una ciudad", L"Citas de un paciente",
+		L"Diagnósticos", L"Tratamientos" };
+
+	// Datos que pide cada reporte (los que no piden nada se generan directo con el botón)
+	static const wchar_t* REPORTES_CAMPOS[18] = {
+		L"", L"#CodPais", L"", L"", L"", L"", L"",
+		L"#IdMédico", L"", L"#IdEspecialidad",
+		L"$Fecha (d/m/aaaa)", L"#IdEspecialidad", L"#IdMédico",
+		L"#CodPais", L"#CodPais;#CodCiudad", L"#IdPaciente",
+		L"", L"" };
+
 	// ======================= FormDatos =======================
 	FormDatos::FormDatos(int tipo, int indice, String^ titulo, String^ spec)
 	{
@@ -135,7 +155,7 @@ namespace mainInterfaz {
 
 		int y = 62 + n * 36 + 8;
 		btnAccion = gcnew Button();
-		btnAccion->Text = (tipo == 0) ? L"Insertar" : (tipo == 1) ? L"Modificar" : (tipo == 2) ? L"Buscar" : L"Eliminar";
+		btnAccion->Text = (tipo == 0) ? L"Insertar" : (tipo == 1) ? L"Modificar" : (tipo == 2) ? L"Buscar" : (tipo == 3) ? L"Eliminar" : L"Generar PDF";
 		btnAccion->Location = Point(280, y);
 		btnAccion->Size = System::Drawing::Size(120, 32);
 		btnAccion->BackColor = Color::FromArgb(20, 110, 130);
@@ -205,7 +225,15 @@ namespace mainInterfaz {
 		this->Cursor = System::Windows::Forms::Cursors::WaitCursor;
 		std::string r;
 		try {
-			r = servicios::ejecutar(tipo, indice, campos);
+			if (tipo == 4) {
+				// La fecha y la hora de emisión salen en cada página del PDF
+				DateTime ahora = DateTime::Now;
+				servicios::establecerFechaHora(aStd(ahora.ToString(L"dd/MM/yyyy HH:mm", System::Globalization::CultureInfo::InvariantCulture)));
+				r = servicios::generarReporte(indice, campos);
+			}
+			else {
+				r = servicios::ejecutar(tipo, indice, campos);
+			}
 		}
 		catch (...) {
 			r = "Ocurrio un error inesperado.";
@@ -218,6 +246,17 @@ namespace mainInterfaz {
 			if (cajas->Length > 0) cajas[0]->Focus();
 		}
 		txtResultado->Text = texto->Replace(L"\r\n", L"\n")->Replace(L"\n", L"\r\n");
+
+		// Si el PDF se generó, se abre con el programa de PDF de la computadora
+		if (tipo == 4 && texto->Contains(L"correctamente")) {
+			try {
+				String^ ruta = Path::GetFullPath(aNet(servicios::ultimoArchivoReporte()));
+				System::Diagnostics::Process::Start(ruta);
+			}
+			catch (...) {
+				// si no se puede abrir, el PDF igual queda guardado en la carpeta del programa
+			}
+		}
 	}
 
 	void FormDatos::Cerrar_Click(System::Object^ sender, System::EventArgs^ e)
@@ -303,6 +342,14 @@ namespace mainInterfaz {
 		f->ShowDialog(padre);
 	}
 
+	// Abre la ventana de un reporte: pide sus datos (si los necesita) y genera el PDF
+	void Ventanas::AbrirReporte(Form^ padre, int numero)
+	{
+		String^ titulo = String::Concat(L"Reporte de ", gcnew String(REPORTES_NOMBRES[numero]));
+		FormDatos^ f = gcnew FormDatos(4, numero, titulo, gcnew String(REPORTES_CAMPOS[numero]));
+		f->ShowDialog(padre);
+	}
+
 	// Ventana "Acerca de": datos del sistema y de las autoras
 	void Ventanas::AbrirAcercaDe(Form^ padre)
 	{
@@ -322,7 +369,7 @@ namespace mainInterfaz {
 			L"Hospital San Rafael",
 			L"Proyecto Programado #3 - Estructuras de Datos",
 			L"Instituto Tecnológico de Costa Rica",
-			L"Versión: Avance 2",
+			L"Versión: Final",
 			L"Elaborado por:",
 			L"Arina Tarasova",
 			L"Hilary Aguilar" };

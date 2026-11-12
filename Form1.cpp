@@ -27,8 +27,22 @@ namespace mainInterfaz
 		cargar->Click += gcnew System::EventHandler(this, &Form1::opcion_Click);
 		mantenimiento->DropDownItems->Add(cargar);
 
-		// Reportes todavía no se hace (solo se muestra el título)
+		// Reportes: cada opción abre la ventana que genera el PDF. El Tag trae el número del reporte (0 a 17)
 		ToolStripMenuItem ^ menuReportes = gcnew ToolStripMenuItem(L"Reportes");
+		cli::array<String ^> ^ reportes = gcnew cli::array<String ^>{L"Países", L"Ciudades de un país", L"Pacientes", L"Especialidades",
+																	 L"Habitaciones disponibles", L"Habitaciones ocupadas", L"Hospitalizaciones",
+																	 L"Hospitalizaciones de un médico", L"Médicos", L"Médicos de una especialidad",
+																	 L"Citas por fecha", L"Citas por especialidad", L"Citas de un médico",
+																	 L"Pacientes de un país", L"Pacientes de una ciudad", L"Citas de un paciente",
+																	 L"Diagnósticos", L"Tratamientos"};
+		for (int i = 0; i < reportes->Length; i++)
+		{
+			ToolStripMenuItem ^ op = gcnew ToolStripMenuItem(reportes[i]);
+			op->Tag = Convert::ToString(i);
+			op->Click += gcnew System::EventHandler(this, &Form1::reporte_Click);
+			menuReportes->DropDownItems->Add(op);
+		}
+
 		// Acerca de abre la ventana con los datos del sistema y las autoras
 		ToolStripMenuItem ^ acerca = gcnew ToolStripMenuItem(L"Acerca de");
 		acerca->Click += gcnew System::EventHandler(this, &Form1::acerca_Click);
@@ -175,6 +189,14 @@ namespace mainInterfaz
 			return;
 		}
 		Ventanas::Abrir(this, tipo, indice);
+	}
+
+	// Clic en una opción del menú Reportes: la etiqueta (Tag) trae el número del reporte
+	System::Void Form1::reporte_Click(System::Object ^ sender, System::EventArgs ^ e)
+	{
+		ToolStripMenuItem ^ item = safe_cast<ToolStripMenuItem ^>(sender);
+		int numero = Int32::Parse(safe_cast<String ^>(item->Tag));
+		Ventanas::AbrirReporte(this, numero);
 	}
 
 	// Clic en un icono: abre la ventana con Insertar, Modificar, Buscar y Eliminar de esa entidad.

@@ -12,8 +12,8 @@ namespace mainInterfaz {
 	public:
 		FormDatos(int tipo, int indice, String^ titulo, String^ spec);
 	private:
-		int tipo;     // 0 insertar, 1 modificar, 2 consultar, 3 eliminar
-		int indice;   // entidad
+		int tipo;     // 0 insertar, 1 modificar, 2 consultar, 3 eliminar, 4 reporte
+		int indice;   // entidad (o número de reporte cuando tipo es 4)
 		cli::array<TextBox^>^ cajas;
 		cli::array<String^>^ etiquetas;
 		cli::array<bool>^ numerico;   // solo digitos
@@ -49,6 +49,9 @@ namespace mainInterfaz {
 
 		// Ventana con Insertar / Modificar / Buscar de una entidad (la que sale al tocar un icono)
 		static void AbrirEntidad(Form^ padre, int indice);
+
+		// Ventana que pide los datos de un reporte (0 a 17) y genera el PDF
+		static void AbrirReporte(Form^ padre, int numero);
 
 		// Ventana "Acerca de"
 		static void AbrirAcercaDe(Form^ padre);
